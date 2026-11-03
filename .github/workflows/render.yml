@@ -18,7 +18,7 @@ jobs:
           mkdir -p images
           for f in cards/*.html; do
             name=$(basename "$f" .html)
-            [ -f "images/$name.jpg" ] && continue
+            ffmpeg -loglevel error -y -i "/tmp/$name.png" -q:v 3 "images/$name.jpg"
             google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
               --window-size=1080,1080 --virtual-time-budget=5000 \
               --screenshot="/tmp/$name.png" "file://$PWD/$f"

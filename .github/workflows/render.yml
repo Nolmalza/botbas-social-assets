@@ -1,7 +1,7 @@
 name: Render cards
 on:
   push:
-    paths: ['cards/**.html', '.github/workflows/render.yml']
+    paths: ['cards/**', 'reels/**', 'tools/**', '.github/workflows/render.yml']
   workflow_dispatch:
 permissions:
   contents: write
@@ -11,6 +11,7 @@ concurrency:
 jobs:
   render:
     runs-on: ubuntu-latest
+    timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
       - name: Render cards to PNG
@@ -24,9 +25,21 @@ jobs:
               --screenshot="$PWD/images/$name.png" "file://$PWD/$f" 2>/dev/null
             test -s "images/$name.png"
           done
-      - name: Commit images
+      - name: Install video tools
+        if: hashFiles('reels/*.json') != ''
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg > /dev/null
+          pip install -q edge-tts numpy
+          cd tools && npm i -s puppeteer-core@23
+      - name: Render reels to MP4
+        if: hashFiles('reels/*.json') != ''
+        env:
+          CHROME: /usr/bin/google-chrome
+        run: python3 tools/render_reels.py
+      - name: Commit outputs
+        if: always()
         run: |
           git config user.name "botbas-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add images
-          git diff --cached --quiet || (git commit -m "Render cards" && git push)
+          git add images videos 2>/dev/null || true
+          git diff --cached --quiet || (git commit -m "Render media" && git pull --rebase -q && git push)

@@ -13,16 +13,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Render changed cards to JPG
+      - name: Render cards to PNG
         run: |
           mkdir -p images
           for f in cards/*.html; do
             name=$(basename "$f" .html)
-            ffmpeg -loglevel error -y -i "/tmp/$name.png" -q:v 3 "images/$name.jpg"
+            [ -f "images/$name.png" ] && continue
             google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
               --window-size=1080,1080 --virtual-time-budget=5000 \
-              --screenshot="/tmp/$name.png" "file://$PWD/$f"
-            convert "/tmp/$name.png" -quality 88 "images/$name.jpg"
+              --screenshot="$PWD/images/$name.png" "file://$PWD/$f" 2>/dev/null
+            test -s "images/$name.png"
           done
       - name: Commit images
         run: |

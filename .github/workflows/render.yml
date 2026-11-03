@@ -20,7 +20,7 @@ jobs:
             name=$(basename "$f" .html)
             [ -f "images/$name.png" ] && continue
             google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
-              --window-size=1080,1080 --virtual-time-budget=5000 \
+              --window-size=1080,1350 --virtual-time-budget=5000 \
               --screenshot="$PWD/images/$name.png" "file://$PWD/$f" 2>/dev/null
             test -s "images/$name.png"
           done

@@ -1,5 +1,6 @@
 # Renders every reels/*.json into videos/<name>__<voice>.mp4 (skips ones that exist).
-# json: {"html": "reels/x.html", "text": "Thai voice-over", "voices": ["th-TH-NiwatNeural"], "duration": 12, "seed": 7}
+# json: {"html": "reels/x.html", "duration": 12, "seed": 7}  -> music only (default)
+# optional voice-over: "text": "...", "voices": ["th-TH-PremwadeeNeural" | "th-TH-NiwatNeural"]
 import glob, json, os, subprocess, sys
 
 def run(*a):
@@ -16,15 +17,16 @@ failed = False
 for cfg in sorted(glob.glob('reels/*.json')):
     name = os.path.basename(cfg)[:-5]
     c = json.load(open(cfg, encoding='utf-8'))
-    for voice in c.get('voices') or ['th-TH-NiwatNeural']:
-        short = voice.split('-')[-1].replace('Neural', '').lower()
+    for voice in c.get('voices') or ['none']:  # 'none' = music only (default)
+        short = 'music' if voice == 'none' else voice.split('-')[-1].replace('Neural', '').lower()
         out = f'videos/{name}__{short}.mp4'
         if os.path.exists(out):
             continue
         try:
             v = '/tmp/voice.mp3'
-            has_voice = True
+            has_voice = voice != 'none'
             try:
+                if not has_voice: raise RuntimeError('music only')
                 run('edge-tts', '--voice', voice, '--rate', c.get('rate', '+8%'), '--text', c['text'], '--write-media', v)
                 has_voice = length(v) > 0.5
             except Exception as e:

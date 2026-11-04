@@ -14,6 +14,12 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@v4
+      - name: Fetch hero images from GitHub
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          pip install -q pillow
+          python3 tools/hero.py || true
       - name: Render cards to PNG
         run: |
           mkdir -p images
@@ -21,7 +27,7 @@ jobs:
             name=$(basename "$f" .html)
             [ -f "images/$name.png" ] && continue
             google-chrome --headless=new --no-sandbox --disable-gpu --hide-scrollbars \
-              --window-size=1080,1350 --virtual-time-budget=5000 \
+              --window-size=1080,1350 --virtual-time-budget=8000 \
               --screenshot="$PWD/images/$name.png" "file://$PWD/$f" 2>/dev/null
             test -s "images/$name.png"
           done

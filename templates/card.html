@@ -3,6 +3,7 @@
  NAME: repo name (<= 16 chars; if longer, the card font auto-wraps). STARS e.g. 12K+. LANG: main language.
  KICKER_HTML: white hook <= 18 Thai chars, wrap 1-2 key words in <em> (cyan). LINE_1: yellow line <= 22 chars.
  BAR_1: cyan bar, the key benefit with tool name <= 28 chars. BAR_2: white bar <= 24 chars. SUBLINE: small grey line <= 34 chars. No URLs anywhere.
+ Hero image: nothing to fill. The render Action saves the repo's GitHub preview / README banner as cards/hero/<card name>.png and the card shows it at the top automatically; if none exists the generated background is used.
  SEQ: post number = how many .html files are already in cards/ (0,1,2,...). It picks the background style, palette and layout, so consecutive posts never look alike; the art itself is also randomised from the file name, so no two cards are ever identical. -->
 <!doctype html>
 <html><head><meta charset="utf-8">
@@ -38,10 +39,22 @@ body{width:1080px;height:1350px;font-family:Kanit,sans-serif;background:var(--bg
 .hl.a{background:#22d3ee;color:#04121c;transform:rotate(-1deg)}
 .hl.b{background:#fff;color:#0a0f1e;transform:rotate(.8deg)}
 .sub{font-size:38px;color:#cbd5e1;margin-top:26px}
+.hero{display:none;position:absolute;left:60px;top:105px;width:960px;height:500px;border-radius:22px;overflow:hidden;background:#0d1524;border:1px solid #ffffff26;box-shadow:0 30px 90px #000c,0 0 0 6px color-mix(in srgb,var(--a) 10%,transparent)}
+.hero .bar{position:relative;z-index:2;height:44px;background:#0d1524f2;border-bottom:1px solid #ffffff14;display:flex;align-items:center;gap:10px;padding:0 20px}
+.hero .bar i{width:13px;height:13px;border-radius:50%;background:#334155}
+.hero .bar span{margin-left:14px;font:500 20px 'JetBrains Mono',monospace;color:#64748b}
+.hero .bg{position:absolute;inset:44px 0 0;width:100%;height:456px;object-fit:cover;filter:blur(28px) brightness(.55);transform:scale(1.15)}
+.hero .fg{position:absolute;left:0;top:44px;width:100%;height:456px;object-fit:contain}
+body.has-hero .hero{display:block}
+body.has-hero .term,body.has-hero .badge{display:none}
+body.has-hero .card{left:auto!important;right:44px;top:505px!important;width:auto;min-width:300px;max-width:560px;padding:18px 26px;transform:rotate(-1.5deg)!important}
+body.has-hero .card .n{font-size:38px}
+body.has-hero .card .row{margin-top:10px}
 .foot{position:absolute;left:56px;right:56px;bottom:34px;display:flex;justify-content:space-between;font-size:24px;color:#64748b}
 </style></head><body data-seq="{{SEQ}}">
 <canvas id="art" width="1080" height="1350"></canvas>
 <div class="scene">
+ <div class="hero"><div class="bar"><i></i><i></i><i></i><span></span></div><img class="bg" alt=""><img class="fg" alt=""></div>
  <div class="term"><div class="bar"><i></i><i></i><i></i></div>
 <pre>{{TERMINAL_HTML}}</pre></div>
  <div class="card"><div class="k">GITHUB · OPEN SOURCE</div><div class="n">{{NAME}}</div>
@@ -118,6 +131,13 @@ function waves(){glow(rr(200,900),rr(150,400),500,P.a,.3);for(var k=0;k<30;k++){
 function shapes(){glow(W/2,300,520,P.b,.4);for(var i=0;i<11;i++){x.fillStyle=hexa(col(),rr(.3,.55));x.strokeStyle=hexa(col(),.7);x.lineWidth=6;var cx=rr(0,W),cy=rr(0,620),z=rr(60,220);x.save();x.translate(cx,cy);x.rotate(rr(0,6));x.beginPath();var t=ri(0,3);if(t==0)x.arc(0,0,z,0,7);else if(t==1)x.rect(-z/2,-z/2,z,z);else if(t==2){x.moveTo(0,-z);x.lineTo(z*.87,z*.5);x.lineTo(-z*.87,z*.5);x.closePath()}else x.arc(0,0,z,0,Math.PI);R()<.6?x.fill():x.stroke();x.restore()}}
 ];
 S[seq%S.length]();
+// ---- hero image from the repo's GitHub page (saved by tools/hero.py at render time) ----
+var file=decodeURIComponent(location.pathname).split('/').pop().replace(/\.html$/,''),pp=file.split('__');
+var hero=new Image();hero.onload=function(){document.body.classList.add('has-hero');
+ document.querySelectorAll('.hero img').forEach(function(im){im.src=hero.src});
+ document.querySelector('.hero .bar span').textContent=pp.length==3?pp[1]+' / '+pp[2]:'';
+ glow(540,330,450,P.a,.25)};
+hero.src='hero/'+file+'.png';
 // grain + fade into the headline area so the text stays easy to read
 for(var n=0;n<9000;n++){x.fillStyle='rgba(255,255,255,'+rr(0,.05)+')';x.fillRect(rr(0,W),rr(0,H),1.5,1.5)}
 var fd=x.createLinearGradient(0,500,0,760);fd.addColorStop(0,hexa(P.bg,0));fd.addColorStop(1,hexa(P.bg,1));x.fillStyle=fd;x.fillRect(0,500,W,260);

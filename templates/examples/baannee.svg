@@ -1,0 +1,15 @@
+<svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+<ellipse cx="420" cy="410" rx="380" ry="16" fill="#7c6a58" opacity=".18"/>
+<rect x="60" y="250" width="600" height="40" rx="10" fill="#cbbba8"/>
+<rect x="80" y="290" width="560" height="110" rx="10" fill="#f1e8dc"/>
+<path d="M200 250 h320 l-30 120 h-260 z" fill="#ffffff" stroke="#cbbba8" stroke-width="5"/>
+<path d="M240 300 h240 l-18 60 h-204z" fill="var(--b)" opacity=".45"/>
+<ellipse cx="360" cy="340" rx="28" ry="9" fill="#7c6a58"/><g stroke="#2a1f14" stroke-width="3"><path d="M342 340h36M360 333v14"/></g>
+<g fill="var(--b)" opacity=".7"><circle cx="300" cy="318" r="6"/><circle cx="410" cy="326" r="5"/><circle cx="450" cy="312" r="4"/></g>
+<path d="M330 250 v-110 a40 40 0 0 1 80 0 v20" fill="none" stroke="#cbbba8" stroke-width="18" stroke-linecap="round"/>
+<g transform="translate(470 30) rotate(25)"><path d="M0 60 q0-50 60-50 h40 q60 0 60 50 v70 q0 30-30 30 h-100 q-30 0-30-30z" fill="var(--a)"/><path d="M160 70 l60 -10 l-10 18 l-50 10z" fill="var(--a)"/><rect x="40" y="-6" width="80" height="20" rx="8" fill="#2a1f14"/><path d="M-10 70 q-40 10 -30 60" fill="none" stroke="#2a1f14" stroke-width="12" stroke-linecap="round"/></g>
+<path d="M690 165 q-25 60 -150 110" fill="none" stroke="var(--b)" stroke-width="12" stroke-linecap="round" opacity=".8"/>
+<g fill="#ffffff" opacity=".9"><path d="M560 120 q-10-25 5-45" stroke="#cbbba8" stroke-width="5" fill="none"/><path d="M590 115 q-12-25 3-45" stroke="#cbbba8" stroke-width="5" fill="none"/></g>
+<g transform="translate(690 230)"><rect width="100" height="130" rx="10" fill="#ffffff" stroke="var(--a)" stroke-width="5"/><rect x="0" y="40" width="100" height="50" fill="var(--a)"/><text x="50" y="74" text-anchor="middle" font-size="22" font-weight="700" fill="#ffffff">โซดา</text></g>
+<g transform="translate(800 170)"><rect x="18" y="0" width="34" height="30" rx="6" fill="#2a1f14"/><path d="M10 40 q25-18 50 0 v140 q0 10-10 10 h-30 q-10 0-10-10z" fill="#f1e8dc" stroke="var(--c)" stroke-width="5"/><rect x="10" y="90" width="50" height="44" fill="var(--c)"/><text x="35" y="119" text-anchor="middle" font-size="16" font-weight="700" fill="#ffffff">น้ำส้ม</text></g>
+</svg>

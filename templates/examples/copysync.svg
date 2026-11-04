@@ -1,0 +1,17 @@
+<svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+<ellipse cx="250" cy="405" rx="200" ry="18" fill="#000" opacity=".35"/><ellipse cx="720" cy="408" rx="170" ry="14" fill="#000" opacity=".35"/>
+<rect x="60" y="60" width="380" height="250" rx="20" fill="#1e1536" stroke="var(--a)" stroke-width="4"/>
+<rect x="78" y="78" width="344" height="214" rx="10" fill="#0b0716"/>
+<text x="96" y="112" font-size="24" font-weight="700" fill="#ffffff">MASTER</text>
+<rect x="96" y="128" width="150" height="42" rx="10" fill="var(--a)"/><text x="171" y="157" text-anchor="middle" font-size="22" font-weight="700" fill="#0b0716">BUY 0.10</text>
+<polyline points="96,270 150,240 190,252 240,210 290,222 340,180 404,150" fill="none" stroke="var(--c)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="225" y="310" width="50" height="50" fill="#334155"/><rect x="160" y="358" width="180" height="22" rx="8" fill="#334155"/>
+<g fill="none" stroke="var(--a)" stroke-width="6" stroke-linecap="round" stroke-dasharray="2 14">
+<path d="M445 150 C 520 150, 540 90, 590 90"/><path d="M445 185 L 590 205"/><path d="M445 220 C 520 220, 540 320, 590 320"/></g>
+<g fill="var(--a)"><path d="M590 76l22 14-22 14z"/><path d="M590 191l22 14-22 14z"/><path d="M590 306l22 14-22 14z"/></g>
+<g id="ph"></g>
+<g><rect x="625" y="40" width="110" height="100" rx="18" fill="#e2e8f0"/><rect x="637" y="52" width="86" height="76" rx="10" fill="#0b0716"/><rect x="647" y="70" width="66" height="26" rx="7" fill="var(--a)"/><text x="680" y="89" text-anchor="middle" font-size="16" font-weight="700" fill="#0b0716">BUY</text><path d="M650 116h60" stroke="var(--c)" stroke-width="5" stroke-linecap="round"/></g>
+<g><rect x="625" y="155" width="110" height="100" rx="18" fill="#e2e8f0"/><rect x="637" y="167" width="86" height="76" rx="10" fill="#0b0716"/><rect x="647" y="185" width="66" height="26" rx="7" fill="var(--a)"/><text x="680" y="204" text-anchor="middle" font-size="16" font-weight="700" fill="#0b0716">BUY</text><path d="M650 231h60" stroke="var(--c)" stroke-width="5" stroke-linecap="round"/></g>
+<g><rect x="625" y="270" width="110" height="100" rx="18" fill="#e2e8f0"/><rect x="637" y="282" width="86" height="76" rx="10" fill="#0b0716"/><rect x="647" y="300" width="66" height="26" rx="7" fill="var(--a)"/><text x="680" y="319" text-anchor="middle" font-size="16" font-weight="700" fill="#0b0716">BUY</text><path d="M650 346h60" stroke="var(--c)" stroke-width="5" stroke-linecap="round"/></g>
+<g transform="translate(820 230)"><circle r="70" fill="#1e1536" stroke="#334155" stroke-width="5"/><path d="M-52 18 A 55 55 0 0 1 52 18" fill="none" stroke="#334155" stroke-width="14" stroke-linecap="round"/><path d="M-52 18 A 55 55 0 0 1 -30 -32" fill="none" stroke="var(--c)" stroke-width="14" stroke-linecap="round"/><line x1="0" y1="12" x2="-30" y2="-22" stroke="#fff" stroke-width="6" stroke-linecap="round"/><circle cy="12" r="8" fill="#fff"/><text y="52" text-anchor="middle" font-size="20" font-weight="700" fill="#e2e8f0">LOW RISK</text></g>
+</svg>

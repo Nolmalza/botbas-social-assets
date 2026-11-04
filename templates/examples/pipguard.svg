@@ -1,0 +1,19 @@
+<svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+<ellipse cx="330" cy="405" rx="290" ry="18" fill="#000" opacity=".35"/><ellipse cx="760" cy="405" rx="110" ry="14" fill="#000" opacity=".35"/>
+<rect x="40" y="40" width="580" height="350" rx="24" fill="#111a33" stroke="#334155" stroke-width="4"/>
+<g stroke="#1e293b" stroke-width="2"><path d="M60 110h540M60 180h540M60 250h540M60 320h540"/></g>
+<g stroke-width="4" stroke-linecap="round">
+<g stroke="var(--a)" fill="var(--a)"><line x1="110" y1="250" x2="110" y2="330"/><rect x="98" y="265" width="24" height="50" rx="3"/><line x1="200" y1="210" x2="200" y2="300"/><rect x="188" y="225" width="24" height="60" rx="3"/><line x1="380" y1="140" x2="380" y2="230"/><rect x="368" y="150" width="24" height="65" rx="3"/><line x1="470" y1="100" x2="470" y2="190"/><rect x="458" y="112" width="24" height="60" rx="3"/></g>
+<g stroke="#f43f5e" fill="#f43f5e"><line x1="155" y1="240" x2="155" y2="320"/><rect x="143" y="255" width="24" height="45" rx="3"/><line x1="290" y1="200" x2="290" y2="290"/><rect x="278" y="215" width="24" height="55" rx="3"/></g></g>
+<line x1="60" y1="345" x2="600" y2="345" stroke="#f43f5e" stroke-width="5" stroke-dasharray="16 10"/>
+<rect x="480" y="322" width="110" height="44" rx="10" fill="#f43f5e"/><text x="535" y="353" text-anchor="middle" font-size="26" font-weight="700" fill="#fff">SL</text>
+<line x1="60" y1="80" x2="600" y2="80" stroke="#4ade80" stroke-width="5" stroke-dasharray="16 10"/>
+<rect x="480" y="57" width="110" height="44" rx="10" fill="#4ade80"/><text x="535" y="88" text-anchor="middle" font-size="26" font-weight="700" fill="#06101a">TP</text>
+<line x1="60" y1="262" x2="600" y2="262" stroke="#ffffff" stroke-width="3" opacity=".6"/>
+<text x="70" y="252" font-size="22" font-weight="600" fill="#e2e8f0">Entry</text>
+<path d="M760 60l110 40v90c0 90-55 140-110 165-55-25-110-75-110-165v-90z" fill="var(--a)"/>
+<path d="M760 92l82 30v68c0 68-41 106-82 125z" fill="#ffffff" opacity=".18"/>
+<path d="M715 200l32 32 62-66" fill="none" stroke="#06101a" stroke-width="16" stroke-linecap="round" stroke-linejoin="round"/>
+<g transform="translate(650 280)"><rect width="110" height="120" rx="16" fill="#e2e8f0"/><rect x="12" y="12" width="86" height="34" rx="6" fill="#1e293b"/><text x="88" y="38" text-anchor="end" font-size="24" font-weight="700" fill="var(--c)">1%</text>
+<g fill="#94a3b8"><rect x="14" y="58" width="22" height="20" rx="4"/><rect x="44" y="58" width="22" height="20" rx="4"/><rect x="74" y="58" width="22" height="20" rx="4"/><rect x="14" y="86" width="22" height="20" rx="4"/><rect x="44" y="86" width="22" height="20" rx="4"/></g><rect x="74" y="86" width="22" height="20" rx="4" fill="var(--a)"/></g>
+</svg>

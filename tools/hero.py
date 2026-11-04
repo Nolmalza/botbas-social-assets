@@ -12,6 +12,7 @@ Nothing found -> no file, and the card falls back to its generated background.
 import io, json, os, re, sys, urllib.parse, urllib.request
 from PIL import Image
 
+USED = "images/hero-used.txt"   # one line per used image: <64-bit dHash hex> <card name>
 UA = {"User-Agent": "botbas-social-assets-render"}
 TOKEN = os.environ.get("GITHUB_TOKEN")
 SKIP = re.compile(r"shields\.io|badgen|badge|/actions/workflows|star-history|contrib\.rocks|"
@@ -41,6 +42,21 @@ def as_image(data, min_w=600):
         return None
     im.thumbnail((1600, 1600))
     return im
+
+
+def dhash(im):
+    g = im.convert("L").resize((9, 8))
+    px = list(g.getdata())
+    bits = 0
+    for r in range(8):
+        for c in range(8):
+            bits = bits << 1 | (px[r * 9 + c] > px[r * 9 + c + 1])
+    return bits
+
+
+def seen_before(h, used):
+    # near-identical pictures (resized, recompressed) are within a few bits
+    return any(bin(h ^ u).count("1") <= 5 for u in used)
 
 
 def og_images(owner, repo):
@@ -73,7 +89,7 @@ def readme_images(owner, repo):
     return out[:8]
 
 
-def hero_for(owner, repo):
+def hero_for(owner, repo, used):
     custom, generated = None, None
     try:
         custom, generated = og_images(owner, repo)
@@ -90,7 +106,9 @@ def hero_for(owner, repo):
         try:
             data, _ = get(url)
             im = as_image(data)
-            if im:
+            if im and seen_before(dhash(im), used):
+                print("  skip (already used on an earlier card)", url)
+            elif im:
                 return label, url, im
         except Exception as e:
             print("  skip", url, e)
@@ -99,6 +117,9 @@ def hero_for(owner, repo):
 
 def main():
     os.makedirs("cards/hero", exist_ok=True)
+    used = []
+    if os.path.exists(USED):
+        used = [int(l.split()[0], 16) for l in open(USED) if l.strip()]
     for f in sorted(os.listdir("cards")):
         if not f.endswith(".html"):
             continue
@@ -110,10 +131,15 @@ def main():
             continue
         owner, repo = parts[1], parts[2]
         print(f"{name}: looking for hero image of {owner}/{repo}")
-        found = hero_for(owner, repo)
+        found = hero_for(owner, repo, used)
         if found:
             label, url, im = found
             im.save(f"cards/hero/{name}.png")
+            h = dhash(im)
+            used.append(h)
+            os.makedirs("images", exist_ok=True)
+            with open(USED, "a") as fh:
+                fh.write(f"{h:016x} {name}\n")
             print(f"  using {label}: {url}")
         else:
             print("  none found, card keeps generated background")

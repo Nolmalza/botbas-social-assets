@@ -4,3 +4,4 @@
 
 # Other pages log format (one line per post):
 # date | page key | card name | facebook post id
+2026-11-05 | pipguard | 2026-11-05__pipguard-position-sizing.html | 1455065131014516_122104148289531714

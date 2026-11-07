@@ -3,3 +3,4 @@ b4e4cc6170e992b2 2026-11-05__mem0ai__mem0
 009671796058dc00 2026-11-05__firecrawl__firecrawl
 10452921e5652606 2026-11-06__patchy631__ai-engineering-hub
 903120d0e8680382 2026-11-06__infiniflow__ragflow
+00c6c6928020b3a3 2026-11-07__microsoft__playwright-mcp

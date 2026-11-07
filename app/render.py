@@ -3,7 +3,7 @@ import io, math, os, subprocess, json, random
 import numpy as np, requests, soundfile as sf
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
-import tts, lofi
+import tts, lofi, bright
 
 W, H, FPS = 1080, 1920, 30
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -248,7 +248,9 @@ def render_job(job, workdir, log=print):
         s0 = int((sc["start"] + VO) * SR); e = min(N, s0 + len(a)); voice_tr[s0:e] += a[:e - s0]
     lw = os.path.join(workdir, "lofi.wav")
     seed = job.get("seed")
-    lofi.make_lofi(T, lw, int(seed) if seed is not None else random.randint(0, 9999))
+    seed = int(seed) if seed is not None else random.randint(0, 9999)
+    style = job.get("music_style") or os.environ.get("MUSIC_STYLE", "bright")
+    (lofi.make_lofi if style == "lofi" else bright.make_bright)(T, lw, seed)
     music, _ = sf.read(lw); music = music[:N]
     if len(music) < N: music = np.pad(music, (0, N - len(music)))
     env = np.convolve(np.abs(voice_tr), np.ones(2205) / 2205, "same")

@@ -35,6 +35,7 @@ class Job(BaseModel):
     show_cta: bool = True
     voice_id: str | None = None
     seed: int | None = None
+    music_style: str | None = None    # "bright" (default) or "lofi"
     callback_url: str | None = None   # e.g. a Make custom webhook
     meta: dict | None = None          # passed back untouched (caption, comment, page id ...)
 

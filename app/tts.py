@@ -30,13 +30,19 @@ CACHE = os.path.join(os.environ.get("DATA_DIR", "/data"), "tts_cache")
 STATS = {"hits": 0, "misses": 0, "chars_billed": 0}
 
 
+SPEED = float(os.environ.get("VOICE_SPEED", "1.0"))   # 0.7-1.2; >1 = faster, less drawn-out speech
+
+
 def _key(text, voice_id, model):
-    raw = json.dumps([text.strip(), voice_id, model, os.environ.get("VOICE_STABILITY", "0.5")], ensure_ascii=False)
+    parts = [text.strip(), voice_id, model, os.environ.get("VOICE_STABILITY", "0.5")]
+    if SPEED != 1.0: parts.append(f"speed={SPEED}")   # keeps old cache valid when speed is 1.0
+    raw = json.dumps(parts, ensure_ascii=False)
     return hashlib.sha256(raw.encode()).hexdigest()[:32]
 
 
 STITCH = os.environ.get("TTS_STITCH", "1") != "0"   # send neighbour sentences as context (smoother prosody)
 _STITCH_OK = {"v": True}
+_SPEED_OK = {"v": True}
 
 
 def synth(text, out_mp3, voice_id, model, prev_text=None, next_text=None):
@@ -62,6 +68,8 @@ def _synth_api(text, out_mp3, voice_id, model, prev_text=None, next_text=None):
     body = {"text": text, "model_id": model,
             "voice_settings": {"stability": float(os.environ.get("VOICE_STABILITY", "0.5")),
                                "similarity_boost": 0.75}}
+    if SPEED != 1.0 and _SPEED_OK["v"]:
+        body["voice_settings"]["speed"] = max(0.7, min(1.2, SPEED))
     if "v2" in model:  # only v2.x models take language_code; v3/v4 auto-detect
         body["language_code"] = "th"
     if STITCH and _STITCH_OK["v"]:
@@ -77,9 +85,15 @@ def _synth_api(text, out_mp3, voice_id, model, prev_text=None, next_text=None):
                 j = r.json()
                 open(out_mp3, "wb").write(base64.b64decode(j["audio_base64"]))
                 a = j.get("alignment") or j.get("normalized_alignment") or {}
-                return list(zip(a.get("characters", []), a.get("character_start_times_seconds", []),
-                                a.get("character_end_times_seconds", [])))
+                al = list(zip(a.get("characters", []), a.get("character_start_times_seconds", []),
+                              a.get("character_end_times_seconds", [])))
+                if SPEED != 1.0 and "speed" not in body["voice_settings"]:
+                    al = _tempo(out_mp3, al, SPEED)   # model ignored/refused speed: speed up the audio instead
+                return al
             last = f"{r.status_code} {r.text[:300]}"
+            if r.status_code in (400, 422) and "speed" in body["voice_settings"] and "speed" in r.text.lower():
+                body["voice_settings"].pop("speed"); _SPEED_OK["v"] = False
+                continue
             if r.status_code in (400, 422) and ("previous_text" in body or "next_text" in body):
                 # model does not accept context: drop it for this and later requests, retry
                 body.pop("previous_text", None); body.pop("next_text", None); _STITCH_OK["v"] = False
@@ -89,6 +103,15 @@ def _synth_api(text, out_mp3, voice_id, model, prev_text=None, next_text=None):
         except requests.RequestException as e:
             last = str(e)
     raise RuntimeError(f"ElevenLabs error: {last}")
+
+
+def _tempo(mp3, align, speed):
+    """Pitch-preserving speed change with ffmpeg atempo; scale the character timestamps to match."""
+    tmp = mp3 + ".tempo.mp3"
+    subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", mp3, "-filter:a", f"atempo={speed}",
+                    "-b:a", "128k", tmp], check=True)
+    os.replace(tmp, mp3)
+    return [(c, st / speed, en / speed) for c, st, en in align]
 
 
 def _dummy(text, out_mp3):

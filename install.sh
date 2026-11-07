@@ -23,7 +23,7 @@ if [ ! -f .env ]; then
   TOKEN=$(openssl rand -hex 24)
   sed -e "s|^ELEVENLABS_API_KEY=.*|ELEVENLABS_API_KEY=$KEY|" \
       -e "s|^ELEVEN_VOICE_ID=.*|ELEVEN_VOICE_ID=$VOICE|" \
-      -e "s|^BRAND_NAME=.*|BRAND_NAME=$BRAND|" \
+      -e "s|^BRAND_NAME=.*|BRAND_NAME=\"$BRAND\"|" \
       -e "s|^ENGINE_TOKEN=.*|ENGINE_TOKEN=$TOKEN|" \
       -e "s|^ENGINE_PORT=.*|ENGINE_PORT=$PORT|" \
       -e "s|^PUBLIC_URL=.*|PUBLIC_URL=http://$IP:$PORT|" .env.example > .env

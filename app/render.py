@@ -197,7 +197,12 @@ def render_job(job, workdir, log=print):
     plan = []; t_cursor = 0.0; VO = 0.15
     for i, s in enumerate(scenes):
         mp3 = os.path.join(workdir, f"v{i}.mp3")
-        align = tts.synth(s["text"], mp3, voice, model)
+        try:
+            align = tts.synth(s["text"], mp3, voice, model)
+        except RuntimeError:
+            if model == tts.MODEL: raise
+            log(f"fallback {model} failed, retry with {tts.MODEL}"); model = tts.MODEL
+            align = tts.synth(s["text"], mp3, voice, model)
         a, sr = sf.read(mp3) if mp3.endswith(".wav") else _decode(mp3)
         dur = len(a) / sr + VO + (1.3 if i == len(scenes) - 1 else 0.4)
         last = i == len(scenes) - 1
@@ -242,7 +247,8 @@ def render_job(job, workdir, log=print):
         if sr != SR: a = np.interp(np.linspace(0, len(a) - 1, int(len(a) * SR / sr)), np.arange(len(a)), a)
         s0 = int((sc["start"] + VO) * SR); e = min(N, s0 + len(a)); voice_tr[s0:e] += a[:e - s0]
     lw = os.path.join(workdir, "lofi.wav")
-    lofi.make_lofi(T, lw, int(job.get("seed", random.randint(0, 9999))))
+    seed = job.get("seed")
+    lofi.make_lofi(T, lw, int(seed) if seed is not None else random.randint(0, 9999))
     music, _ = sf.read(lw); music = music[:N]
     if len(music) < N: music = np.pad(music, (0, N - len(music)))
     env = np.convolve(np.abs(voice_tr), np.ones(2205) / 2205, "same")

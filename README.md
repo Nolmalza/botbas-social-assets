@@ -69,7 +69,7 @@ Header: `X-API-Key: <token>` , `Content-Type: application/json`
 {"job_id":"...","status":"done","video_url":"http://31.97.188.182:8090/files/xxx.mp4",
  "duration":27.4,"chars":265,"model":"eleven_v3","credits_left":98000,"meta":{...}}
 ```
-ถ้า credits เหลือน้อยกว่า 15,000 ระบบสลับไป `eleven_flash_v2_5` (ครึ่งราคา) ให้เอง
+ถ้า credits เหลือน้อยกว่า 15,000 ระบบสลับไป `eleven_v4_turbo` ให้เอง (ถ้าตัวสำรองใช้ไม่ได้จะกลับไปใช้โมเดลหลัก)
 
 ---
 

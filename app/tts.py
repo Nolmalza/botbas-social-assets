@@ -4,7 +4,7 @@ import base64, os, subprocess, json, requests
 API = "https://api.elevenlabs.io/v1"
 KEY = os.environ.get("ELEVENLABS_API_KEY", "")
 MODEL = os.environ.get("ELEVEN_MODEL", "eleven_v4")
-FALLBACK_MODEL = os.environ.get("ELEVEN_FALLBACK_MODEL", "eleven_flash_v2_5")
+FALLBACK_MODEL = os.environ.get("ELEVEN_FALLBACK_MODEL", "eleven_v4_turbo")
 FALLBACK_BELOW = int(os.environ.get("FALLBACK_WHEN_CREDITS_BELOW", "15000"))
 PROVIDER = os.environ.get("TTS_PROVIDER", "elevenlabs")
 

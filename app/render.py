@@ -209,7 +209,7 @@ def render_job(job, workdir, log=print):
     scenes = job["scenes"]; assert 1 <= len(scenes) <= 8, "scenes must be 1..8"
     voice = job.get("voice_id") or os.environ.get("ELEVEN_VOICE_ID", "")
     total_chars = sum(len(s["text"]) for s in scenes)
-    max_chars = int(os.environ.get("MAX_CHARS", "320"))
+    max_chars = int(os.environ.get("MAX_CHARS", "700"))
     if total_chars > max_chars:
         raise ValueError(f"script too long: {total_chars} chars > {max_chars}. Shorten it.")
     tts.STATS.update(hits=0, misses=0, chars_billed=0)
@@ -220,16 +220,20 @@ def render_job(job, workdir, log=print):
     prod = load_image(job.get("product_image_url"), workdir)
     base = static_base(); mask = card_mask()
     plan = []; t_cursor = 0.0; VO = 0.15
+    GAP = float(os.environ.get("SCENE_GAP", "0.2"))   # pause after each scene's voice (was 0.4)
+    texts = [x["text"] for x in scenes]
     for i, s in enumerate(scenes):
         mp3 = os.path.join(workdir, f"v{i}.mp3")
         try:
-            align = tts.synth(s["text"], mp3, voice, model)
+            align = tts.synth(s["text"], mp3, voice, model,
+                              " ".join(texts[:i]) or None, " ".join(texts[i + 1:]) or None)
         except RuntimeError:
             if model == tts.MODEL: raise
             log(f"fallback {model} failed, retry with {tts.MODEL}"); model = tts.MODEL
-            align = tts.synth(s["text"], mp3, voice, model)
+            align = tts.synth(s["text"], mp3, voice, model,
+                              " ".join(texts[:i]) or None, " ".join(texts[i + 1:]) or None)
         a, sr = sf.read(mp3) if mp3.endswith(".wav") else _decode(mp3)
-        dur = len(a) / sr + VO + (1.3 if i == len(scenes) - 1 else 0.4)
+        dur = len(a) / sr + VO + (1.3 if i == len(scenes) - 1 else GAP)
         last = i == len(scenes) - 1
         live = None
         if anim.has_anim(s.get("svg")):

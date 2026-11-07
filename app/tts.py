@@ -35,21 +35,27 @@ def _key(text, voice_id, model):
     return hashlib.sha256(raw.encode()).hexdigest()[:32]
 
 
-def synth(text, out_mp3, voice_id, model):
-    """Cached TTS: same sentence + voice + model + settings = reuse audio from disk (no credits)."""
+STITCH = os.environ.get("TTS_STITCH", "1") != "0"   # send neighbour sentences as context (smoother prosody)
+_STITCH_OK = {"v": True}
+
+
+def synth(text, out_mp3, voice_id, model, prev_text=None, next_text=None):
+    """Cached TTS: same sentence + voice + model + settings = reuse audio from disk (no credits).
+    prev_text/next_text are sent only as context (not billed, not spoken) so each scene keeps the
+    intonation of one continuous talk; the cache key stays text-only so fixed CTA lines stay cached."""
     os.makedirs(CACHE, exist_ok=True)
     k = _key(text, voice_id, model); mp3 = f"{CACHE}/{k}.mp3"; js = f"{CACHE}/{k}.json"
     if os.path.exists(mp3) and os.path.exists(js):
         shutil.copyfile(mp3, out_mp3); os.utime(mp3); STATS["hits"] += 1
         return [tuple(x) for x in json.load(open(js))]
-    align = _synth_api(text, out_mp3, voice_id, model)
+    align = _synth_api(text, out_mp3, voice_id, model, prev_text, next_text)
     shutil.copyfile(out_mp3, mp3 + ".tmp"); os.replace(mp3 + ".tmp", mp3)
     json.dump(align, open(js, "w"), ensure_ascii=False)
     STATS["misses"] += 1; STATS["chars_billed"] += len(text)
     return align
 
 
-def _synth_api(text, out_mp3, voice_id, model):
+def _synth_api(text, out_mp3, voice_id, model, prev_text=None, next_text=None):
     """Write mp3, return list of (char, start, end)."""
     if PROVIDER == "dummy":
         return _dummy(text, out_mp3)
@@ -58,8 +64,11 @@ def _synth_api(text, out_mp3, voice_id, model):
                                "similarity_boost": 0.75}}
     if "v2" in model:  # only v2.x models take language_code; v3/v4 auto-detect
         body["language_code"] = "th"
+    if STITCH and _STITCH_OK["v"]:
+        if prev_text: body["previous_text"] = prev_text[-300:]
+        if next_text: body["next_text"] = next_text[:300]
     last = None
-    for attempt in range(3):
+    for attempt in range(4):
         try:
             r = requests.post(f"{API}/text-to-speech/{voice_id}/with-timestamps?output_format=mp3_44100_128",
                               headers={"xi-api-key": KEY, "Content-Type": "application/json"},
@@ -71,6 +80,10 @@ def _synth_api(text, out_mp3, voice_id, model):
                 return list(zip(a.get("characters", []), a.get("character_start_times_seconds", []),
                                 a.get("character_end_times_seconds", [])))
             last = f"{r.status_code} {r.text[:300]}"
+            if r.status_code in (400, 422) and ("previous_text" in body or "next_text" in body):
+                # model does not accept context: drop it for this and later requests, retry
+                body.pop("previous_text", None); body.pop("next_text", None); _STITCH_OK["v"] = False
+                continue
             if r.status_code in (400, 401, 403, 422):
                 break
         except requests.RequestException as e:

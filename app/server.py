@@ -99,7 +99,7 @@ def health():
 def create(job: Job, x_api_key: str = Header(None)):
     auth(x_api_key)
     if not job.scenes: raise HTTPException(422, "scenes required")
-    chars = sum(len(s.text) for s in job.scenes); mx = int(os.environ.get("MAX_CHARS", "320"))
+    chars = sum(len(s.text) for s in job.scenes); mx = int(os.environ.get("MAX_CHARS", "700"))
     if chars > mx: raise HTTPException(422, f"script too long: {chars} chars > {mx}")
     jid = uuid.uuid4().hex
     JOBS[jid] = {"job_id": jid, "status": "queued", "created_at": time.time(), "request": job.model_dump()}

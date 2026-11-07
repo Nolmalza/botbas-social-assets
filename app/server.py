@@ -62,7 +62,7 @@ def worker():
             traceback.print_exc(); j.update(status="error", error=str(e))
         finally:
             shutil.rmtree(wd, ignore_errors=True); j["finished_at"] = time.time(); save(jid)
-        cb = j["request"].get("callback_url")
+        cb = j["request"].get("callback_url") or os.environ.get("DEFAULT_CALLBACK_URL")
         if cb:
             try:
                 out = {k: v for k, v in j.items() if k != "request"}; out["meta"] = j["request"].get("meta")

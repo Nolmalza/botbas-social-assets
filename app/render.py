@@ -220,7 +220,9 @@ def render_job(job, workdir, log=print):
     vtmp = os.path.join(workdir, "video.tmp.mp4"); vout = os.path.join(workdir, "video.mp4")
     p = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgb24",
                           "-s", f"{W}x{H}", "-r", str(FPS), "-i", "-", "-c:v", "libx264", "-preset", "veryfast",
-                          "-crf", "20", "-pix_fmt", "yuv420p", vtmp], stdin=subprocess.PIPE)
+                          "-crf", "20", "-pix_fmt", "yuv420p", "-profile:v", "high", "-level", "4.1",
+                          "-g", str(FPS * 2), "-keyint_min", str(FPS * 2), "-sc_threshold", "0", "-flags", "+cgop",
+                          "-r", str(FPS), vtmp], stdin=subprocess.PIPE)
     for sc in plan:
         n = round(sc["dur"] * FPS)
         for f in range(n):
@@ -274,7 +276,8 @@ def render_job(job, workdir, log=print):
 
     out_tmp = os.path.join(workdir, "reel.tmp.mp4"); out = os.path.join(workdir, "reel.mp4")
     subprocess.run(["ffmpeg", "-y", "-loglevel", "error", "-i", vout, "-i", aw, "-map", "0:v", "-map", "1:a",
-                    "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-af", "loudnorm=I=-14:TP=-1.5",
+                    "-c:v", "copy", "-c:a", "aac", "-profile:a", "aac_low", "-b:a", "192k", "-ar", "48000", "-ac", "2",
+                    "-af", "loudnorm=I=-14:TP=-1.5,aresample=48000",
                     "-shortest", "-movflags", "+faststart", out_tmp], check=True)
     os.replace(out_tmp, out)
     return dict(path=out, duration=round(T, 2), chars=total_chars, model=model, credits_left=left, music=music_info,

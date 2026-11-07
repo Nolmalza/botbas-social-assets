@@ -1,5 +1,5 @@
 FROM python:3.12-slim
-RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg libraqm0 libfribidi0 libharfbuzz0b \
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg libraqm0 libfribidi0 libharfbuzz0b libcairo2 \
     && rm -rf /var/lib/apt/lists/*
 WORKDIR /app
 COPY requirements.txt .

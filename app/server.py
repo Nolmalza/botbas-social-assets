@@ -24,6 +24,7 @@ Q = queue.Queue(); JOBS = {}
 class Scene(BaseModel):
     text: str
     image_url: str | None = None
+    svg: str | None = None            # inline SVG illustration (no text), rendered on the VPS
     headline: str | None = None
     step: str | None = None
 

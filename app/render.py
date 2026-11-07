@@ -28,6 +28,17 @@ def back(x):
     return 1 + (c + 1) * (x - 1) ** 3 + c * (x - 1) ** 2
 
 
+def load_svg(svg):
+    """Rasterize an inline SVG string (scene illustration) to a PIL image."""
+    if not svg: return None
+    try:
+        import cairosvg
+        png = cairosvg.svg2png(bytestring=svg.encode("utf-8"), output_width=1100)
+        return Image.open(io.BytesIO(png)).convert("RGB")
+    except Exception as e:
+        print("svg render failed", e); return None
+
+
 def load_image(url, cache_dir):
     if not url: return None
     try:
@@ -207,7 +218,7 @@ def render_job(job, workdir, log=print):
         a, sr = sf.read(mp3) if mp3.endswith(".wav") else _decode(mp3)
         dur = len(a) / sr + VO + (1.3 if i == len(scenes) - 1 else 0.4)
         last = i == len(scenes) - 1
-        im = load_image(s.get("image_url"), workdir)
+        im = load_svg(s.get("svg")) or load_image(s.get("image_url"), workdir)
         if last and prod is not None and im is None: im = prod
         ph = phrases_with_times(s["text"], align, VO)
         plan.append(dict(i=i, start=t_cursor, dur=dur, audio=(a, sr), src=make_card_src(im, i),

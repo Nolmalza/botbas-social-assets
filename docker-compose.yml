@@ -1,0 +1,12 @@
+services:
+  reels-engine:
+    build: .
+    container_name: reels-engine
+    restart: unless-stopped
+    env_file: .env
+    ports:
+      - "${ENGINE_PORT:-8090}:8090"
+    volumes:
+      - ./data:/data
+    mem_limit: 2g
+    cpus: 1.5

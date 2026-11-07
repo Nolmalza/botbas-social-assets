@@ -115,6 +115,7 @@ def draw_subs(img, phrases, t, layout):
     li = next(i for i, L in enumerate(lines) if cur in L)
     start = (li // 2) * 2; shown = lines[start:start + 2]
     a = ease(t / 0.25); lh = int(sz * 1.42)
+    if a < 0.02: return
     d.rounded_rectangle([60, SUB_Y, W - 60, SUB_Y + len(shown) * lh + 44], 36, fill=(52, 62, 74, int(230 * a)))
     for r, L in enumerate(shown):
         widths = [d.textlength(phrases[k][0], font=f) for k in L]
@@ -155,7 +156,7 @@ def card_mask():
     return m.resize((cw, ch), Image.LANCZOS)
 
 
-def draw_card(img, src, mask, t, D, idx, live=None):
+def draw_card(img, src, mask, t, D, idx, live=None, still_start=False):
     """live: AnimSVG -> render the animated frame directly (no Ken Burns)."""
     cw, ch = CARD[2] - CARD[0], CARD[3] - CARD[1]
     if live is not None:
@@ -174,7 +175,9 @@ def draw_card(img, src, mask, t, D, idx, live=None):
     sh = Image.new("RGBA", (cw, ch), (0, 0, 0, 0)); sh.paste(Image.new("RGBA", (cw, ch), (0, 0, 0, 50)), (0, 0), mask)
     card = crop.convert("RGBA"); card.putalpha(mask)
     dx = 0; rot = 0.0
-    if idx == 0:
+    if idx == 0 and still_start:
+        pass
+    elif idx == 0:
         a = back(t / 0.45); s = 0.85 + 0.15 * a
         if s != 1:
             nw, nh = int(cw * s), int(ch * s)
@@ -188,6 +191,68 @@ def draw_card(img, src, mask, t, D, idx, live=None):
     img.alpha_composite(sh, (x + 10, y + 16)); img.alpha_composite(card, (x, y))
     if not rot:
         ImageDraw.Draw(img).rounded_rectangle([x, y, x + card.width, y + card.height], 40, outline=INK, width=6)
+
+
+# ---------- hook cover (first ~3 s; frame 0 = Reel cover) ----------
+HOOK_DUR = float(os.environ.get("HOOK_SECONDS", "3.0"))
+
+
+def _hook_segments(line):
+    """'ตื่นกลางดึก *หลับต่อไม่ได้*' -> [(text, highlighted)]"""
+    out = []; hl = False
+    for k, part in enumerate(line.split("*")):
+        if part: out.append((part, hl))
+        hl = not hl
+    return out
+
+
+def _outlined(d, xy, txt, f, fill, stroke, sw):
+    d.text(xy, txt, font=f, fill=fill, stroke_width=sw, stroke_fill=stroke)
+
+
+def draw_hook(img, hook, t):
+    """Big bold title card over a dimmed scene. Fully visible from frame 0 (no fade-in) so the
+    auto-picked cover / first frame already reads well; fades out at the end of HOOK_DUR."""
+    if t >= HOOK_DUR: return
+    fade = 1.0 if t < HOOK_DUR - 0.35 else max(0.0, (HOOK_DUR - t) / 0.35)
+    a = int(255 * fade)
+    ov = Image.new("RGBA", (W, H), (0, 0, 0, 0)); d = ImageDraw.Draw(ov)
+    d.rectangle([0, 0, W, H], fill=(30, 36, 44, int(150 * fade)))
+    lines = [l for l in (hook.get("title") or "").split("\n") if l.strip()][:3]
+    # size every line to fit, cap 150 px; whole block uses the smallest so it looks even
+    sz = 150
+    for l in lines:
+        while d.textlength(l.replace("*", ""), font=font(sz)) > W - 150 and sz > 70: sz -= 4
+    f = font(sz); lh = int(sz * 1.32)
+    block = lh * len(lines)
+    y = int(H * 0.47 - block / 2)
+    tag = hook.get("tag")
+    if tag:
+        tf = font(56); tw = d.textlength(tag, font=tf)
+        ty = y - 140; d.rounded_rectangle([(W - tw) / 2 - 40, ty, (W + tw) / 2 + 40, ty + 96], 48, fill=RED + (a,))
+        d.text(((W - tw) / 2, ty + 10), tag, font=tf, fill=(255, 255, 255, a))
+    pulse = 1 + 0.03 * math.sin(t * 7)
+    for i, l in enumerate(lines):
+        segs = _hook_segments(l)
+        widths = [d.textlength(sg, font=f) for sg, _ in segs]; x = (W - sum(widths)) / 2
+        ly = y + i * lh
+        for (sg, hl), wd in zip(segs, widths):
+            if hl:
+                pad = 18 * pulse
+                d.rounded_rectangle([x - pad, ly + sz * 0.08 - pad / 2, x + wd + pad, ly + sz * 1.22 + pad / 2], 24,
+                                    fill=HL + (a,))
+                _outlined(d, (x, ly), sg, f, RED + (a,), (255, 255, 255, a), 0)
+            else:
+                _outlined(d, (x, ly), sg, f, (255, 255, 255, a), INK + (a,), 10)
+            x += wd
+    badge = hook.get("badge")
+    if badge:
+        bf = font(64); bw = d.textlength(badge, font=bf); by = y + block + 60
+        d.rounded_rectangle([(W - bw) / 2 - 50, by, (W + bw) / 2 + 50, by + 112], 56, fill=GREEN + (a,))
+        d.text(((W - bw) / 2, by + 14), badge, font=bf, fill=(255, 255, 255, a))
+        ay = by + 140 + 14 * math.sin(t * 8)
+        d.polygon([(W / 2 - 40, ay), (W / 2 + 40, ay), (W / 2, ay + 46)], fill=(255, 255, 255, a))
+    img.alpha_composite(ov)
 
 
 def draw_cta(img, t, text):
@@ -217,6 +282,7 @@ def render_job(job, workdir, log=print):
     log(f"model={model} credits_left={left} chars={total_chars}")
 
     cta_text = job.get("cta", "ลิงก์อยู่ในคอมเมนต์")
+    hook = job.get("hook") or None
     prod = load_image(job.get("product_image_url"), workdir)
     base = static_base(); mask = card_mask()
     plan = []; t_cursor = 0.0; VO = 0.15
@@ -260,15 +326,18 @@ def render_job(job, workdir, log=print):
         for f in range(n):
             t = f / FPS
             img = base.copy(); d = ImageDraw.Draw(img)
-            if sc["step"]: pill(d, 205, sc["step"], 46, ACC)
-            draw_card(img, sc["src"], mask, t, sc["dur"], sc["i"], sc.get("live"))
+            if sc["step"]: pill(d, 196, sc["step"], 54, ACC)
+            draw_card(img, sc["src"], mask, t, sc["dur"], sc["i"], sc.get("live"), still_start=bool(hook))
             if sc["headline"]:
-                a = back((t - 0.15) / 0.45)
+                a = back((t - 0.15 - (HOOK_DUR - 0.3 if hook and sc["i"] == 0 else 0)) / 0.45)
                 if a > 0:
-                    pill(d, 300 if not sc["step"] else 300, sc["headline"], int(62 * max(0.3, min(a, 1.05))),
+                    pill(d, 300, sc["headline"], int(76 * max(0.3, min(a, 1.05))),
                          RED if sc["i"] == 0 or sc["cta"] else GREEN)
             if sc["cta"]: draw_cta(img, t, cta_text)
+            if hook and sc["i"] == 0: draw_hook(img, hook, t)
             draw_subs(img, sc["phrases"], t, sc["layout"])
+            if sc["i"] == 0 and f == 0:
+                img.convert("RGB").save(os.path.join(workdir, "cover.jpg"), quality=92)
             p.stdin.write(img.convert("RGB").tobytes())
     p.stdin.close()
     if p.wait() != 0: raise RuntimeError("video encode failed")
@@ -317,7 +386,7 @@ def render_job(job, workdir, log=print):
                     "-af", "loudnorm=I=-14:TP=-1.5,aresample=48000",
                     "-shortest", "-movflags", "+faststart", out_tmp], check=True)
     os.replace(out_tmp, out)
-    return dict(path=out, duration=round(T, 2), chars=total_chars, model=model, credits_left=left, music=music_info,
+    return dict(path=out, cover=os.path.join(workdir, "cover.jpg"), duration=round(T, 2), chars=total_chars, model=model, credits_left=left, music=music_info,
                 tts_cache_hits=tts.STATS['hits'], tts_new=tts.STATS['misses'], chars_billed=tts.STATS['chars_billed'])
 
 

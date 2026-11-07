@@ -38,6 +38,7 @@ class Job(BaseModel):
     seed: int | None = None
     music_style: str | None = None    # "bright" (default) or "lofi"
     callback_url: str | None = None   # e.g. a Make custom webhook
+    hook: dict | None = None          # {"title": "line1\nline *highlight*", "tag": "...", "badge": "..."} big cover text, first ~3 s
     meta: dict | None = None          # passed back untouched (caption, comment, page id ...)
 
 
@@ -56,6 +57,8 @@ def worker():
         try:
             res = render.render_job(j["request"], wd, log=lambda m: print(jid, m, flush=True))
             shutil.move(res["path"], f"{DATA}/files/{jid}.mp4")
+            if os.path.exists(res.get("cover") or ""):
+                shutil.move(res["cover"], f"{DATA}/files/{jid}.jpg"); j["cover_url"] = f"{PUBLIC_URL}/files/{jid}.jpg"
             j.update(status="done", video_url=f"{PUBLIC_URL}/files/{jid}.mp4", duration=res["duration"],
                      chars=res["chars"], model=res["model"], credits_left=res["credits_left"], music=res.get("music"),
                      tts_cache_hits=res.get("tts_cache_hits"), tts_new=res.get("tts_new"), chars_billed=res.get("chars_billed"))
@@ -118,7 +121,7 @@ def status(jid: str, x_api_key: str = Header(None)):
 
 @app.get("/files/{name}")
 def files(name: str):
-    if not name.endswith(".mp4") or "/" in name or ".." in name: raise HTTPException(404)
+    if not name.endswith((".mp4", ".jpg")) or "/" in name or ".." in name: raise HTTPException(404)
     p = f"{DATA}/files/{name}"
     if not os.path.exists(p): raise HTTPException(404)
-    return FileResponse(p, media_type="video/mp4")
+    return FileResponse(p, media_type="video/mp4" if name.endswith(".mp4") else "image/jpeg")

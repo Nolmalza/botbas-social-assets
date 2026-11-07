@@ -56,7 +56,8 @@ def worker():
             res = render.render_job(j["request"], wd, log=lambda m: print(jid, m, flush=True))
             shutil.move(res["path"], f"{DATA}/files/{jid}.mp4")
             j.update(status="done", video_url=f"{PUBLIC_URL}/files/{jid}.mp4", duration=res["duration"],
-                     chars=res["chars"], model=res["model"], credits_left=res["credits_left"], music=res.get("music"))
+                     chars=res["chars"], model=res["model"], credits_left=res["credits_left"], music=res.get("music"),
+                     tts_cache_hits=res.get("tts_cache_hits"), tts_new=res.get("tts_new"), chars_billed=res.get("chars_billed"))
         except Exception as e:
             traceback.print_exc(); j.update(status="error", error=str(e))
         finally:
@@ -77,6 +78,10 @@ def janitor():
             for f in os.listdir(f"{DATA}/{d}"):
                 p = f"{DATA}/{d}/{f}"
                 if os.path.getmtime(p) < cut: os.remove(p)
+        cdir = f"{DATA}/tts_cache"; ccut = time.time() - 120 * 86400
+        if os.path.isdir(cdir):
+            for f in os.listdir(cdir):
+                if os.path.getmtime(f"{cdir}/{f}") < ccut: os.remove(f"{cdir}/{f}")
         time.sleep(3600)
 
 

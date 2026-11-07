@@ -188,6 +188,7 @@ def render_job(job, workdir, log=print):
     max_chars = int(os.environ.get("MAX_CHARS", "320"))
     if total_chars > max_chars:
         raise ValueError(f"script too long: {total_chars} chars > {max_chars}. Shorten it.")
+    tts.STATS.update(hits=0, misses=0, chars_billed=0)
     model, left = tts.pick_model()
     log(f"model={model} credits_left={left} chars={total_chars}")
 
@@ -276,7 +277,8 @@ def render_job(job, workdir, log=print):
                     "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-af", "loudnorm=I=-14:TP=-1.5",
                     "-shortest", "-movflags", "+faststart", out_tmp], check=True)
     os.replace(out_tmp, out)
-    return dict(path=out, duration=round(T, 2), chars=total_chars, model=model, credits_left=left, music=music_info)
+    return dict(path=out, duration=round(T, 2), chars=total_chars, model=model, credits_left=left, music=music_info,
+                tts_cache_hits=tts.STATS['hits'], tts_new=tts.STATS['misses'], chars_billed=tts.STATS['chars_billed'])
 
 
 def _decode(mp3):

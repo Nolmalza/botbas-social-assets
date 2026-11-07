@@ -1,5 +1,5 @@
 """ElevenLabs TTS with character timestamps (+ dummy provider for testing)."""
-import base64, os, subprocess, json, requests
+import base64, os, subprocess, json, hashlib, shutil, requests
 
 API = "https://api.elevenlabs.io/v1"
 KEY = os.environ.get("ELEVENLABS_API_KEY", "")
@@ -26,7 +26,30 @@ def pick_model():
     return MODEL, left
 
 
+CACHE = os.path.join(os.environ.get("DATA_DIR", "/data"), "tts_cache")
+STATS = {"hits": 0, "misses": 0, "chars_billed": 0}
+
+
+def _key(text, voice_id, model):
+    raw = json.dumps([text.strip(), voice_id, model, os.environ.get("VOICE_STABILITY", "0.5")], ensure_ascii=False)
+    return hashlib.sha256(raw.encode()).hexdigest()[:32]
+
+
 def synth(text, out_mp3, voice_id, model):
+    """Cached TTS: same sentence + voice + model + settings = reuse audio from disk (no credits)."""
+    os.makedirs(CACHE, exist_ok=True)
+    k = _key(text, voice_id, model); mp3 = f"{CACHE}/{k}.mp3"; js = f"{CACHE}/{k}.json"
+    if os.path.exists(mp3) and os.path.exists(js):
+        shutil.copyfile(mp3, out_mp3); os.utime(mp3); STATS["hits"] += 1
+        return [tuple(x) for x in json.load(open(js))]
+    align = _synth_api(text, out_mp3, voice_id, model)
+    shutil.copyfile(out_mp3, mp3 + ".tmp"); os.replace(mp3 + ".tmp", mp3)
+    json.dump(align, open(js, "w"), ensure_ascii=False)
+    STATS["misses"] += 1; STATS["chars_billed"] += len(text)
+    return align
+
+
+def _synth_api(text, out_mp3, voice_id, model):
     """Write mp3, return list of (char, start, end)."""
     if PROVIDER == "dummy":
         return _dummy(text, out_mp3)

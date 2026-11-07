@@ -59,6 +59,7 @@ Header: `X-API-Key: <token>` , `Content-Type: application/json`
 ```
 - `scenes` 1–8 ฉาก, ข้อความรวมไม่เกิน **320 ตัวอักษร** (เกินจะตอบ 422 ให้ย่อ)
 - **เว้นวรรคระหว่างวลี** — ซับจะตัดบรรทัดและไฮไลต์ทีละวลีตามช่องว่าง
+- `svg` ใส่การเคลื่อนไหวได้ด้วย `data-anim` บน `<g>`/shape (bob, float, wipe, scrub, sway, spin, pulse, shake, rise, drip, blink, pop, fadein, fadeout, slidein — ดูรายละเอียดใน app/anim.py)
 - `svg` = ภาพประกอบ SVG แบบ inline (ไม่มีตัวหนังสือ, viewBox สี่เหลี่ยมจัตุรัสเช่น 0 0 900 900) — VPS แปลงเป็นภาพให้เอง ใช้ก่อน `image_url`
 - `image_url` ไม่ใส่ก็ได้ (ใช้พื้นหลังแบรนด์) — ฉากสุดท้ายใช้ `product_image_url` อัตโนมัติ
 - ภาพควรเป็นสี่เหลี่ยมจัตุรัสหรือแนวตั้ง

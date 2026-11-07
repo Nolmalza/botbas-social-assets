@@ -3,7 +3,7 @@ import io, math, os, subprocess, json, random
 import numpy as np, requests, soundfile as sf
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
-import tts, lofi, bright
+import tts, lofi, bright, anim
 
 W, H, FPS = 1080, 1920, 30
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -155,26 +155,39 @@ def card_mask():
     return m.resize((cw, ch), Image.LANCZOS)
 
 
-def draw_card(img, src, mask, t, D, idx):
+def draw_card(img, src, mask, t, D, idx, live=None):
+    """live: AnimSVG -> render the animated frame directly (no Ken Burns)."""
     cw, ch = CARD[2] - CARD[0], CARD[3] - CARD[1]
-    p = t / max(D, 0.1)
-    z = 1.0 + 0.10 * (p if idx % 2 == 0 else 1 - p)
-    vw, vh = cw / (z * 1.0), ch / (z * 1.0)
-    vw *= src.width / (cw * 1.12); vh *= src.height / (ch * 1.12)
-    vw = min(vw, src.width); vh = min(vh, src.height)
-    cx = src.width / 2 + (src.width - vw) / 2 * (0.6 * math.sin(idx * 1.7)) * (2 * p - 1) * 0.8
-    cy = src.height / 2
-    box = (cx - vw / 2, cy - vh / 2, cx + vw / 2, cy + vh / 2)
-    crop = src.resize((cw, ch), Image.BILINEAR, box=box)
-    a = back(t / 0.45); s = 0.85 + 0.15 * a
+    if live is not None:
+        crop = live.frame(t, cw, ch)
+    else:
+        p = t / max(D, 0.1)
+        z = 1.0 + 0.10 * (p if idx % 2 == 0 else 1 - p)
+        vw, vh = cw / z, ch / z
+        vw *= src.width / (cw * 1.12); vh *= src.height / (ch * 1.12)
+        vw = min(vw, src.width); vh = min(vh, src.height)
+        cx = src.width / 2 + (src.width - vw) / 2 * (0.6 * math.sin(idx * 1.7)) * (2 * p - 1) * 0.8
+        cy = src.height / 2
+        box = (cx - vw / 2, cy - vh / 2, cx + vw / 2, cy + vh / 2)
+        crop = src.resize((cw, ch), Image.BILINEAR, box=box)
+    # scene transition: first scene pops in, later scenes slide in from alternating sides with a small tilt
     sh = Image.new("RGBA", (cw, ch), (0, 0, 0, 0)); sh.paste(Image.new("RGBA", (cw, ch), (0, 0, 0, 50)), (0, 0), mask)
     card = crop.convert("RGBA"); card.putalpha(mask)
-    if s != 1:
-        nw, nh = int(cw * s), int(ch * s)
-        card = card.resize((nw, nh), Image.BILINEAR); sh = sh.resize((nw, nh), Image.BILINEAR)
-    x = int((CARD[0] + CARD[2]) / 2 - card.width / 2); y = int((CARD[1] + CARD[3]) / 2 - card.height / 2)
+    dx = 0; rot = 0.0
+    if idx == 0:
+        a = back(t / 0.45); s = 0.85 + 0.15 * a
+        if s != 1:
+            nw, nh = int(cw * s), int(ch * s)
+            card = card.resize((nw, nh), Image.BILINEAR); sh = sh.resize((nw, nh), Image.BILINEAR)
+    else:
+        p = back(t / 0.5); side = 1 if idx % 2 else -1
+        dx = int(side * W * (1 - p)); rot = side * -6 * (1 - min(1, t / 0.5))
+    if rot:
+        card = card.rotate(rot, Image.BICUBIC, expand=True); sh = sh.rotate(rot, Image.BICUBIC, expand=True)
+    x = int((CARD[0] + CARD[2]) / 2 - card.width / 2) + dx; y = int((CARD[1] + CARD[3]) / 2 - card.height / 2)
     img.alpha_composite(sh, (x + 10, y + 16)); img.alpha_composite(card, (x, y))
-    ImageDraw.Draw(img).rounded_rectangle([x, y, x + card.width, y + card.height], int(40 * s), outline=INK, width=6)
+    if not rot:
+        ImageDraw.Draw(img).rounded_rectangle([x, y, x + card.width, y + card.height], 40, outline=INK, width=6)
 
 
 def draw_cta(img, t, text):
@@ -218,10 +231,14 @@ def render_job(job, workdir, log=print):
         a, sr = sf.read(mp3) if mp3.endswith(".wav") else _decode(mp3)
         dur = len(a) / sr + VO + (1.3 if i == len(scenes) - 1 else 0.4)
         last = i == len(scenes) - 1
+        live = None
+        if anim.has_anim(s.get("svg")):
+            try: live = anim.AnimSVG(s["svg"])
+            except Exception as e: log(f"anim parse failed: {e}")
         im = load_svg(s.get("svg")) or load_image(s.get("image_url"), workdir)
         if last and prod is not None and im is None: im = prod
         ph = phrases_with_times(s["text"], align, VO)
-        plan.append(dict(i=i, start=t_cursor, dur=dur, audio=(a, sr), src=make_card_src(im, i),
+        plan.append(dict(i=i, start=t_cursor, dur=dur, audio=(a, sr), src=make_card_src(im, i), live=live,
                          phrases=ph, layout=sub_layout(ph), headline=s.get("headline"), step=s.get("step"),
                          cta=last and job.get("show_cta", True)))
         t_cursor += dur
@@ -240,7 +257,7 @@ def render_job(job, workdir, log=print):
             t = f / FPS
             img = base.copy(); d = ImageDraw.Draw(img)
             if sc["step"]: pill(d, 205, sc["step"], 46, ACC)
-            draw_card(img, sc["src"], mask, t, sc["dur"], sc["i"])
+            draw_card(img, sc["src"], mask, t, sc["dur"], sc["i"], sc.get("live"))
             if sc["headline"]:
                 a = back((t - 0.15) / 0.45)
                 if a > 0:

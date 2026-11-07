@@ -1,0 +1,125 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Prompt:wght@400;600;700&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#060a18;--a:#3b82f6;--b:#6366f1;--c:#fbbf24;--ink:#ffffff;--mute:#94a3b8;--panel:#0d1530dd}
+body{width:1080px;height:1350px;font-family:Prompt,sans-serif;background:var(--bg);color:var(--ink);position:relative;overflow:hidden}
+#art{position:absolute;inset:0;width:1080px;height:1350px}
+.tag{position:absolute;left:56px;top:46px;z-index:3;font-size:26px;font-weight:700;color:var(--tagink);background:var(--a);padding:8px 22px;border-radius:12px;letter-spacing:.5px}
+.brand{position:absolute;right:56px;top:46px;z-index:3;display:flex;align-items:center;gap:14px;font-weight:700;font-size:32px}
+.brand .logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(145deg,var(--a),var(--b));display:flex;align-items:center;justify-content:center}
+.brand .logo svg{width:32px;height:32px}
+.brand b{color:var(--a)}
+.scene{position:absolute;left:90px;top:128px;width:900px;height:430px;z-index:2;filter:drop-shadow(0 22px 40px #0009)}
+.scene svg{width:900px;height:430px;display:block;overflow:visible}
+.text{position:absolute;left:56px;right:56px;top:560px;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center}
+.kick{font-size:80px;font-weight:700;letter-spacing:0;line-height:1.12}
+.kick em{font-style:normal;color:var(--a)}
+.l1{font-size:56px;font-weight:700;line-height:1.2;color:var(--c);margin-top:10px}
+.box{margin-top:34px;width:100%;background:var(--panel);border:2px solid color-mix(in srgb,var(--a) 45%,transparent);border-radius:30px;padding:30px 40px;text-align:left;box-shadow:0 24px 60px #0004}
+.pt{display:flex;align-items:flex-start;gap:22px;font-size:40px;font-weight:600;line-height:1.3;padding:12px 0}
+.pt+.pt{border-top:1px dashed color-mix(in srgb,var(--ink) 18%,transparent)}
+.pt i{flex:none;width:48px;height:48px;margin-top:3px;border-radius:50%;background:var(--a);display:flex;align-items:center;justify-content:center}
+.pt i:after{content:"";width:18px;height:10px;border-left:5px solid var(--tagink);border-bottom:5px solid var(--tagink);transform:rotate(-45deg) translate(2px,-2px)}
+.sub{font-size:34px;color:var(--mute);margin-top:28px}
+.foot{position:absolute;left:56px;right:56px;bottom:34px;z-index:2;display:flex;justify-content:space-between;font-size:26px;color:var(--mute)}
+
+</style></head><body data-seq="2">
+<canvas id="art" width="1080" height="1350"></canvas>
+<div class="tag">เทคนิคเทรดวันนี้</div>
+<div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--tagink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z"/><path d="M9 12l2 2 4-4"/></svg></div><div>Pip<b>Guard</b></div></div>
+<div class="scene"><svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+<ellipse cx="330" cy="418" rx="300" ry="10" fill="#000" opacity=".35"/>
+<ellipse cx="780" cy="400" rx="95" ry="10" fill="#000" opacity=".35"/>
+<rect x="20" y="10" width="620" height="295" rx="22" fill="#1e293b"/>
+<rect x="20" y="10" width="620" height="295" rx="22" fill="none" stroke="#334155" stroke-width="3"/>
+<g stroke="#334155" stroke-width="1.5"><line x1="40" y1="80" x2="620" y2="80"/><line x1="40" y1="150" x2="620" y2="150"/><line x1="40" y1="220" x2="620" y2="220"/></g>
+<g stroke-width="3">
+<line x1="70" y1="190" x2="70" y2="262" stroke="#94a3b8"/><rect x="58" y="205" width="24" height="40" rx="4" fill="#94a3b8"/>
+<line x1="110" y1="170" x2="110" y2="240" stroke="var(--a)"/><rect x="98" y="182" width="24" height="44" rx="4" fill="var(--a)"/>
+<line x1="150" y1="160" x2="150" y2="230" stroke="#94a3b8"/><rect x="138" y="178" width="24" height="30" rx="4" fill="#94a3b8"/>
+<line x1="190" y1="140" x2="190" y2="214" stroke="var(--a)"/><rect x="178" y="152" width="24" height="46" rx="4" fill="var(--a)"/>
+<line x1="230" y1="120" x2="230" y2="200" stroke="var(--a)"/><rect x="218" y="134" width="24" height="44" rx="4" fill="var(--a)"/>
+<line x1="270" y1="118" x2="270" y2="180" stroke="#94a3b8"/><rect x="258" y="128" width="24" height="32" rx="4" fill="#94a3b8"/>
+<line x1="310" y1="96" x2="310" y2="170" stroke="var(--a)"/><rect x="298" y="110" width="24" height="44" rx="4" fill="var(--a)"/>
+<line x1="350" y1="80" x2="350" y2="140" stroke="var(--a)"/><rect x="338" y="92" width="24" height="34" rx="4" fill="var(--a)"/>
+</g>
+<line x1="40" y1="100" x2="560" y2="100" stroke="var(--a)" stroke-width="4"/>
+<rect x="380" y="82" width="108" height="36" rx="10" fill="var(--a)"/><text x="434" y="108" font-size="22" font-weight="700" fill="#0b1220" text-anchor="middle">จุดเข้า</text>
+<line x1="40" y1="250" x2="560" y2="250" stroke="#ef4444" stroke-width="4" stroke-dasharray="14 10"/>
+<rect x="380" y="232" width="108" height="36" rx="10" fill="#ef4444"/><text x="434" y="258" font-size="22" font-weight="700" fill="#fff" text-anchor="middle">Stop Loss</text>
+<g stroke="var(--c)" stroke-width="4" fill="none" stroke-linecap="round">
+<path d="M585 102 H605 V248 H585"/><line x1="595" y1="175" x2="612" y2="175"/>
+</g>
+<rect x="490" y="155" width="84" height="40" rx="10" fill="var(--c)"/><text x="532" y="183" font-size="24" font-weight="700" fill="#1e293b" text-anchor="middle">2×ATR</text>
+<rect x="20" y="318" width="620" height="92" rx="18" fill="#1e293b" stroke="#334155" stroke-width="3"/>
+<text x="42" y="350" font-size="22" font-weight="700" fill="#94a3b8">ATR(14)</text>
+<path d="M140 385 C190 370 220 392 270 372 S360 350 410 362 S500 340 560 348 S610 336 625 338" fill="none" stroke="var(--c)" stroke-width="5" stroke-linecap="round"/>
+<circle cx="625" cy="338" r="8" fill="var(--c)"/>
+<rect x="690" y="40" width="180" height="350" rx="26" fill="#334155"/>
+<rect x="690" y="40" width="180" height="350" rx="26" fill="none" stroke="#94a3b8" stroke-width="3"/>
+<rect x="710" y="62" width="140" height="120" rx="14" fill="#e2e8f0"/>
+<text x="840" y="94" font-size="22" fill="#334155" text-anchor="end">ATR 20</text>
+<text x="840" y="124" font-size="22" fill="#334155" text-anchor="end">× 2</text>
+<text x="840" y="166" font-size="30" font-weight="700" fill="#ef4444" text-anchor="end">40 pips</text>
+<g fill="#1e293b">
+<rect x="712" y="200" width="38" height="38" rx="9"/><rect x="761" y="200" width="38" height="38" rx="9"/><rect x="810" y="200" width="38" height="38" rx="9" fill="var(--a)"/>
+<rect x="712" y="248" width="38" height="38" rx="9"/><rect x="761" y="248" width="38" height="38" rx="9"/><rect x="810" y="248" width="38" height="38" rx="9" fill="var(--a)"/>
+<rect x="712" y="296" width="38" height="38" rx="9"/><rect x="761" y="296" width="38" height="38" rx="9"/><rect x="810" y="296" width="38" height="86" rx="9" fill="var(--c)"/>
+<rect x="712" y="344" width="87" height="38" rx="9"/>
+</g>
+</svg></div>
+<div class="text">
+ <div class="kick">วาง Stop Loss<br>ด้วย <em>ATR</em></div>
+ <div class="l1">ให้ตลาดบอกระยะ SL</div>
+ <div class="box">
+  <div class="pt"><i></i><div>ATR วัดความผันผวน ไม่บอกทิศ</div></div>
+  <div class="pt"><i></i><div>SL = ATR × ตัวคูณที่ตั้งไว้</div></div>
+  <div class="pt"><i></i><div>SL กว้างขึ้น ต้องลด Lot ลง</div></div>
+ </div>
+ <div class="sub">กราฟเหวี่ยงแรง SL ต้องห่างตาม</div>
+</div>
+<div class="foot"><div>เทรดอย่างมีวินัย · บริหารความเสี่ยงก่อนกำไร</div><div>pipguard.cloud</div></div>
+<script>
+(function(){
+var key=decodeURIComponent(location.pathname)+'|'+document.querySelector('.kick').textContent;
+var h=2166136261;for(var i=0;i<key.length;i++){h^=key.charCodeAt(i);h=Math.imul(h,16777619)}
+var seq=parseInt(document.body.dataset.seq,10);if(isNaN(seq))seq=(h>>>0)%997;
+var s=h>>>0;function R(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
+function rr(a,b){return a+R()*(b-a)}function ri(a,b){return Math.floor(rr(a,b+1))}
+var LIGHT=false;
+var PAL=[{"bg": "#060a18", "a": "#3b82f6", "b": "#6366f1", "c": "#fbbf24"}, {"bg": "#0a0714", "a": "#a78bfa", "b": "#4f46e5", "c": "#fbbf24"}, {"bg": "#04101a", "a": "#06b6d4", "b": "#1d4ed8", "c": "#f59e0b"}, {"bg": "#0c0a05", "a": "#fbbf24", "b": "#b45309", "c": "#60a5fa"}, {"bg": "#071019", "a": "#60a5fa", "b": "#0e7490", "c": "#f472b6"}];
+var P=PAL[(seq*3)%PAL.length];
+var r=document.documentElement.style;['bg','a','b','c'].forEach(function(k){r.setProperty('--'+k,P[k])});
+r.setProperty('--tagink',P.t||(LIGHT?'#ffffff':'#06101a'));
+var cv=document.getElementById('art'),x=cv.getContext('2d'),W=1080,H=620;
+x.fillStyle=P.bg;x.fillRect(0,0,W,1350);
+function hexa(c,a){var n=parseInt(c.slice(1),16);return'rgba('+(n>>16)+','+(n>>8&255)+','+(n&255)+','+a+')'}
+function glow(cx,cy,rad,col,al){var g=x.createRadialGradient(cx,cy,0,cx,cy,rad);g.addColorStop(0,hexa(col,al));g.addColorStop(1,hexa(col,0));x.fillStyle=g;x.fillRect(0,0,W,1350)}
+function col(){return[P.a,P.b,P.c][ri(0,2)]}
+var K=(LIGHT?.6:1)*.55;
+var ART={
+aurora:function(){for(var i=0;i<6;i++)glow(rr(0,W),rr(0,520),rr(260,520),col(),rr(.3,.55)*K)},
+circuit:function(){glow(rr(300,800),300,500,P.b,.3*K);x.lineWidth=3;x.lineCap='round';for(var i=0;i<46;i++){var px=Math.round(rr(0,W)/30)*30,py=Math.round(rr(0,H)/30)*30;x.strokeStyle=hexa(col(),rr(.25,.55)*K);x.beginPath();x.moveTo(px,py);for(var k=0;k<ri(2,5);k++){var d=ri(0,3),l=ri(2,8)*30;if(d==0)px+=l;else if(d==1)px-=l;else if(d==2)py+=l;else{px+=l*.7;py+=l*.7}x.lineTo(px,py)}x.stroke();x.fillStyle=x.strokeStyle;x.beginPath();x.arc(px,py,6,0,7);x.fill()}},
+net:function(){glow(rr(200,900),rr(150,400),480,P.b,.3*K);var n=[];for(var i=0;i<70;i++)n.push([rr(0,W),rr(0,H),rr(2,6)]);for(i=0;i<n.length;i++)for(var j=i+1;j<n.length;j++){var d=Math.hypot(n[i][0]-n[j][0],n[i][1]-n[j][1]);if(d<170){x.strokeStyle=hexa(P.a,.4*K*(1-d/170));x.lineWidth=1.5;x.beginPath();x.moveTo(n[i][0],n[i][1]);x.lineTo(n[j][0],n[j][1]);x.stroke()}}n.forEach(function(p){x.fillStyle=hexa(col(),.8*K);x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fill()})},
+waves:function(){glow(rr(200,900),rr(150,400),500,P.a,.28*K);for(var k=0;k<26;k++){var y0=40+k*22,amp=rr(20,70),fr=rr(.004,.012),ph=rr(0,6);x.strokeStyle=hexa(k%2?P.a:P.b,(.12+k/90)*K);x.lineWidth=2;x.beginPath();for(var X=0;X<=W;X+=10){var y=y0+Math.sin(X*fr+ph)*amp*Math.sin(X/W*Math.PI);X?x.lineTo(X,y):x.moveTo(X,y)}x.stroke()}},
+hex:function(){var s2=ri(40,60),hh=s2*Math.sqrt(3),cx0=rr(0,W),cy0=rr(0,500);glow(cx0,cy0,480,P.a,.25*K);for(var r2=-1;r2<H/hh+1;r2++)for(var c=-1;c<W/(s2*1.5)+1;c++){var cx=c*s2*1.5,cy=r2*hh+(c%2?hh/2:0),d=Math.hypot(cx-cx0,cy-cy0),al=Math.max(.05,.5-d/900)*K;x.strokeStyle=hexa(P.a,al);x.lineWidth=2;x.beginPath();for(var k=0;k<6;k++){var a=k*Math.PI/3;x.lineTo(cx+Math.cos(a)*s2*.92,cy+Math.sin(a)*s2*.92)}x.closePath();x.stroke();if(R()<.06){x.fillStyle=hexa(col(),.3*K);x.fill()}}},
+poly:function(){var cs=ri(130,180),rs=ri(110,150),pts=[];for(var r2=0;r2*rs<=H+rs;r2++){pts[r2]=[];for(var c=0;c*cs<=W+cs;c++)pts[r2][c]=[c*cs+rr(-.35,.35)*cs,r2*rs+rr(-.35,.35)*rs]}for(r2=0;r2<pts.length-1;r2++)for(c=0;c<pts[r2].length-1;c++){var q=[pts[r2][c],pts[r2][c+1],pts[r2+1][c+1],pts[r2+1][c]];[[0,1,2],[0,2,3]].forEach(function(t){x.beginPath();x.moveTo(q[t[0]][0],q[t[0]][1]);x.lineTo(q[t[1]][0],q[t[1]][1]);x.lineTo(q[t[2]][0],q[t[2]][1]);x.closePath();x.fillStyle=hexa(R()<.5?P.b:P.a,rr(.04,.28)*K);x.fill()})}},
+shapes:function(){glow(W/2,300,520,P.b,.35*K);for(var i=0;i<11;i++){x.fillStyle=hexa(col(),rr(.25,.5)*K);x.strokeStyle=hexa(col(),.6*K);x.lineWidth=6;var cx=rr(0,W),cy=rr(0,560),z=rr(60,200);x.save();x.translate(cx,cy);x.rotate(rr(0,6));x.beginPath();var t=ri(0,3);if(t==0)x.arc(0,0,z,0,7);else if(t==1)x.rect(-z/2,-z/2,z,z);else if(t==2){x.moveTo(0,-z);x.lineTo(z*.87,z*.5);x.lineTo(-z*.87,z*.5);x.closePath()}else x.arc(0,0,z,0,Math.PI);R()<.6?x.fill():x.stroke();x.restore()}},
+dots:function(){glow(rr(200,900),rr(100,400),520,P.b,.3*K);var g=ri(34,52);for(var y=g/2;y<H;y+=g)for(var X=g/2;X<W;X+=g){var n=Math.sin(X*.006+y*.004+rr(0,.4))*.5+.5;x.fillStyle=hexa(n>.6?P.a:P.b,(.08+n*.4)*K);x.beginPath();x.arc(X,y,2+n*9,0,7);x.fill()}},
+candles:function(){glow(rr(200,900),rr(100,400),520,P.b,.35*K);var n=ri(28,40),w=W/n,p=rr(260,380),tr=rr(-4,4);x.lineWidth=3;for(var i=0;i<n;i++){var o=p,cl=o+rr(-40,40)-tr,hi=Math.min(o,cl)-rr(5,40),lo=Math.max(o,cl)+rr(5,40),up=cl<o;var cc=up?P.a:P.c;x.strokeStyle=hexa(cc,.6*K);x.fillStyle=hexa(cc,.45*K);var cx=i*w+w/2;x.beginPath();x.moveTo(cx,hi);x.lineTo(cx,lo);x.stroke();x.fillRect(cx-w*.3,Math.min(o,cl),w*.6,Math.max(4,Math.abs(cl-o)));p=Math.max(80,Math.min(520,cl))}x.strokeStyle=hexa(P.b,.18*K);x.lineWidth=1;for(var g=60;g<H;g+=80){x.beginPath();x.moveTo(0,g);x.lineTo(W,g);x.stroke()}},
+line:function(){glow(rr(200,900),rr(100,400),520,P.a,.3*K);for(var k=0;k<3;k++){var y=rr(250,450),pts=[];x.beginPath();for(var X=0;X<=W;X+=18){y+=rr(-22,20)-k;y=Math.max(60,Math.min(560,y));pts.push([X,y]);X?x.lineTo(X,y):x.moveTo(X,y)}x.strokeStyle=hexa([P.a,P.c,P.b][k],(k?.35:.75)*K);x.lineWidth=k?3:6;x.stroke();if(!k){x.lineTo(W,H);x.lineTo(0,H);x.closePath();var g=x.createLinearGradient(0,150,0,H);g.addColorStop(0,hexa(P.a,.28*K));g.addColorStop(1,hexa(P.a,0));x.fillStyle=g;x.fill()}}},
+bars:function(){glow(rr(200,900),rr(100,400),520,P.b,.3*K);var n=ri(9,16),w=W/n;for(var i=0;i<n;i++){var hgt=rr(80,480);x.fillStyle=hexa(i%3?P.a:P.c,rr(.2,.45)*K);var bx=i*w+w*.18;x.beginPath();x.roundRect(bx,H-hgt,w*.64,hgt+30,14);x.fill()}},
+rack:function(){glow(rr(200,900),rr(100,400),520,P.b,.3*K);var cols=ri(4,6),cw=W/cols;for(var c=0;c<cols;c++){var bx=c*cw+cw*.12,u=ri(26,36);for(var y=ri(20,80);y<H-u;y+=u+8){x.fillStyle=hexa(P.b,.16*K);x.strokeStyle=hexa(P.a,.25*K);x.lineWidth=2;x.beginPath();x.roundRect(bx,y,cw*.76,u,6);x.fill();x.stroke();for(var l=0;l<ri(1,4);l++){x.fillStyle=hexa(R()<.8?P.a:P.c,rr(.5,.95)*K);x.beginPath();x.arc(bx+18+l*18,y+u/2,4.5,0,7);x.fill()}x.fillStyle=hexa(P.a,.12*K);x.fillRect(bx+cw*.38,y+u/2-2,cw*.32,4)}}},
+blobs:function(){for(var i=0;i<7;i++){x.fillStyle=hexa(col(),rr(.18,.38)*K);x.beginPath();var cx=rr(0,W),cy=rr(0,540),rad=rr(90,240),n=8;for(var k=0;k<=n;k++){var a=k/n*Math.PI*2,rd=rad*rr(.82,1.15);k?x.lineTo(cx+Math.cos(a)*rd,cy+Math.sin(a)*rd):x.moveTo(cx+Math.cos(a)*rd,cy+Math.sin(a)*rd)}x.closePath();x.fill()}for(i=0;i<40;i++){x.fillStyle=hexa(col(),rr(.2,.5)*K);x.beginPath();x.arc(rr(0,W),rr(0,560),rr(3,10),0,7);x.fill()}},
+tiles:function(){var g=ri(70,110);for(var y=0;y<H;y+=g)for(var X=0;X<W;X+=g){if(R()<.55)continue;x.fillStyle=hexa(col(),rr(.08,.3)*K);x.beginPath();x.roundRect(X+6,y+6,g-12,g-12,ri(8,30));x.fill()}glow(rr(200,900),rr(100,400),500,P.a,.25*K)}
+};
+var LIST=["candles", "line", "hex", "aurora", "circuit", "poly", "bars"];ART[LIST[seq%LIST.length]]();
+for(var n=0;n<7000;n++){x.fillStyle=LIGHT?'rgba(0,0,0,'+rr(0,.035)+')':'rgba(255,255,255,'+rr(0,.045)+')';x.fillRect(rr(0,W),rr(0,H),1.5,1.5)}
+var fd=x.createLinearGradient(0,380,0,600);fd.addColorStop(0,hexa(P.bg,0));fd.addColorStop(1,hexa(P.bg,1));x.fillStyle=fd;x.fillRect(0,380,W,222);
+x.fillStyle=P.bg;x.fillRect(0,600,W,750);
+var vg=x.createRadialGradient(W/2,1000,0,W/2,1000,700);vg.addColorStop(0,hexa(P.b,LIGHT?.08:.14));vg.addColorStop(1,hexa(P.b,0));x.fillStyle=vg;x.fillRect(0,600,W,750);
+})();
+</script>
+</body></html>

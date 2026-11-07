@@ -279,7 +279,12 @@ def render_job(job, workdir, log=print):
     if len(music) < N: music = np.pad(music, (0, N - len(music)))
     env = np.convolve(np.abs(voice_tr), np.ones(2205) / 2205, "same")
     peak = env.max() or 1
-    duck = np.where(env > 0.03 * peak, 0.16, 0.35); duck = np.convolve(duck, np.ones(4410) / 4410, "same")
+    under = float(os.environ.get("MUSIC_UNDER_VOICE", "0.07"))   # music level while speaking
+    gap = float(os.environ.get("MUSIC_IN_GAPS", "0.20"))           # music level between lines
+    duck = np.where(env > 0.03 * peak, under, gap); duck = np.convolve(duck, np.ones(8820) / 8820, "same")
+    # carve the voice band out of the music a little (300 Hz - 3.4 kHz) so words stay clear
+    from scipy.signal import butter, sosfilt
+    music = music - 0.5 * sosfilt(butter(2, [300, 3400], "bandpass", fs=SR, output="sos"), music)
     vpk = np.abs(voice_tr).max() or 1
     mix = voice_tr / vpk * 0.9 + music * duck
     mix /= np.abs(mix).max() or 1

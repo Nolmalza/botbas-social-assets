@@ -56,7 +56,7 @@ def worker():
             res = render.render_job(j["request"], wd, log=lambda m: print(jid, m, flush=True))
             shutil.move(res["path"], f"{DATA}/files/{jid}.mp4")
             j.update(status="done", video_url=f"{PUBLIC_URL}/files/{jid}.mp4", duration=res["duration"],
-                     chars=res["chars"], model=res["model"], credits_left=res["credits_left"])
+                     chars=res["chars"], model=res["model"], credits_left=res["credits_left"], music=res.get("music"))
         except Exception as e:
             traceback.print_exc(); j.update(status="error", error=str(e))
         finally:

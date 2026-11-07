@@ -248,9 +248,19 @@ def render_job(job, workdir, log=print):
         s0 = int((sc["start"] + VO) * SR); e = min(N, s0 + len(a)); voice_tr[s0:e] += a[:e - s0]
     lw = os.path.join(workdir, "lofi.wav")
     seed = job.get("seed")
-    seed = int(seed) if seed is not None else random.randint(0, 9999)
     style = job.get("music_style") or os.environ.get("MUSIC_STYLE", "bright")
-    (lofi.make_lofi if style == "lofi" else bright.make_bright)(T, lw, seed)
+    music_info = {"style": style}
+    if style == "lofi":
+        lofi.make_lofi(T, lw, int(seed) if seed is not None else random.randint(0, 9999))
+    else:
+        hist_path = os.path.join(os.environ.get("DATA_DIR", "/data"), "music_history.json")
+        try: hist = json.load(open(hist_path))
+        except Exception: hist = []
+        if seed is None: seed = bright.pick_seed(hist)
+        fl = bright.make_bright(T, lw, int(seed)); music_info.update(fl)
+        try: json.dump((hist + [fl])[-50:], open(hist_path, "w"))
+        except Exception as e: log(f"history save failed {e}")
+        log(f"music {fl}")
     music, _ = sf.read(lw); music = music[:N]
     if len(music) < N: music = np.pad(music, (0, N - len(music)))
     env = np.convolve(np.abs(voice_tr), np.ones(2205) / 2205, "same")
@@ -266,7 +276,7 @@ def render_job(job, workdir, log=print):
                     "-c:v", "copy", "-c:a", "aac", "-b:a", "192k", "-af", "loudnorm=I=-14:TP=-1.5",
                     "-shortest", "-movflags", "+faststart", out_tmp], check=True)
     os.replace(out_tmp, out)
-    return dict(path=out, duration=round(T, 2), chars=total_chars, model=model, credits_left=left)
+    return dict(path=out, duration=round(T, 2), chars=total_chars, model=model, credits_left=left, music=music_info)
 
 
 def _decode(mp3):

@@ -1,0 +1,302 @@
+{
+ "name": "Reels — ทำคลิปบน VPS + โพสต์ Reel + คอมเมนต์ลิงก์",
+ "metadata": {
+  "version": 1,
+  "instant": false
+ },
+ "interface": {
+  "input": [
+   {
+    "name": "job_json",
+    "type": "text",
+    "required": true
+   },
+   {
+    "name": "page_id",
+    "type": "text",
+    "required": true
+   },
+   {
+    "name": "caption",
+    "type": "text",
+    "required": true
+   },
+   {
+    "name": "comment",
+    "type": "text",
+    "required": true
+   }
+  ],
+  "output": []
+ },
+ "flow": [
+  {
+   "id": 1,
+   "module": "http:ActionSendData",
+   "version": 3,
+   "parameters": {
+    "handleErrors": true
+   },
+   "mapper": {
+    "url": "{{ENGINE_URL}}/render",
+    "method": "post",
+    "headers": [
+     {
+      "name": "X-API-Key",
+      "value": "{{ENGINE_TOKEN}}"
+     }
+    ],
+    "parseResponse": true,
+    "serializeUrl": false,
+    "shareCookies": false,
+    "rejectUnauthorized": true,
+    "followRedirect": true,
+    "followAllRedirects": false,
+    "useQuerystring": false,
+    "gzip": true,
+    "useMtls": false,
+    "bodyType": "raw",
+    "contentType": "application/json",
+    "data": "{{var.input.job_json}}",
+    "timeout": 60
+   }
+  },
+  {
+   "id": 2,
+   "module": "util:FunctionSleep",
+   "version": 1,
+   "parameters": {},
+   "mapper": {
+    "duration": 240
+   }
+  },
+  {
+   "id": 3,
+   "module": "http:ActionSendData",
+   "version": 3,
+   "parameters": {
+    "handleErrors": true
+   },
+   "mapper": {
+    "url": "{{ENGINE_URL}}/jobs/{{1.data.job_id}}",
+    "method": "get",
+    "headers": [
+     {
+      "name": "X-API-Key",
+      "value": "{{ENGINE_TOKEN}}"
+     }
+    ],
+    "parseResponse": true,
+    "serializeUrl": false,
+    "shareCookies": false,
+    "rejectUnauthorized": true,
+    "followRedirect": true,
+    "followAllRedirects": false,
+    "useQuerystring": false,
+    "gzip": true,
+    "useMtls": false,
+    "bodyType": "",
+    "timeout": 40
+   }
+  },
+  {
+   "id": 4,
+   "module": "builtin:BasicRouter",
+   "version": 1,
+   "mapper": null,
+   "routes": [
+    {
+     "flow": [
+      {
+       "id": 13,
+       "module": "http:ActionGetFile",
+       "version": 3,
+       "parameters": {
+        "handleErrors": true
+       },
+       "filter": {
+        "name": "เสร็จรอบแรก",
+        "conditions": [
+         [
+          {
+           "a": "{{3.data.status}}",
+           "o": "text:equal",
+           "b": "done"
+          }
+         ]
+        ]
+       },
+       "mapper": {
+        "url": "{{3.data.video_url}}",
+        "method": "get",
+        "serializeUrl": false,
+        "shareCookies": false
+       }
+      },
+      {
+       "id": 5,
+       "module": "facebook-pages:uploadAReel",
+       "version": 6,
+       "parameters": {
+        "__IMTCONN__": "<FACEBOOK_CONNECTION_ID>"
+       },
+       "mapper": {
+        "page_id": "{{var.input.page_id}}",
+        "uploadMethod": "data",
+        "fileName": "reel.mp4",
+        "data": "{{13.data}}",
+        "description": "{{var.input.caption}}"
+       }
+      },
+      {
+       "id": 6,
+       "module": "util:FunctionSleep",
+       "version": 1,
+       "parameters": {},
+       "mapper": {
+        "duration": 90
+       }
+      },
+      {
+       "id": 7,
+       "module": "facebook-pages:CreateComment",
+       "version": 6,
+       "parameters": {
+        "__IMTCONN__": "<FACEBOOK_CONNECTION_ID>"
+       },
+       "mapper": {
+        "id": "{{5.video_id}}",
+        "message": "{{var.input.comment}}",
+        "page_id": "{{var.input.page_id}}",
+        "attachment": ""
+       }
+      }
+     ]
+    },
+    {
+     "flow": [
+      {
+       "id": 8,
+       "module": "util:FunctionSleep",
+       "version": 1,
+       "parameters": {},
+       "mapper": {
+        "duration": 240
+       },
+       "filter": {
+        "name": "ยังไม่เสร็จ รอต่อ",
+        "conditions": [
+         [
+          {
+           "a": "{{3.data.status}}",
+           "o": "text:notequal",
+           "b": "done"
+          },
+          {
+           "a": "{{3.data.status}}",
+           "o": "text:notequal",
+           "b": "error"
+          }
+         ]
+        ]
+       }
+      },
+      {
+       "id": 9,
+       "module": "http:ActionSendData",
+       "version": 3,
+       "parameters": {
+        "handleErrors": true
+       },
+       "mapper": {
+        "url": "{{ENGINE_URL}}/jobs/{{1.data.job_id}}",
+        "method": "get",
+        "headers": [
+         {
+          "name": "X-API-Key",
+          "value": "{{ENGINE_TOKEN}}"
+         }
+        ],
+        "parseResponse": true,
+        "serializeUrl": false,
+        "shareCookies": false,
+        "rejectUnauthorized": true,
+        "followRedirect": true,
+        "followAllRedirects": false,
+        "useQuerystring": false,
+        "gzip": true,
+        "useMtls": false,
+        "bodyType": "",
+        "timeout": 40
+       }
+      },
+      {
+       "id": 14,
+       "module": "http:ActionGetFile",
+       "version": 3,
+       "parameters": {
+        "handleErrors": true
+       },
+       "filter": {
+        "name": "เสร็จรอบสอง",
+        "conditions": [
+         [
+          {
+           "a": "{{9.data.status}}",
+           "o": "text:equal",
+           "b": "done"
+          }
+         ]
+        ]
+       },
+       "mapper": {
+        "url": "{{9.data.video_url}}",
+        "method": "get",
+        "serializeUrl": false,
+        "shareCookies": false
+       }
+      },
+      {
+       "id": 10,
+       "module": "facebook-pages:uploadAReel",
+       "version": 6,
+       "parameters": {
+        "__IMTCONN__": "<FACEBOOK_CONNECTION_ID>"
+       },
+       "mapper": {
+        "page_id": "{{var.input.page_id}}",
+        "uploadMethod": "data",
+        "fileName": "reel.mp4",
+        "data": "{{14.data}}",
+        "description": "{{var.input.caption}}"
+       }
+      },
+      {
+       "id": 11,
+       "module": "util:FunctionSleep",
+       "version": 1,
+       "parameters": {},
+       "mapper": {
+        "duration": 90
+       }
+      },
+      {
+       "id": 12,
+       "module": "facebook-pages:CreateComment",
+       "version": 6,
+       "parameters": {
+        "__IMTCONN__": "<FACEBOOK_CONNECTION_ID>"
+       },
+       "mapper": {
+        "id": "{{10.video_id}}",
+        "message": "{{var.input.comment}}",
+        "page_id": "{{var.input.page_id}}",
+        "attachment": ""
+       }
+      }
+     ]
+    }
+   ]
+  }
+ ]
+}

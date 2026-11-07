@@ -133,3 +133,8 @@ Header: `X-API-Key: <token>` , `Content-Type: application/json`
 - `script too long` → ให้ Claude ย่อสคริปต์ (หรือปรับ `MAX_CHARS`)
 - Facebook ดึงวิดีโอไม่ได้ → เช็กว่าเปิด `PUBLIC_URL` จากข้างนอกได้ (พอร์ต 8090 เปิดใน firewall ของผู้ให้บริการ VPS ด้วย)
 - อยากได้ HTTPS → ชี้โดเมน เช่น `reels.pipvps.cloud` มาที่ VPS แล้วตั้ง reverse proxy (nginx/Caddy) → แก้ `PUBLIC_URL` ใน .env
+
+---
+
+## Backup
+ดู `ops/RECOVERY.md` — สำรองรายวัน (.env, เสียงที่เก็บไว้, ประวัติเพลง) ด้วย `ops/backup.sh`, ติดตั้งครั้งเดียวด้วย `sudo bash ops/install-backup.sh`, กู้คืนด้วย `sudo bash ops/restore.sh`

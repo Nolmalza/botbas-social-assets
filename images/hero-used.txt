@@ -5,3 +5,4 @@ b4e4cc6170e992b2 2026-11-05__mem0ai__mem0
 903120d0e8680382 2026-11-06__infiniflow__ragflow
 00c6c6928020b3a3 2026-11-07__microsoft__playwright-mcp
 028c323271300c00 2026-11-07__upstash__context7
+05e8f0323232320c 2026-11-08__oraios__serena

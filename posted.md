@@ -33,3 +33,4 @@
 
 2026-11-08 | copysync | 2026-11-08__copysync-lot-size-account-match.html | 1460126263846229_122096702547546884
 2026-11-09 | baannee | 2026-11-09__baannee-07-desk-lamp-hand-shadow.html | 1373565455841925_122134698771466674
+2026-11-09 | pipguard | 2026-11-09__pipguard-rsi-overbought-trend.html | 1455065131014516_122107360083531714

@@ -12,7 +12,7 @@ hook = {
   "footer": "แก้ปัญหาในบ้าน · ของใช้ดีบอกต่อ"   # optional
 }
 """
-import io, os, re
+import io, math, os, random, re
 import xml.etree.ElementTree as ET
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
@@ -22,12 +22,28 @@ F_SEMI = os.path.join(HERE, "fonts/Kanit-SemiBold.ttf")
 
 S = 2                                   # supersample
 W, H = 1080, 1920
-BG_TOP = (232, 243, 251); BG_BOT = (244, 249, 253)
-DOT = (196, 223, 243)
-BLUE = (16, 124, 206); BLUE_D = (10, 98, 170)
-INK = (38, 34, 32); GREY = (110, 112, 118)
-ORANGE = (238, 98, 18)
-LINE = (210, 222, 232)
+INK = (42, 31, 20); GREY = (124, 106, 88)
+LINE = (222, 214, 204)
+
+def _hx(h): h = h.lstrip("#"); return tuple(int(h[i:i + 2], 16) for i in (0, 2, 4))
+# same palettes as templates/baannee.html (image posts): bg, a = accent (tag/logo/blue words/ticks), b = light accent, c = sub line
+PALETTES = [dict(name=n, bg=_hx(bg), a=_hx(a), b=_hx(b), c=_hx(c)) for n, bg, a, b, c in [
+    ("orange", "#fdf6ec", "#f97316", "#fb923c", "#16a34a"),
+    ("green",  "#f2f8f1", "#16a34a", "#4ade80", "#ea580c"),
+    ("purple", "#f5f3ff", "#7c3aed", "#a78bfa", "#db2777"),
+    ("blue",   "#eff8fb", "#0284c7", "#38bdf8", "#ea580c"),
+    ("rose",   "#fff4f2", "#e11d48", "#fb7185", "#0d9488"),
+]]
+ARTS = ["dots", "blobs", "tiles", "shapes", "waves", "poly", "hex"]
+BLUE = BLUE_D = ORANGE = None   # set per cover from the palette
+
+
+def pick_style(history, rnd):
+    """Random palette + background art; palette never the same as the last cover, art not in the last 3."""
+    last = history[-1] if history else {}
+    pals = [p["name"] for p in PALETTES if p["name"] != last.get("palette")]
+    arts = [a for a in ARTS if a not in [h.get("art") for h in history[-3:]]] or ARTS
+    return {"palette": rnd.choice(pals), "art": rnd.choice(arts)}
 
 _fc = {}
 def F(sz, semi=False):
@@ -116,29 +132,89 @@ def _check(sz):
     return im
 
 
-def _background():
-    img = Image.new("RGBA", (s(W), s(H)))
-    d = ImageDraw.Draw(img)
-    for y in range(0, s(H), 4):
-        k = y / s(H)
-        c = tuple(int(BG_TOP[i] + (BG_BOT[i] - BG_TOP[i]) * k) for i in range(3))
-        d.rectangle([0, y, s(W), y + 4], fill=c + (255,))
-    dots = Image.new("RGBA", img.size, (0, 0, 0, 0)); dd = ImageDraw.Draw(dots)
-    step, r = 50, 10
-    for gy in range(40, 1250, step):
-        for gx in range(26, W, step):
-            side = abs(gx - W / 2) / (W / 2)               # stronger at the sides
-            top = max(0.0, 1 - gy / 1250)                   # fade out downward
-            a = (0.08 + 0.92 * side ** 1.6) * top
-            if a < 0.08: continue
-            dd.ellipse([s(gx - r), s(gy - r), s(gx + r), s(gy + r)], fill=DOT + (int(255 * a),))
-    img.alpha_composite(dots)
+def _background(P, art, rnd):
+    """Pattern on the top part (behind the illustration), fading into the plain bg colour."""
+    rr = rnd.uniform; ri = rnd.randint
+    img = Image.new("RGBA", (s(W), s(H)), P["bg"] + (255,))
+    lay = Image.new("RGBA", img.size, (0, 0, 0, 0)); d = ImageDraw.Draw(lay)
+    cols = [P["a"], P["b"], P["c"]]; col = lambda: rnd.choice(cols)
+    A = lambda v: int(255 * max(0, min(1, v)))
+    AH = 1250                                           # art height (1x)
+    if art == "dots":
+        g = ri(44, 56)
+        for y in range(g // 2, AH, g):
+            for x in range(g // 2, W, g):
+                side = abs(x - W / 2) / (W / 2)
+                a = (0.10 + 0.9 * side ** 1.6) * 0.55
+                r = 7 + 5 * side
+                d.ellipse([s(x - r), s(y - r), s(x + r), s(y + r)], fill=P["b"] + (A(a),))
+    elif art == "blobs":
+        for _ in range(7):
+            cx, cy, rad = rr(0, W), rr(0, AH * 0.8), rr(110, 280)
+            pts = [(s(cx + math.cos(k / 10 * 6.283) * rad * rr(.82, 1.15)), s(cy + math.sin(k / 10 * 6.283) * rad * rr(.82, 1.15))) for k in range(10)]
+            d.polygon(pts, fill=col() + (A(rr(.10, .20)),))
+        for _ in range(40):
+            x, y, r = rr(0, W), rr(0, AH), rr(4, 12)
+            d.ellipse([s(x - r), s(y - r), s(x + r), s(y + r)], fill=col() + (A(rr(.15, .35)),))
+    elif art == "tiles":
+        g = ri(80, 120)
+        for y in range(0, AH, g):
+            for x in range(0, W, g):
+                if rnd.random() < .55: continue
+                d.rounded_rectangle([s(x + 7), s(y + 7), s(x + g - 7), s(y + g - 7)], s(ri(10, 30)), fill=col() + (A(rr(.06, .18)),))
+    elif art == "shapes":
+        for _ in range(11):
+            cx, cy, z = rr(0, W), rr(0, AH * 0.85), rr(60, 190); k = ri(0, 2); rot = rr(0, 6.28)
+            c = col(); fill = c + (A(rr(.10, .22)),); out = c + (A(.30),)
+            if k == 0: d.ellipse([s(cx - z), s(cy - z), s(cx + z), s(cy + z)], fill=fill, outline=out, width=s(5))
+            else:
+                n = 4 if k == 1 else 3
+                pts = [(s(cx + math.cos(rot + j * 6.283 / n) * z), s(cy + math.sin(rot + j * 6.283 / n) * z)) for j in range(n)]
+                d.polygon(pts, fill=fill, outline=out, width=s(5))
+    elif art == "waves":
+        for k in range(30):
+            y0, amp, fr, ph = 40 + k * 38, rr(20, 70), rr(.004, .012), rr(0, 6)
+            pts = [(s(x), s(y0 + math.sin(x * fr + ph) * amp * math.sin(x / W * math.pi))) for x in range(0, W + 10, 10)]
+            d.line(pts, fill=(P["a"] if k % 2 else P["b"]) + (A(.10 + k / 140),), width=s(3))
+    elif art == "poly":
+        cs, rs = ri(150, 200), ri(130, 170)
+        grid = [[(c * cs + rr(-.35, .35) * cs, r * rs + rr(-.35, .35) * rs) for c in range(W // cs + 2)] for r in range(AH // rs + 2)]
+        for r in range(len(grid) - 1):
+            for c in range(len(grid[r]) - 1):
+                q = [grid[r][c], grid[r][c + 1], grid[r + 1][c + 1], grid[r + 1][c]]
+                for tri in ((0, 1, 2), (0, 2, 3)):
+                    d.polygon([(s(q[i][0]), s(q[i][1])) for i in tri], fill=col() + (A(rr(.03, .14)),),
+                              outline=P["a"] + (A(.12),))
+    elif art == "hex":
+        z = ri(44, 62); hh = z * math.sqrt(3); cx0, cy0 = rr(0, W), rr(0, AH * 0.6)
+        for r in range(-1, int(AH / hh) + 2):
+            for c in range(-1, int(W / (z * 1.5)) + 2):
+                cx = c * z * 1.5; cy = r * hh + (hh / 2 if c % 2 else 0)
+                al = max(.06, .45 - math.hypot(cx - cx0, cy - cy0) / 1100)
+                pts = [(s(cx + math.cos(k * math.pi / 3) * z * .92), s(cy + math.sin(k * math.pi / 3) * z * .92)) for k in range(6)]
+                d.polygon(pts, outline=P["a"] + (A(al * .6),), width=s(2))
+    # soft glow
+    gl = Image.new("RGBA", img.size, (0, 0, 0, 0))
+    gx, gy, gr = rr(200, 900), rr(150, 700), 520
+    ImageDraw.Draw(gl).ellipse([s(gx - gr), s(gy - gr), s(gx + gr), s(gy + gr)], fill=P["b"] + (40,))
+    lay = Image.alpha_composite(gl.filter(ImageFilter.GaussianBlur(s(140))), lay)
+    # fade the pattern out toward the text area
+    m = Image.new("L", (1, s(H)))
+    for y in range(s(H)):
+        yy = y / S; m.putpixel((0, y), 255 if yy < 950 else max(0, int(255 * (1 - (yy - 950) / 300))))
+    lay.putalpha(Image.composite(lay.getchannel("A"), Image.new("L", lay.size, 0), m.resize(lay.size)))
+    img.alpha_composite(lay)
     return img
 
 
-def draw_cover(hook, svg=None, image=None, brand="บ้านนี้มีดี by ซี"):
-    """Full opaque 1080x1920 cover (RGBA)."""
-    img = _background(); d = ImageDraw.Draw(img)
+def draw_cover(hook, svg=None, image=None, brand="บ้านนี้มีดี by ซี", style=None, seed=None):
+    """Full opaque 1080x1920 cover (RGBA). style = {"palette": name, "art": name} (see pick_style)."""
+    global BLUE, BLUE_D, ORANGE
+    rnd = random.Random(seed)
+    style = style or pick_style([], rnd)
+    P = next((p for p in PALETTES if p["name"] == style.get("palette")), PALETTES[3])
+    BLUE = BLUE_D = P["a"]; ORANGE = P["c"]
+    img = _background(P, style.get("art") or "dots", rnd); d = ImageDraw.Draw(img)
 
     # ---- top bar ----
     top = 150
@@ -214,7 +290,7 @@ def draw_cover(hook, svg=None, image=None, brand="บ้านนี้มีด
         img.alpha_composite(sh.filter(ImageFilter.GaussianBlur(s(14))))
         d = ImageDraw.Draw(img)
         d.rounded_rectangle([s(x0), s(y0), s(x1), s(y1)], s(40), fill=(255, 255, 255, 255),
-                            outline=(178, 212, 234, 255), width=s(3))
+                            outline=tuple(int(255 + (v - 255) * 0.45) for v in P["a"]) + (255,), width=s(3))
         ck = _check(s(66))
         for i, p in enumerate(points):
             ry = y0 + 20 + i * row

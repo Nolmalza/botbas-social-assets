@@ -326,7 +326,15 @@ def render_job(job, workdir, log=print):
     cover_img = None
     if hook and (hook.get("style") or "card") == "card":
         s0 = scenes[0]
-        cover_img = cover.draw_cover(hook, svg=s0.get("svg"),
+        hist_p = os.path.join(os.environ.get("DATA_DIR", "/data"), "cover_history.json")
+        try: chist = json.load(open(hist_p))
+        except Exception: chist = []
+        cstyle = {k: hook[k] for k in ("palette", "art") if hook.get(k)} or cover.pick_style(chist, random.Random())
+        if "palette" not in cstyle or "art" not in cstyle: cstyle = {**cover.pick_style(chist, random.Random()), **cstyle}
+        try: json.dump((chist + [cstyle])[-30:], open(hist_p, "w"))
+        except Exception as e: log(f"cover history save failed {e}")
+        log(f"cover {cstyle}")
+        cover_img = cover.draw_cover(hook, style=cstyle, svg=s0.get("svg"),
                                      image=None if s0.get("svg") else load_image(s0.get("image_url"), workdir) or prod,
                                      brand=BRAND)
 

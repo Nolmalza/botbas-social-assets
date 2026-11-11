@@ -38,7 +38,7 @@ class Job(BaseModel):
     seed: int | None = None
     music_style: str | None = None    # "bright" (default) or "lofi"
     callback_url: str | None = None   # e.g. a Make custom webhook
-    hook: dict | None = None          # {"title": "line1\nline *highlight*", "tag": "...", "badge": "..."} big cover text, first ~3 s
+    hook: dict | None = None          # cover, first ~3 s: {"style":"card"(default)|"pop", "tag", "title":"line1\nline *blue*", "badge", "points":[..3], "note", "footer"}
     meta: dict | None = None          # passed back untouched (caption, comment, page id ...)
 
 

@@ -3,7 +3,7 @@ import io, math, os, subprocess, json, random
 import numpy as np, requests, soundfile as sf
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
-import tts, lofi, bright, anim
+import tts, lofi, bright, anim, cover
 
 W, H, FPS = 1080, 1920, 30
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -210,7 +210,17 @@ def _outlined(d, xy, txt, f, fill, stroke, sw):
     d.text(xy, txt, font=f, fill=fill, stroke_width=sw, stroke_fill=stroke)
 
 
-def draw_hook(img, hook, t):
+def draw_hook(img, hook, t, cover_img=None):
+    """card style: full opaque cover (same look as the page's image posts), fades out at the end."""
+    if cover_img is not None:
+        if t >= HOOK_DUR: return
+        fade = 1.0 if t < HOOK_DUR - 0.35 else max(0.0, (HOOK_DUR - t) / 0.35)
+        if fade >= 1: img.alpha_composite(cover_img); return
+        c = cover_img.copy(); c.putalpha(int(255 * fade)); img.alpha_composite(c); return
+    _draw_hook_pop(img, hook, t)
+
+
+def _draw_hook_pop(img, hook, t):
     """Big bold title card over a dimmed scene. Fully visible from frame 0 (no fade-in) so the
     auto-picked cover / first frame already reads well; fades out at the end of HOOK_DUR."""
     if t >= HOOK_DUR: return
@@ -313,6 +323,12 @@ def render_job(job, workdir, log=print):
                          cta=last and job.get("show_cta", True)))
         t_cursor += dur
     T = t_cursor; log(f"duration {T:.1f}s")
+    cover_img = None
+    if hook and (hook.get("style") or "card") == "card":
+        s0 = scenes[0]
+        cover_img = cover.draw_cover(hook, svg=s0.get("svg"),
+                                     image=None if s0.get("svg") else load_image(s0.get("image_url"), workdir) or prod,
+                                     brand=BRAND)
 
     # video
     vtmp = os.path.join(workdir, "video.tmp.mp4"); vout = os.path.join(workdir, "video.mp4")
@@ -334,8 +350,9 @@ def render_job(job, workdir, log=print):
                     pill(d, 300, sc["headline"], int(76 * max(0.3, min(a, 1.05))),
                          RED if sc["i"] == 0 or sc["cta"] else GREEN)
             if sc["cta"]: draw_cta(img, t, cta_text)
-            if hook and sc["i"] == 0: draw_hook(img, hook, t)
-            draw_subs(img, sc["phrases"], t, sc["layout"])
+            if hook and sc["i"] == 0: draw_hook(img, hook, t, cover_img)
+            if not (cover_img is not None and sc["i"] == 0 and t < HOOK_DUR - 0.35):
+                draw_subs(img, sc["phrases"], t, sc["layout"])
             if sc["i"] == 0 and f == 0:
                 img.convert("RGB").save(os.path.join(workdir, "cover.jpg"), quality=92)
             p.stdin.write(img.convert("RGB").tobytes())

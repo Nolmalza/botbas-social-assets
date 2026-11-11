@@ -5,6 +5,7 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 COPY app/ /app/
+COPY assets/ /app/assets_builtin/
 RUN python -c "from PIL import features; assert features.check('raqm'), 'raqm missing (Thai text layout)'"
 ENV DATA_DIR=/data PYTHONUNBUFFERED=1
 EXPOSE 8090

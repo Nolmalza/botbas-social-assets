@@ -2,6 +2,8 @@
 POST /render      (X-API-Key)  -> {job_id, status_url}
 GET  /jobs/{id}   (X-API-Key)  -> {status, video_url, ...}
 GET  /files/{id}.mp4           -> the video (public, unguessable id; deleted after KEEP_DAYS)
+GET  /assets                   -> drawing library catalog {name: {desc, w, h, source}} (public)
+GET  /assets/{name}.svg        -> one library drawing (public)
 GET  /health
 """
 import os, json, time, uuid, shutil, threading, queue, traceback
@@ -9,7 +11,7 @@ import requests
 from fastapi import FastAPI, Header, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-import render
+import render, assets
 
 TOKEN = os.environ["ENGINE_TOKEN"]
 PUBLIC_URL = os.environ.get("PUBLIC_URL", "").rstrip("/")
@@ -40,6 +42,7 @@ class Job(BaseModel):
     callback_url: str | None = None   # e.g. a Make custom webhook
     hook: dict | None = None          # cover, first ~3 s: {"style":"card"(default)|"pop", "tag", "title":"line1\nline *blue*", "badge", "points":[..3], "note", "footer"}
     meta: dict | None = None          # passed back untouched (caption, comment, page id ...)
+    assets: dict | None = None        # optional {name: "<svg ...>"} library drawings sent with the job
 
 
 def auth(k):
@@ -61,7 +64,7 @@ def worker():
                 shutil.move(res["cover"], f"{DATA}/files/{jid}.jpg"); j["cover_url"] = f"{PUBLIC_URL}/files/{jid}.jpg"
             j.update(status="done", video_url=f"{PUBLIC_URL}/files/{jid}.mp4", duration=res["duration"],
                      chars=res["chars"], model=res["model"], credits_left=res["credits_left"], music=res.get("music"),
-                     tts_cache_hits=res.get("tts_cache_hits"), tts_new=res.get("tts_new"), chars_billed=res.get("chars_billed"))
+                     tts_cache_hits=res.get("tts_cache_hits"), tts_new=res.get("tts_new"), chars_billed=res.get("chars_billed"), assets_saved=res.get("assets_saved"))
         except Exception as e:
             traceback.print_exc(); j.update(status="error", error=str(e))
         finally:
@@ -117,6 +120,21 @@ def status(jid: str, x_api_key: str = Header(None)):
     if not j and os.path.exists(f"{DATA}/jobs/{jid}.json"): j = json.load(open(f"{DATA}/jobs/{jid}.json"))
     if not j: raise HTTPException(404, "not found")
     return {k: v for k, v in j.items() if k != "request"}
+
+
+@app.get("/assets")
+def asset_list():
+    return assets.catalog()
+
+
+@app.get("/assets/{name}")
+def asset_file(name: str):
+    n = name[:-4] if name.endswith(".svg") else name
+    if not assets.NAME_OK.match(n): raise HTTPException(404)
+    for d in (assets.SAVED, assets.BUILTIN):
+        p = f"{d}/{n}.svg"
+        if os.path.exists(p): return FileResponse(p, media_type="image/svg+xml")
+    raise HTTPException(404)
 
 
 @app.get("/files/{name}")

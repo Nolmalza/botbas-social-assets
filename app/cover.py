@@ -78,6 +78,8 @@ def strip_bg(svg):
         vb = (root.get("viewBox") or "0 0 920 890").split()
         vw, vh = float(vb[2]), float(vb[3])
         for el in list(root):
+            if el.get("data-depth") and float(el.get("data-depth")) < 1:   # background decor (window, wall art)
+                root.remove(el); continue
             if el.tag.split("}")[-1] != "rect": continue
             w, h = el.get("width", ""), el.get("height", "")
             num = lambda v, full: full if v.endswith("%") else float(re.sub(r"[^0-9.]", "", v) or 0)

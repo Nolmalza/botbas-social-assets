@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 890" data-camera="push" data-focus="420 480"><rect width="920" height="890" fill="#EAF4FB"/><g data-depth="0.55"><g data-asset="window" transform="translate(700 300) scale(0.9)"/></g><rect y="690" width="920" height="200" fill="#E8D7BC"/><line y1="690" x2="920" y2="690" stroke="#34404A" stroke-width="6"/>
+<g data-asset="electric_fan" transform="translate(230 700) scale(1.05)"/>
+<g data-anim="emit" data-kind="steam" data-count="4" data-spread="40" data-amp="160" data-speed="0.5"><g data-asset="stink_lines" transform="translate(230 330) scale(0.5)"/></g>
+<g data-asset="zee" data-expr="0 shock; 3.6 point" transform="translate(640 705) scale(0.78)"/>
+</svg>

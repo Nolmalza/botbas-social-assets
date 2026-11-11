@@ -48,7 +48,7 @@ ET.register_namespace("xlink", "http://www.w3.org/1999/xlink")
 
 
 def has_anim(svg):
-    return bool(svg) and ("data-anim" in svg or "data-camera" in svg)
+    return bool(svg) and ("data-anim" in svg or "data-camera" in svg or "data-zee" in svg)
 
 
 def _f(el, k, d):
@@ -104,8 +104,22 @@ class AnimSVG:
         parent = {c: p for p in self.root.iter() for c in p}
         vb = (self.root.get("viewBox") or "0 0 920 890").split()
         self.vb = [float(v) for v in vb]
-        self.items = []; self.parts = []; self.depth = []
+        self.items = []; self.parts = []; self.depth = []; self.zees = []
         for el in list(self.root.iter()):
+            if el.get("data-zee") == "1":
+                parts = {}
+                for e in el.iter():
+                    z = e.get("data-z")
+                    if z and z != "root": parts.setdefault(z, []).append(e)
+                tl = []
+                for seg in (el.get("data-expr") or "0 normal").split(";"):
+                    tok = seg.split()
+                    if len(tok) >= 2:
+                        try: tl.append((float(tok[0]), tok[1]))
+                        except ValueError: pass
+                tl.sort()
+                self.zees.append(dict(el=el, tf=el.get("transform", ""), parts=parts, tl=tl or [(0, "normal")],
+                                      talk=el.get("data-talk", "1") != "0", seed=len(self.zees) * 1.7))
             a = (el.get("data-anim") or "").strip().lower()
             if el.get("data-depth"):
                 self.depth.append((el, el.get("transform", ""), _f(el, "data-depth", 1.0)))
@@ -158,7 +172,27 @@ class AnimSVG:
         span = w - nw; dx = span * (p if mode == "pan-right" else 1 - p)
         return (x0 + dx, y0 + (h - nh) / 2, nw, nh), dx - span / 2
 
-    def frame(self, t, width, height, D=8.0):
+    def _zee(self, z, t, talk):
+        import assets
+        pose, since = z["tl"][0][1], 0.0
+        for tt0, p in z["tl"]:
+            if t >= tt0: pose, since = p, tt0
+        blink = ((t + z["seed"]) % 3.4) < 0.13
+        speaking = bool(z["talk"] and talk and talk(t) > 0.22)
+        vis = assets.zee_visible(pose, blink, speaking)
+        for name, els in z["parts"].items():
+            for e in els:
+                if name in vis: e.attrib.pop("display", None)
+                else: e.set("display", "none")
+        # breathing + small squash-pop on each pose change
+        x = (t - since) / 0.3
+        pop = 0.07 * math.sin(math.pi * _c(x)) if since > 0 or t < 0.3 else 0.0
+        br = 0.012 * math.sin(t * 2.6 + z["seed"])
+        sx, sy = 1 + pop * 0.6 - br * 0.5, 1 - pop * 0.4 + br
+        z["el"].set("transform", (z["tf"] + f" translate(300,675) scale({sx:.4f},{sy:.4f}) translate(-300,-675)").strip())
+
+    def frame(self, t, width, height, D=8.0, talk=None):
+        for z in self.zees: self._zee(z, t, talk)
         vb, pan = self._camera(t, D)
         self.root.set("viewBox", " ".join(f"{v:.2f}" for v in vb))
         for el, base, dep in self.depth:

@@ -3,7 +3,7 @@ import io, math, os, subprocess, json, random
 import numpy as np, requests, soundfile as sf
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
-import tts, lofi, bright, anim, cover
+import tts, lofi, bright, anim, cover, assets
 
 W, H, FPS = 1080, 1920, 30
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -156,11 +156,11 @@ def card_mask():
     return m.resize((cw, ch), Image.LANCZOS)
 
 
-def draw_card(img, src, mask, t, D, idx, live=None, still_start=False):
+def draw_card(img, src, mask, t, D, idx, live=None, still_start=False, talk=None):
     """live: AnimSVG -> render the animated frame directly (no Ken Burns)."""
     cw, ch = CARD[2] - CARD[0], CARD[3] - CARD[1]
     if live is not None:
-        crop = live.frame(t, cw, ch, D)
+        crop = live.frame(t, cw, ch, D, talk)
     else:
         p = t / max(D, 0.1)
         z = 1.0 + 0.10 * (p if idx % 2 == 0 else 1 - p)
@@ -291,6 +291,13 @@ def render_job(job, workdir, log=print):
     model, left = tts.pick_model()
     log(f"model={model} credits_left={left} chars={total_chars}")
 
+    # reusable drawings: expand data-asset references, store new data-save objects
+    job_assets = job.get("assets") or {}
+    saved_assets = []
+    for s in scenes:
+        if s.get("svg"):
+            s["svg"], sv = assets.expand(s["svg"], job_assets, log); saved_assets += sv
+    if saved_assets: log(f"assets saved {saved_assets}")
     cta_text = job.get("cta", "ลิงก์อยู่ในคอมเมนต์")
     hook = job.get("hook") or None
     prod = load_image(job.get("product_image_url"), workdir)
@@ -318,8 +325,13 @@ def render_job(job, workdir, log=print):
         im = load_svg(s.get("svg")) or load_image(s.get("image_url"), workdir)
         if last and prod is not None and im is None: im = prod
         ph = phrases_with_times(s["text"], align, VO)
+        # loudness envelope of this scene's voice (mascot lip-sync), one value per video frame
+        mono = a.mean(axis=1) if a.ndim > 1 else a
+        hop = max(1, int(sr / FPS)); nfr = int(len(mono) / hop) + 1
+        env = np.array([np.sqrt(np.mean(mono[k * hop:(k + 1) * hop] ** 2)) if k * hop < len(mono) else 0.0 for k in range(nfr)])
+        env = env / (env.max() or 1)
         plan.append(dict(i=i, start=t_cursor, dur=dur, audio=(a, sr), src=make_card_src(im, i), live=live,
-                         phrases=ph, layout=sub_layout(ph), headline=s.get("headline"), step=s.get("step"),
+                         phrases=ph, layout=sub_layout(ph), env=env, headline=s.get("headline"), step=s.get("step"),
                          cta=last and job.get("show_cta", True)))
         t_cursor += dur
     T = t_cursor; log(f"duration {T:.1f}s")
@@ -351,7 +363,9 @@ def render_job(job, workdir, log=print):
             t = f / FPS
             img = base.copy(); d = ImageDraw.Draw(img)
             if sc["step"]: pill(d, 196, sc["step"], 54, ACC)
-            draw_card(img, sc["src"], mask, t, sc["dur"], sc["i"], sc.get("live"), still_start=bool(hook))
+            ev = sc["env"]
+            talk = (lambda tt, ev=ev: float(ev[min(len(ev) - 1, max(0, int((tt - VO) * FPS)))]) if tt >= VO else 0.0)
+            draw_card(img, sc["src"], mask, t, sc["dur"], sc["i"], sc.get("live"), still_start=bool(hook), talk=talk)
             if sc["headline"]:
                 a = back((t - 0.15 - (HOOK_DUR - 0.3 if hook and sc["i"] == 0 else 0)) / 0.45)
                 if a > 0:
@@ -412,7 +426,7 @@ def render_job(job, workdir, log=print):
                     "-shortest", "-movflags", "+faststart", out_tmp], check=True)
     os.replace(out_tmp, out)
     return dict(path=out, cover=os.path.join(workdir, "cover.jpg"), duration=round(T, 2), chars=total_chars, model=model, credits_left=left, music=music_info,
-                tts_cache_hits=tts.STATS['hits'], tts_new=tts.STATS['misses'], chars_billed=tts.STATS['chars_billed'])
+                assets_saved=saved_assets, tts_cache_hits=tts.STATS['hits'], tts_new=tts.STATS['misses'], chars_billed=tts.STATS['chars_billed'])
 
 
 def _decode(mp3):

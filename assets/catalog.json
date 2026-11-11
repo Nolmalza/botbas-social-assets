@@ -1,0 +1,122 @@
+{
+ "sponge": {
+  "desc": "kitchen sponge, yellow with green scouring top",
+  "w": 219,
+  "h": 119
+ },
+ "spray_bottle": {
+  "desc": "blue spray bottle with white trigger head",
+  "w": 211,
+  "h": 369
+ },
+ "basin": {
+  "desc": "blue washing basin / bowl with water",
+  "w": 543,
+  "h": 233
+ },
+ "bucket": {
+  "desc": "plastic bucket with handle",
+  "w": 283,
+  "h": 309
+ },
+ "cloth": {
+  "desc": "folded cleaning cloth / microfiber rag",
+  "w": 299,
+  "h": 124
+ },
+ "scrub_brush": {
+  "desc": "hand scrub brush with wooden back and bristles",
+  "w": 259,
+  "h": 109
+ },
+ "toothbrush": {
+  "desc": "toothbrush (useful for small gaps)",
+  "w": 320,
+  "h": 129
+ },
+ "baking_soda_box": {
+  "desc": "baking soda box (orange, no text)",
+  "w": 229,
+  "h": 279
+ },
+ "vinegar_bottle": {
+  "desc": "clear bottle of white vinegar",
+  "w": 219,
+  "h": 369
+ },
+ "lemon": {
+  "desc": "lemon with one half cut open",
+  "w": 316,
+  "h": 149
+ },
+ "dish_soap": {
+  "desc": "green dish soap squeeze bottle",
+  "w": 139,
+  "h": 389
+ },
+ "rubber_glove": {
+  "desc": "yellow rubber cleaning glove",
+  "w": 191,
+  "h": 369
+ },
+ "kettle": {
+  "desc": "electric kettle",
+  "w": 364,
+  "h": 290
+ },
+ "mug": {
+  "desc": "coffee mug",
+  "w": 254,
+  "h": 207
+ },
+ "electric_fan": {
+  "desc": "standing electric fan with dusty blades",
+  "w": 341,
+  "h": 537
+ },
+ "window": {
+  "desc": "wall window for room backgrounds",
+  "w": 287,
+  "h": 239
+ },
+ "sparkle": {
+  "desc": "yellow four-point sparkle (clean effect)",
+  "w": 139,
+  "h": 139
+ },
+ "stink_lines": {
+  "desc": "green wavy smell lines (bad odour effect)",
+  "w": 142,
+  "h": 202
+ },
+ "water_drop": {
+  "desc": "blue water drop",
+  "w": 119,
+  "h": 169
+ },
+ "bubble": {
+  "desc": "soap bubble",
+  "w": 91,
+  "h": 91
+ },
+ "stain_blob": {
+  "desc": "brown dirt / grease stain blob",
+  "w": 140,
+  "h": 120
+ },
+ "zee": {
+  "desc": "page mascot (special)",
+  "w": 330,
+  "h": 540
+ },
+ "arm": {
+  "desc": "jointed arm (special)",
+  "w": 400,
+  "h": 260
+ },
+ "fan_blade": {
+  "desc": "single brown fan blade removed from a standing fan",
+  "w": 394,
+  "h": 171
+ }
+}

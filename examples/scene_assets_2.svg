@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 920 890" data-camera="push" data-focus="450 500"><rect width="920" height="890" fill="#EAF4FB"/><g data-depth="0.55"><g data-asset="window" transform="translate(700 300) scale(0.9)"/></g><rect y="690" width="920" height="200" fill="#E8D7BC"/><line y1="690" x2="920" y2="690" stroke="#34404A" stroke-width="6"/>
+<g data-asset="basin" transform="translate(460 740)"/>
+<g data-anim="keys" data-cx="440" data-cy="500" data-delay="1.2" data-loop="1" data-keys="0 0 0 0; 0.35 0 3 1.2; 0.7 0 0 0">
+ <g data-save="fan_blade" data-desc="single brown fan blade removed from a standing fan"><g transform="rotate(-14 440 500)"><ellipse cx="440" cy="500" rx="190" ry="62" fill="#8C7B6B" stroke="#34404A" stroke-width="7"/><circle cx="270" cy="500" r="26" fill="#FFFFFF" stroke="#34404A" stroke-width="6"/></g></g>
+ <g data-anim="scrubout" data-delay="1.8" data-dur="4.2"><g data-asset="stain_blob" transform="translate(390 525) scale(0.5)"/><g data-asset="stain_blob" transform="translate(470 500) scale(0.4)"/><g data-asset="stain_blob" transform="translate(540 485) scale(0.45)"/><g data-asset="stain_blob" transform="translate(340 545) scale(0.3)"/></g>
+</g>
+<circle cx="450" cy="490" r="9" fill="#9C8B7B" data-anim="emit" data-kind="dust" data-count="10" data-amp="150" data-speed="0.7" data-delay="1.9"/>
+<g data-anim="emit" data-kind="bubble" data-count="9" data-spread="200" data-amp="260" data-speed="0.35"><g data-asset="bubble" transform="translate(460 590) scale(0.5)"/></g>
+<g data-anim="keys" data-keys="0 340 -120 12; 1.0 0 0 0 1 1 back; 6.4 0 0 0; 7.2 40 -70 -6"><g data-asset="arm" data-hold="sponge" data-hold-scale="0.75" data-sleeve="#3DA5F0" data-joint-delay="1.2" data-shoulder-keys="0 0 0 0; 0.35 0 0 -7; 0.7 0 0 0" data-elbow-keys="0 0 0 0; 0.35 0 0 9 1.04*0.97; 0.7 0 0 0" transform="translate(940 250)"/></g>
+<g data-anim="pop" data-cx="330" data-cy="400" data-delay="6.6"><g data-asset="sparkle" transform="translate(330 440)"/></g>
+<g data-anim="pop" data-cx="560" data-cy="370" data-delay="6.9"><g data-asset="sparkle" transform="translate(560 410) scale(0.8)"/></g>
+</svg>

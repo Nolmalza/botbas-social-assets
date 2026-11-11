@@ -160,7 +160,7 @@ def draw_card(img, src, mask, t, D, idx, live=None, still_start=False):
     """live: AnimSVG -> render the animated frame directly (no Ken Burns)."""
     cw, ch = CARD[2] - CARD[0], CARD[3] - CARD[1]
     if live is not None:
-        crop = live.frame(t, cw, ch)
+        crop = live.frame(t, cw, ch, D)
     else:
         p = t / max(D, 0.1)
         z = 1.0 + 0.10 * (p if idx % 2 == 0 else 1 - p)
@@ -312,7 +312,7 @@ def render_job(job, workdir, log=print):
         dur = len(a) / sr + VO + (1.3 if i == len(scenes) - 1 else GAP)
         last = i == len(scenes) - 1
         live = None
-        if anim.has_anim(s.get("svg")):
+        if s.get("svg"):   # every svg scene is rendered live (camera move + any data-anim parts)
             try: live = anim.AnimSVG(s["svg"])
             except Exception as e: log(f"anim parse failed: {e}")
         im = load_svg(s.get("svg")) or load_image(s.get("image_url"), workdir)

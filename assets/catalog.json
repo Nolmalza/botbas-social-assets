@@ -118,5 +118,20 @@
   "desc": "single brown fan blade removed from a standing fan",
   "w": 394,
   "h": 171
+ },
+ "limescale_closeup": {
+  "desc": "round zoom bubble showing the inside bottom of a kettle covered in white limescale",
+  "w": 279,
+  "h": 279
+ },
+ "wall_socket": {
+  "desc": "white wall power socket with two holes",
+  "w": 109,
+  "h": 129
+ },
+ "power_plug": {
+  "desc": "black electric plug with two prongs and a short cord",
+  "w": 89,
+  "h": 137
  }
 }

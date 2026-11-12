@@ -1,0 +1,40 @@
+{
+ "theme": "dark",
+ "voice_name": "zie",
+ "brand": {
+  "name": "BotBas",
+  "hl": "Bas",
+  "site": "botbas.com",
+  "footer": "เทรดอย่างมีวินัย · All M",
+  "tag": "ความรู้ Forex"
+ },
+ "cta": "ดูเครื่องมือที่ botbas.com",
+ "hook": {
+  "tag": "เทคนิคเทรดเอง",
+  "title": "SL *โดนกิน*\nทุกไม้?",
+  "badge": "ตั้ง SL ด้วย ATR",
+  "points": [
+   "วัดความผันผวนด้วย ATR 14",
+   "วาง SL ห่าง 1.5 เท่า ATR",
+   "คำนวณ lot จากระยะ SL"
+  ],
+  "note": "ความเสี่ยงต่อไม้ไม่ควรเกิน 1-2%"
+ },
+ "scenes": [
+  {
+   "text": "ใครเคยโดน สต็อปลอส ทุกไม้บ้างครับ ราคาแค่สะบัดนิดเดียว ก็หลุดออกไปแล้ว",
+   "headline": "SL โดนกินทุกไม้?",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 920 890\" data-camera=\"push\" data-focus=\"560 520\"><rect width=\"920\" height=\"890\" fill=\"#0b1226\"/>\n<g data-depth=\"0.55\" opacity=\"0.5\"><circle cx=\"160\" cy=\"150\" r=\"90\" fill=\"#1e3a8a\"/><circle cx=\"780\" cy=\"120\" r=\"60\" fill=\"#312e81\"/></g>\n<rect x=\"0\" y=\"760\" width=\"920\" height=\"130\" fill=\"#0f1a36\"/>\n<rect x=\"70\" y=\"170\" width=\"780\" height=\"560\" rx=\"28\" fill=\"#111c3a\" stroke=\"#334155\" stroke-width=\"6\"/>\n<g stroke=\"#1e293b\" stroke-width=\"3\"><line x1=\"100\" y1=\"300\" x2=\"820\" y2=\"300\"/><line x1=\"100\" y1=\"420\" x2=\"820\" y2=\"420\"/><line x1=\"100\" y1=\"540\" x2=\"820\" y2=\"540\"/><line x1=\"100\" y1=\"660\" x2=\"820\" y2=\"660\"/></g>\n<g data-anim=\"pop\" data-cx=\"150\" data-cy=\"406\" data-delay=\"3.20\"><line x1=\"150\" y1=\"382\" x2=\"150\" y2=\"437\" stroke=\"#22c55e\" stroke-width=\"5\"/><rect x=\"136\" y=\"392\" width=\"28\" height=\"28\" rx=\"4\" fill=\"#22c55e\"/></g><g data-anim=\"pop\" data-cx=\"202\" data-cy=\"375\" data-delay=\"3.38\"><line x1=\"202\" y1=\"348\" x2=\"202\" y2=\"409\" stroke=\"#22c55e\" stroke-width=\"5\"/><rect x=\"188\" y=\"357\" width=\"28\" height=\"35\" rx=\"4\" fill=\"#22c55e\"/></g><g data-anim=\"pop\" data-cx=\"254\" data-cy=\"374\" data-delay=\"3.56\"><line x1=\"254\" y1=\"332\" x2=\"254\" y2=\"416\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"240\" y=\"357\" width=\"28\" height=\"34\" rx=\"4\" fill=\"#ef4444\"/></g><g data-anim=\"pop\" data-cx=\"306\" data-cy=\"376\" data-delay=\"3.74\"><line x1=\"306\" y1=\"342\" x2=\"306\" y2=\"405\" stroke=\"#22c55e\" stroke-width=\"5\"/><rect x=\"292\" y=\"362\" width=\"28\" height=\"29\" rx=\"4\" fill=\"#22c55e\"/></g><g data-anim=\"pop\" data-cx=\"358\" data-cy=\"345\" data-delay=\"3.92\"><line x1=\"358\" y1=\"318\" x2=\"358\" y2=\"374\" stroke=\"#22c55e\" stroke-width=\"5\"/><rect x=\"344\" y=\"328\" width=\"28\" height=\"33\" rx=\"4\" fill=\"#22c55e\"/></g><g data-anim=\"pop\" data-cx=\"410\" data-cy=\"346\" data-delay=\"4.10\"><line x1=\"410\" y1=\"302\" x2=\"410\" y2=\"389\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"396\" y=\"328\" width=\"28\" height=\"34\" rx=\"4\" fill=\"#ef4444\"/></g><g data-anim=\"pop\" data-cx=\"462\" data-cy=\"374\" data-delay=\"4.28\"><line x1=\"462\" y1=\"351\" x2=\"462\" y2=\"401\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"448\" y=\"363\" width=\"28\" height=\"23\" rx=\"4\" fill=\"#ef4444\"/></g><g data-anim=\"pop\" data-cx=\"514\" data-cy=\"390\" data-delay=\"4.46\"><line x1=\"514\" y1=\"362\" x2=\"514\" y2=\"420\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"500\" y=\"386\" width=\"28\" height=\"8\" rx=\"4\" fill=\"#ef4444\"/></g><g data-anim=\"pop\" data-cx=\"566\" data-cy=\"419\" data-delay=\"4.64\"><line x1=\"566\" y1=\"383\" x2=\"566\" y2=\"467\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"552\" y=\"393\" width=\"28\" height=\"52\" rx=\"4\" fill=\"#ef4444\"/></g><g data-anim=\"pop\" data-cx=\"618\" data-cy=\"462\" data-delay=\"4.82\"><line x1=\"618\" y1=\"426\" x2=\"618\" y2=\"491\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"604\" y=\"445\" width=\"28\" height=\"33\" rx=\"4\" fill=\"#ef4444\"/></g><g data-anim=\"pop\" data-cx=\"670\" data-cy=\"487\" data-delay=\"5.00\"><line x1=\"670\" y1=\"469\" x2=\"670\" y2=\"523\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"656\" y=\"479\" width=\"28\" height=\"16\" rx=\"4\" fill=\"#ef4444\"/></g><g data-anim=\"pop\" data-cx=\"722\" data-cy=\"520\" data-delay=\"5.18\"><line x1=\"722\" y1=\"474\" x2=\"722\" y2=\"560\" stroke=\"#ef4444\" stroke-width=\"5\"/><rect x=\"708\" y=\"495\" width=\"28\" height=\"51\" rx=\"4\" fill=\"#ef4444\"/></g>\n<g data-anim=\"slidein\" data-from=\"left\" data-delay=\"5.6\"><line x1=\"100\" y1=\"600\" x2=\"820\" y2=\"600\" stroke=\"#ef4444\" stroke-width=\"6\" stroke-dasharray=\"22 14\"/><rect x=\"740\" y=\"572\" width=\"72\" height=\"56\" rx=\"12\" fill=\"#ef4444\"/><path d=\"M760 590 l16 20 l16 -20\" stroke=\"#fff\" stroke-width=\"6\" fill=\"none\" stroke-linecap=\"round\"/></g>\n<g data-anim=\"pulse\" data-cx=\"700\" data-cy=\"250\" data-speed=\"1.2\" data-delay=\"6\"><circle cx=\"700\" cy=\"250\" r=\"44\" fill=\"#fbbf24\"/><rect x=\"694\" y=\"222\" width=\"12\" height=\"34\" rx=\"6\" fill=\"#0b1226\"/><circle cx=\"700\" cy=\"272\" r=\"7\" fill=\"#0b1226\"/></g>\n<circle cx=\"560\" cy=\"560\" r=\"6\" fill=\"#fbbf24\" data-anim=\"emit\" data-kind=\"sparkle\" data-count=\"6\" data-spread=\"160\" data-amp=\"120\" data-speed=\"0.6\" data-delay=\"6.4\"/>\n</svg>"
+  },
+  {
+   "text": "ลองใช้ เอทีอาร์ วัดความผันผวนก่อนครับ แล้ววาง สต็อปลอส ห่างประมาณหนึ่งจุดห้าเท่า",
+   "headline": "วัดด้วย ATR",
+   "step": "ขั้นที่ 1",
+   "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 920 890\" data-camera=\"push\" data-focus=\"460 470\"><rect width=\"920\" height=\"890\" fill=\"#0b1226\"/>\n<g data-depth=\"0.55\" opacity=\"0.45\"><circle cx=\"820\" cy=\"180\" r=\"110\" fill=\"#1e3a8a\"/></g>\n<rect x=\"0\" y=\"760\" width=\"920\" height=\"130\" fill=\"#0f1a36\"/>\n<rect x=\"70\" y=\"150\" width=\"780\" height=\"580\" rx=\"28\" fill=\"#111c3a\" stroke=\"#334155\" stroke-width=\"6\"/>\n<g data-anim=\"pop\" data-cx=\"250\" data-cy=\"420\" data-delay=\"0.3\"><line x1=\"250\" y1=\"300\" x2=\"250\" y2=\"560\" stroke=\"#22c55e\" stroke-width=\"6\"/><rect x=\"226\" y=\"340\" width=\"48\" height=\"170\" rx=\"6\" fill=\"#22c55e\"/></g>\n<g data-anim=\"pop\" data-cx=\"380\" data-cy=\"440\" data-delay=\"0.6\"><line x1=\"380\" y1=\"330\" x2=\"380\" y2=\"570\" stroke=\"#ef4444\" stroke-width=\"6\"/><rect x=\"356\" y=\"370\" width=\"48\" height=\"150\" rx=\"6\" fill=\"#ef4444\"/></g>\n<g data-anim=\"pop\" data-cx=\"510\" data-cy=\"400\" data-delay=\"0.9\"><line x1=\"510\" y1=\"280\" x2=\"510\" y2=\"520\" stroke=\"#22c55e\" stroke-width=\"6\"/><rect x=\"486\" y=\"320\" width=\"48\" height=\"160\" rx=\"6\" fill=\"#22c55e\"/></g>\n<g data-anim=\"keys\" data-keys=\"0 0 0 0 1 0; 1.4 0 0 0 1 0; 1.8 0 0 0 1 1 out; 2.6 130 0 0 1 1 inout; 3.4 260 0 0 1 1 inout; 9 260 0 0 1 1\"><g stroke=\"#fbbf24\" stroke-width=\"6\" stroke-linecap=\"round\"><line x1=\"300\" y1=\"300\" x2=\"300\" y2=\"560\"/><line x1=\"282\" y1=\"300\" x2=\"318\" y2=\"300\"/><line x1=\"282\" y1=\"560\" x2=\"318\" y2=\"560\"/></g></g>\n<g data-anim=\"keys\" data-keys=\"0 0 0 0 1 0; 3.6 0 0 0 1 1 out; 4.4 0 0 0; 5.6 0 90 0 1 1 back; 9 0 90 0\"><line x1=\"100\" y1=\"590\" x2=\"820\" y2=\"590\" stroke=\"#ef4444\" stroke-width=\"6\" stroke-dasharray=\"22 14\"/><rect x=\"690\" y=\"562\" width=\"120\" height=\"56\" rx=\"12\" fill=\"#ef4444\"/><path d=\"M712 590 h76\" stroke=\"#fff\" stroke-width=\"7\" stroke-linecap=\"round\"/></g>\n<g data-anim=\"keys\" data-keys=\"0 0 0 0 1 0; 5.8 0 0 0 1 0; 6.3 0 0 0 1.15 1 back; 6.8 0 0 0 1 1\" data-cx=\"640\" data-cy=\"300\"><rect x=\"580\" y=\"250\" width=\"200\" height=\"100\" rx=\"22\" fill=\"#3b82f6\"/><path d=\"M620 300 l26 26 l52 -52\" stroke=\"#0b1226\" stroke-width=\"12\" fill=\"none\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/></g>\n</svg>"
+  },
+  {
+   "text": "อยากได้ตัวช่วยเทรด ดูต่อได้ที่ลิงก์ในคอมเมนต์เลยครับ",
+   "headline": "มีตัวช่วยไหม?"
+  }
+ ]
+}

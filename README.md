@@ -138,3 +138,13 @@ Header: `X-API-Key: <token>` , `Content-Type: application/json`
 
 ## Backup
 ดู `ops/RECOVERY.md` — สำรองรายวัน (.env, เสียงที่เก็บไว้, ประวัติเพลง) ด้วย `ops/backup.sh`, ติดตั้งครั้งเดียวด้วย `sudo bash ops/install-backup.sh`, กู้คืนด้วย `sudo bash ops/restore.sh`
+
+
+## Dark trading theme (botbas.com Forex Reels, Nov 2026)
+`"theme": "dark"` + `"brand": {"name":"BotBas","hl":"Bas","site":"botbas.com","footer":"...","tag":"ความรู้ Forex"}`
+gives the PipGuard image-post look (navy background, candles/line/hex/aurora/circuit/poly/bars art, accent tag,
+robot logo, white title with *accent* words, yellow badge, dark checklist panel). Palette never repeats the previous
+dark clip, art not in the last 3 (data/cover_history_dark.json). `"voice_name": "zie"` resolves the ElevenLabs voice
+from My Voices (data/voice_ids.json; delete that file if the voice is re-added). Scene svgs for this theme use a dark
+background (#0b1226) and dark panels; see examples/botbas_dark_scene1.svg, botbas_dark_scene2.svg and sample_job_botbas.json.
+Test without credits: `TTS_PROVIDER=dummy`.

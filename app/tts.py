@@ -9,6 +9,28 @@ FALLBACK_BELOW = int(os.environ.get("FALLBACK_WHEN_CREDITS_BELOW", "15000"))
 PROVIDER = os.environ.get("TTS_PROVIDER", "elevenlabs")
 
 
+def resolve_voice(name):
+    """ElevenLabs voice name (as shown in My Voices) -> voice_id. Cached in DATA_DIR/voice_ids.json.
+    Exact (case-insensitive) match first, then names starting with / containing it."""
+    path = os.path.join(os.environ.get("DATA_DIR", "/data"), "voice_ids.json")
+    try: cache = json.load(open(path))
+    except Exception: cache = {}
+    k = name.strip().lower()
+    if k in cache: return cache[k]
+    if PROVIDER == "dummy": return "dummy"
+    r = requests.get(f"{API}/voices", headers={"xi-api-key": KEY}, timeout=30); r.raise_for_status()
+    vs = r.json().get("voices", [])
+    nm = lambda v: (v.get("name") or "").strip().lower()
+    hit = next((v for v in vs if nm(v) == k), None) or next((v for v in vs if nm(v).startswith(k)), None) \
+        or next((v for v in vs if k in nm(v)), None)
+    if not hit:
+        raise RuntimeError(f"voice '{name}' not found in My Voices ({len(vs)} voices). Add it from the Voice Library first.")
+    cache[k] = hit["voice_id"]
+    try: json.dump(cache, open(path, "w"))
+    except Exception: pass
+    return hit["voice_id"]
+
+
 def credits_left():
     """Remaining characters in this billing period, or None if unknown."""
     try:

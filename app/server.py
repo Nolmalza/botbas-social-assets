@@ -5,6 +5,10 @@ GET  /files/{id}.mp4           -> the video (public, unguessable id; deleted aft
 GET  /assets                   -> drawing library catalog {name: {desc, w, h, source}} (public)
 GET  /assets/{name}.svg        -> one library drawing (public)
 GET  /health
+
+Themes: default = light baannee card look; "theme":"dark" + "brand":{name,hl,site,footer,tag} = PipGuard-style
+trading look for any brand (app/darktheme.py, example sample_job_botbas.json). "voice_name" picks an ElevenLabs
+voice by its My Voices name (cached in DATA_DIR/voice_ids.json) instead of voice_id.
 """
 import os, json, time, uuid, shutil, threading, queue, traceback
 import requests
@@ -37,6 +41,9 @@ class Job(BaseModel):
     cta: str | None = "ลิงก์อยู่ในคอมเมนต์"
     show_cta: bool = True
     voice_id: str | None = None
+    voice_name: str | None = None     # ElevenLabs voice name (My Voices), resolved on the VPS, e.g. "zie"
+    theme: str | None = None          # None/"light" = baannee card look, "dark" = PipGuard-style trading look
+    brand: dict | None = None         # dark theme: {"name","hl","site","footer","tag"}
     seed: int | None = None
     music_style: str | None = None    # "bright" (default) or "lofi"
     callback_url: str | None = None   # e.g. a Make custom webhook

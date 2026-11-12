@@ -3,7 +3,7 @@ import io, math, os, subprocess, json, random
 import numpy as np, requests, soundfile as sf
 from PIL import Image, ImageDraw, ImageFont, ImageOps
 
-import tts, lofi, bright, anim, cover, assets
+import tts, lofi, bright, anim, cover, assets, darktheme
 
 W, H, FPS = 1080, 1920, 30
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -13,8 +13,32 @@ BRAND = os.environ.get("BRAND_NAME", "บ้านนี้มีดี by ซ�
 BG = (255, 246, 229); BLOB = (255, 232, 196)
 INK = (52, 62, 74); ACC = (255, 122, 69); RED = (210, 70, 60); GREEN = (46, 160, 110)
 HL = (255, 213, 74)
+SUB_BOX = (52, 62, 74); OUTLINE = INK; CTA_BG = (255, 255, 255); STEP_FG = (255, 255, 255)
+LIGHT = dict(BG=BG, INK=INK, ACC=ACC, RED=RED, GREEN=GREEN, HL=HL, SUB_BOX=SUB_BOX, OUTLINE=OUTLINE,
+             CTA_BG=CTA_BG, STEP_FG=STEP_FG)
+
+
+def apply_theme(job):
+    """Set the module colours for this job. theme "dark" = PipGuard-style trading look (see darktheme.py)."""
+    g = globals(); g.update(LIGHT); g["THEME"] = None
+    if (job.get("theme") or "light") != "dark": return None
+    hist_p = os.path.join(os.environ.get("DATA_DIR", "/data"), "cover_history_dark.json")
+    try: hist = json.load(open(hist_p))
+    except Exception: hist = []
+    hook = job.get("hook") or {}
+    st = darktheme.pick_style(hist, random.Random())
+    st.update({k: hook[k] for k in ("palette", "art") if hook.get(k)})
+    try: json.dump((hist + [st])[-30:], open(hist_p, "w"))
+    except Exception: pass
+    P = darktheme.palette(st["palette"])
+    g.update(BG=P["bg"], INK=(255, 255, 255), ACC=P["a"], RED=(239, 68, 68), GREEN=(34, 197, 94), HL=P["c"],
+             SUB_BOX=(13, 21, 48), OUTLINE=darktheme.mix(P["bg"], P["a"], .55), CTA_BG=(13, 21, 48),
+             STEP_FG=darktheme.TAGINK)
+    g["THEME"] = dict(style=st, P=P, brand=job.get("brand") or {})
+    return g["THEME"]
 CARD = (80, 400, 1000, 1290)          # x0,y0,x1,y1
 SUB_Y = 1330
+THEME = None
 
 _fc = {}
 def font(sz, semi=False):
@@ -61,7 +85,8 @@ def house_icon(sz=64):
     return im.resize((sz, sz), Image.LANCZOS)
 
 
-def pill(d, y, s, sz, bg, fg=(255, 255, 255), pad=36):
+def pill(d, y, s, sz, bg, fg=None, pad=36):
+    fg = fg or (255, 255, 255)
     while d.textlength(s, font=font(sz)) > W - 160 and sz > 30: sz -= 2
     f = font(sz); w = d.textlength(s, font=f); x0 = (W - w) / 2 - pad
     d.rounded_rectangle([x0, y, x0 + w + 2 * pad, y + sz * 1.55], int(sz * 0.6), fill=bg)
@@ -69,6 +94,8 @@ def pill(d, y, s, sz, bg, fg=(255, 255, 255), pad=36):
 
 
 def static_base():
+    if THEME:
+        return darktheme.static_base(THEME["P"], THEME["brand"], THEME["style"]["art"])
     img = Image.new("RGBA", (W, H), BG + (255,)); d = ImageDraw.Draw(img)
     d.ellipse([-260, -200, 520, 520], fill=BLOB); d.ellipse([700, 1450, 1400, 2150], fill=BLOB)
     f0 = font(60); w0 = d.textlength(BRAND, font=f0); x0 = (W - w0) / 2 + 40
@@ -116,7 +143,7 @@ def draw_subs(img, phrases, t, layout):
     start = (li // 2) * 2; shown = lines[start:start + 2]
     a = ease(t / 0.25); lh = int(sz * 1.42)
     if a < 0.02: return
-    d.rounded_rectangle([60, SUB_Y, W - 60, SUB_Y + len(shown) * lh + 44], 36, fill=(52, 62, 74, int(230 * a)))
+    d.rounded_rectangle([60, SUB_Y, W - 60, SUB_Y + len(shown) * lh + 44], 36, fill=SUB_BOX + (int(230 * a),))
     for r, L in enumerate(shown):
         widths = [d.textlength(phrases[k][0], font=f) for k in L]
         x = (W - (sum(widths) + sp * (len(L) - 1))) / 2; y = SUB_Y + 20 + r * lh
@@ -138,6 +165,8 @@ def sub_layout(phrases):
 # ---------- card ----------
 def make_card_src(im, idx):
     cw, ch = CARD[2] - CARD[0], CARD[3] - CARD[1]
+    if im is None and THEME:
+        im = darktheme.card_fallback(THEME["P"], THEME["brand"], cw, ch)
     if im is None:
         g = Image.new("RGB", (cw, ch), (255, 225, 180)); d = ImageDraw.Draw(g)
         for k in range(0, ch, 6):
@@ -190,7 +219,7 @@ def draw_card(img, src, mask, t, D, idx, live=None, still_start=False, talk=None
     x = int((CARD[0] + CARD[2]) / 2 - card.width / 2) + dx; y = int((CARD[1] + CARD[3]) / 2 - card.height / 2)
     img.alpha_composite(sh, (x + 10, y + 16)); img.alpha_composite(card, (x, y))
     if not rot:
-        ImageDraw.Draw(img).rounded_rectangle([x, y, x + card.width, y + card.height], 40, outline=INK, width=6)
+        ImageDraw.Draw(img).rounded_rectangle([x, y, x + card.width, y + card.height], 40, outline=OUTLINE, width=6)
 
 
 # ---------- hook cover (first ~3 s; frame 0 = Reel cover) ----------
@@ -272,7 +301,7 @@ def draw_cta(img, t, text):
     while d.textlength(text, font=font(sz)) > W - 340 and sz > 30: sz -= 2
     w = d.textlength(text, font=font(sz))
     y0 = CARD[3] - 210
-    d.rounded_rectangle([(W - w) / 2 - 50, y0, (W + w) / 2 + 50, y0 + sz * 1.7], 36, fill=(255, 255, 255), outline=ACC, width=8)
+    d.rounded_rectangle([(W - w) / 2 - 50, y0, (W + w) / 2 + 50, y0 + sz * 1.7], 36, fill=CTA_BG, outline=ACC, width=8)
     d.text(((W - w) / 2, y0 + sz * 0.22), text, font=font(sz), fill=ACC)
     ay = y0 + sz * 1.7 + 10 + 12 * math.sin(t * 6)
     d.polygon([(W / 2 - 34, ay), (W / 2 + 34, ay), (W / 2, ay + 40)], fill=ACC)
@@ -282,7 +311,10 @@ def draw_cta(img, t, text):
 def render_job(job, workdir, log=print):
     os.makedirs(workdir, exist_ok=True)
     scenes = job["scenes"]; assert 1 <= len(scenes) <= 8, "scenes must be 1..8"
-    voice = job.get("voice_id") or os.environ.get("ELEVEN_VOICE_ID", "")
+    voice = job.get("voice_id") or (tts.resolve_voice(job["voice_name"]) if job.get("voice_name") else None) \
+        or os.environ.get("ELEVEN_VOICE_ID", "")
+    theme = apply_theme(job)
+    if theme: log(f"theme dark {theme['style']}")
     total_chars = sum(len(s["text"]) for s in scenes)
     max_chars = int(os.environ.get("MAX_CHARS", "700"))
     if total_chars > max_chars:
@@ -336,7 +368,11 @@ def render_job(job, workdir, log=print):
         t_cursor += dur
     T = t_cursor; log(f"duration {T:.1f}s")
     cover_img = None
-    if hook and (hook.get("style") or "card") == "card":
+    if hook and theme:
+        s0 = scenes[0]
+        cover_img = darktheme.draw_cover(hook, theme["brand"], svg=s0.get("svg"), style=theme["style"],
+                                         image=None if s0.get("svg") else load_image(s0.get("image_url"), workdir) or prod)
+    elif hook and (hook.get("style") or "card") == "card":
         s0 = scenes[0]
         hist_p = os.path.join(os.environ.get("DATA_DIR", "/data"), "cover_history.json")
         try: chist = json.load(open(hist_p))
@@ -362,7 +398,7 @@ def render_job(job, workdir, log=print):
         for f in range(n):
             t = f / FPS
             img = base.copy(); d = ImageDraw.Draw(img)
-            if sc["step"]: pill(d, 196, sc["step"], 54, ACC)
+            if sc["step"]: pill(d, 196, sc["step"], 54, ACC, STEP_FG)
             ev = sc["env"]
             talk = (lambda tt, ev=ev: float(ev[min(len(ev) - 1, max(0, int((tt - VO) * FPS)))]) if tt >= VO else 0.0)
             draw_card(img, sc["src"], mask, t, sc["dur"], sc["i"], sc.get("live"), still_start=bool(hook), talk=talk)

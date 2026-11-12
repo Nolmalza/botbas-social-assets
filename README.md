@@ -148,3 +148,5 @@ dark clip, art not in the last 3 (data/cover_history_dark.json). `"voice_name": 
 from My Voices (data/voice_ids.json; delete that file if the voice is re-added). Scene svgs for this theme use a dark
 background (#0b1226) and dark panels; see examples/botbas_dark_scene1.svg, botbas_dark_scene2.svg and sample_job_botbas.json.
 Test without credits: `TTS_PROVIDER=dummy`.
+
+`brand.logo`: "robot" (default, BotBas) or "shield" (PipGuard). PipGuard brand: {"name":"PipGuard","hl":"Guard","site":"pipguard.cloud","logo":"shield","footer":"เทรดอย่างมีวินัย · บริหารความเสี่ยงก่อนกำไร","tag":"เทคนิคเทรดวันนี้"}.

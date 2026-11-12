@@ -1,7 +1,7 @@
 """Dark 'trading card' theme (same look as the PipGuard image posts, but any brand).
 
 Used when a job has "theme": "dark". Brand comes from job["brand"]:
-  {"name": "BotBas", "hl": "Bas", "site": "botbas.com",
+  {"name": "BotBas", "hl": "Bas", "site": "botbas.com", "logo": "robot"|"shield",
    "footer": "เทรดอย่างมีวินัย · บริหารความเสี่ยงก่อนกำไร", "tag": "ความรู้ Forex"}
   name  = logo text, the part equal to `hl` is drawn in the accent colour
   site  = bottom-right of the cover
@@ -143,8 +143,8 @@ def background(P, art, rnd, w=W, h=H, art_h=1150, fade_to=1350, strength=1.0):
 
 
 # ---------------- logo ----------------
-def logo_icon(P, sz):
-    """Rounded square, accent->b gradient, robot head (BotBas mark)."""
+def logo_icon(P, sz, kind="robot"):
+    """Rounded square, accent->b gradient, robot head (BotBas mark) or shield + tick (brand.logo = "shield")."""
     s = 4; n = sz * s
     grad = Image.new("RGBA", (n, n))
     gd = ImageDraw.Draw(grad)
@@ -152,6 +152,12 @@ def logo_icon(P, sz):
         gd.line([(0, k), (n, k)], fill=mix(P["a"], P["b"], k / n) + (255,))
     m = Image.new("L", (n, n), 0); ImageDraw.Draw(m).rounded_rectangle([0, 0, n - 1, n - 1], int(n * .28), fill=255)
     grad.putalpha(m); d = ImageDraw.Draw(grad)
+    if kind == "shield":
+        u = n / 24; lw = int(u * 2)
+        sh = [(12, 3), (20, 6), (20, 12), (17.5, 17.5), (12, 21), (6.5, 17.5), (4, 12), (4, 6), (12, 3)]
+        d.line([(n * .2 + x * u * .6, n * .2 + y * u * .6) for x, y in sh], fill=TAGINK, width=lw, joint="curve")
+        d.line([(n * .2 + x * u * .6, n * .2 + y * u * .6) for x, y in [(9, 12), (11, 14), (15, 10)]], fill=TAGINK, width=lw, joint="curve")
+        return grad.resize((sz, sz), Image.LANCZOS)
     # robot head (BotBas mark): antenna, rounded head, two eyes, smile (drawn on a layer, shrunk 82%)
     rb = Image.new("RGBA", (n, n), (0, 0, 0, 0)); d = ImageDraw.Draw(rb)
     u = n / 24; lw = int(u * 1.9)
@@ -180,7 +186,7 @@ def draw_brand(img, P, brand, right_x, top, size=44, icon=92, scale=1):
     segs = [(t, c) for t, c in brand_segments(brand, P) if t]
     tw = sum(d.textlength(t, font=f) for t, _ in segs)
     x = right_x * scale - tw
-    ic = logo_icon(P, int(icon * scale))
+    ic = logo_icon(P, int(icon * scale), brand.get("logo") or "robot")
     img.alpha_composite(ic, (int(x - ic.width - 22 * scale), int(top * scale)))
     ty = top * scale + (icon * scale - size * scale * 1.45) / 2
     for t, c in segs:
@@ -288,7 +294,7 @@ def static_base(P, brand, art, seed=None):
     segs = [(t, c) for t, c in brand_segments(brand, P) if t]
     tw = sum(d.textlength(t, font=f) for t, _ in segs); ic = 72
     x = (W - tw - ic - 20) / 2 + ic + 20
-    img.alpha_composite(logo_icon(P, ic), (int(x - ic - 20), 82))
+    img.alpha_composite(logo_icon(P, ic, brand.get("logo") or "robot"), (int(x - ic - 20), 82))
     for t, c in segs:
         d.text((x, 78), t, font=f, fill=c); x += d.textlength(t, font=f)
     return img
@@ -302,7 +308,7 @@ def card_fallback(P, brand, cw, ch):
     img.alpha_composite(gl.filter(ImageFilter.GaussianBlur(120)))
     d = ImageDraw.Draw(img)
     for gy in range(40, ch, 70): d.line([(0, gy), (cw, gy)], fill=P["b"] + (40,), width=2)
-    ic = 300; img.alpha_composite(logo_icon(P, ic), ((cw - ic) // 2, int(ch * .16)))
+    ic = 300; img.alpha_composite(logo_icon(P, ic, brand.get("logo") or "robot"), ((cw - ic) // 2, int(ch * .16)))
     from PIL import ImageFont
     f = ImageFont.truetype(C.F_BOLD, 96); segs = [(t, c) for t, c in brand_segments(brand, P) if t]
     tw = sum(d.textlength(t, font=f) for t, _ in segs); x = (cw - tw) / 2; y = ch * .16 + ic + 30

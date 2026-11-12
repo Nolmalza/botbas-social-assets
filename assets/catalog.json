@@ -133,5 +133,20 @@
   "desc": "black electric plug with two prongs and a short cord",
   "w": 89,
   "h": 137
+ },
+ "light_bulb": {
+  "desc": "classic household light bulb, pale glass globe with grey screw base",
+  "w": 318,
+  "h": 533
+ },
+ "lamp_cover": {
+  "desc": "round frosted glass ceiling lamp cover, bowl shaped, seen from the side",
+  "w": 439,
+  "h": 233
+ },
+ "curtain_panel": {
+  "desc": "single soft green curtain panel with vertical folds",
+  "w": 209,
+  "h": 619
  }
 }

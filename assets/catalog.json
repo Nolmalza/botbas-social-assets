@@ -148,5 +148,20 @@
   "desc": "single soft green curtain panel with vertical folds",
   "w": 209,
   "h": 619
+ },
+ "shirt_on_hanger": {
+  "desc": "light blue button shirt on a wire hanger, hook at top",
+  "w": 464,
+  "h": 511
+ },
+ "shower_head": {
+  "desc": "chrome wall shower pipe with round shower head angled down",
+  "w": 220,
+  "h": 146
+ },
+ "washing_machine": {
+  "desc": "white front-load washing machine with round glass door",
+  "w": 340,
+  "h": 392
  }
 }

@@ -163,5 +163,10 @@
   "desc": "white front-load washing machine with round glass door",
   "w": 340,
   "h": 392
+ },
+ "iced_drink_glass": {
+  "desc": "tall clear glass of iced coffee with ice cubes and pink straw",
+  "w": 196,
+  "h": 527
  }
 }

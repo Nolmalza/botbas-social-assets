@@ -9,3 +9,4 @@ b4e4cc6170e992b2 2026-11-05__mem0ai__mem0
 02fab68688109180 2026-11-08__CopilotKit__OpenBot
 000000040402c7d7 2026-11-09__headroomlabs-ai__headroom
 06c6a6a68050f188 2026-11-12__NousResearch__hermes-agent
+06b29686a0489493 2026-11-13__vercel-labs__agent-browser

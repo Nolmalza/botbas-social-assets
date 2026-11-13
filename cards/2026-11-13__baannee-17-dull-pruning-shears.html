@@ -1,0 +1,135 @@
+<!doctype html>
+<html><head><meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Mitr:wght@400;600;700&display=block" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#fdf6ec;--a:#f97316;--b:#fb923c;--c:#16a34a;--ink:#2a1f14;--mute:#7c6a58;--panel:#ffffffee}
+body{width:1080px;height:1350px;font-family:Mitr,sans-serif;background:var(--bg);color:var(--ink);position:relative;overflow:hidden}
+#art{position:absolute;inset:0;width:1080px;height:1350px}
+.tag{position:absolute;left:56px;top:46px;z-index:3;font-size:26px;font-weight:700;color:var(--tagink);background:var(--a);padding:8px 22px;border-radius:12px;letter-spacing:.5px}
+.brand{position:absolute;right:56px;top:46px;z-index:3;display:flex;align-items:center;gap:14px;font-weight:700;font-size:32px}
+.brand .logo{width:56px;height:56px;border-radius:16px;background:linear-gradient(145deg,var(--a),var(--b));display:flex;align-items:center;justify-content:center}
+.brand .logo svg{width:32px;height:32px}
+.brand b{color:var(--a)}
+.scene{position:absolute;left:90px;top:128px;width:900px;height:430px;z-index:2;filter:drop-shadow(0 22px 40px #5c3d1a33)}
+.scene svg{width:900px;height:430px;display:block;overflow:visible}
+.text{position:absolute;left:56px;right:56px;top:560px;z-index:2;display:flex;flex-direction:column;align-items:center;text-align:center}
+.kick{font-size:80px;font-weight:700;letter-spacing:0;line-height:1.12}
+.kick em{font-style:normal;color:var(--a)}
+.l1{font-size:56px;font-weight:700;line-height:1.2;color:var(--c);margin-top:10px}
+.box{margin-top:34px;width:100%;background:var(--panel);border:2px solid color-mix(in srgb,var(--a) 45%,transparent);border-radius:30px;padding:30px 40px;text-align:left;box-shadow:0 24px 60px #0004}
+.pt{display:flex;align-items:flex-start;gap:22px;font-size:40px;font-weight:600;line-height:1.3;padding:12px 0}
+.pt+.pt{border-top:1px dashed color-mix(in srgb,var(--ink) 18%,transparent)}
+.pt i{flex:none;width:48px;height:48px;margin-top:3px;border-radius:50%;background:var(--a);display:flex;align-items:center;justify-content:center}
+.pt i:after{content:"";width:18px;height:10px;border-left:5px solid var(--tagink);border-bottom:5px solid var(--tagink);transform:rotate(-45deg) translate(2px,-2px)}
+.sub{font-size:34px;color:var(--mute);margin-top:28px}
+.foot{position:absolute;left:56px;right:56px;bottom:34px;z-index:2;display:flex;justify-content:space-between;font-size:26px;color:var(--mute)}
+.box{box-shadow:0 18px 50px #5c3d1a22}
+</style></head><body data-seq="24">
+<canvas id="art" width="1080" height="1350"></canvas>
+<div class="tag">ทริคบ้านน่ารู้</div>
+<div class="brand"><div class="logo"><svg viewBox="0 0 24 24" fill="none" stroke="var(--tagink)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg></div><div>บ้านนี้<b>มีดี</b> by ซี</div></div>
+<div class="scene"><svg viewBox="0 0 900 430" xmlns="http://www.w3.org/2000/svg" font-family="inherit">
+<!-- table -->
+<rect x="20" y="330" width="860" height="70" rx="18" fill="#f1e8dc"/>
+<rect x="20" y="330" width="860" height="14" rx="7" fill="#cbbba8"/>
+<!-- left: crushed branch -->
+<ellipse cx="135" cy="330" rx="95" ry="10" fill="#7c6a58" opacity=".18"/>
+<path d="M60 300 L190 250" stroke="#7c6a58" stroke-width="26" stroke-linecap="round"/>
+<path d="M190 250 l18 -14 l-4 12 l14 -2 l-10 10 l12 6 l-16 2 l4 12 l-14 -8 z" fill="#cbbba8" stroke="#7c6a58" stroke-width="3" stroke-linejoin="round"/>
+<path d="M120 277 q10 -40 40 -55 q-5 35 -40 55z" fill="#16a34a"/>
+<circle cx="214" cy="226" r="26" fill="#ffffff" stroke="#e11d48" stroke-width="5"/>
+<path d="M203 215 l22 22 M225 215 l-22 22" stroke="#e11d48" stroke-width="6" stroke-linecap="round"/>
+<rect x="70" y="140" width="130" height="44" rx="22" fill="#ffffff" stroke="#cbbba8" stroke-width="3"/>
+<text x="135" y="171" font-size="26" font-weight="700" text-anchor="middle" fill="#7c6a58">ตัดช้ำ</text>
+<!-- center: pruning shears open -->
+<ellipse cx="450" cy="335" rx="150" ry="12" fill="#7c6a58" opacity=".2"/>
+<g transform="translate(450 205) rotate(-8)">
+ <path d="M-10 0 C 40 -10 110 -60 150 -110 C 120 -50 70 -10 10 18 Z" fill="#e2e8f0" stroke="#2a1f14" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M70 -38 L140 -100" stroke="#ffffff" stroke-width="5" stroke-linecap="round"/>
+ <path d="M-10 4 C 40 0 100 -20 150 -40 C 110 -5 60 18 10 24 Z" fill="#94a3b8" stroke="#2a1f14" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M-8 6 C -60 20 -120 60 -170 105 L-150 120 C -100 80 -50 45 4 22 Z" fill="var(--a)" stroke="#2a1f14" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M-8 6 C -70 0 -140 10 -200 40 L-190 62 C -130 35 -70 28 4 22 Z" fill="var(--b)" stroke="#2a1f14" stroke-width="4" stroke-linejoin="round"/>
+ <path d="M-60 30 q-12 30 -40 38" fill="none" stroke="#7c6a58" stroke-width="5" stroke-linecap="round"/>
+ <circle cx="0" cy="12" r="14" fill="#cbbba8" stroke="#2a1f14" stroke-width="4"/>
+ <circle cx="0" cy="12" r="4" fill="#2a1f14"/>
+</g>
+<!-- sparkle on blade -->
+<path d="M590 70 l6 16 l16 6 l-16 6 l-6 16 l-6 -16 l-16 -6 l16 -6z" fill="var(--c)"/>
+<!-- oil drop on pivot -->
+<path d="M452 160 q-12 20 0 27 q12 -7 0 -27z" fill="#f59e0b" stroke="#2a1f14" stroke-width="3"/>
+<!-- sharpening stone -->
+<ellipse cx="320" cy="345" rx="70" ry="8" fill="#7c6a58" opacity=".2"/>
+<rect x="255" y="305" width="130" height="36" rx="8" fill="#7c6a58"/>
+<rect x="255" y="305" width="130" height="16" rx="8" fill="#cbbba8"/>
+<!-- alcohol spray -->
+<ellipse cx="610" cy="345" rx="40" ry="7" fill="#7c6a58" opacity=".2"/>
+<rect x="580" y="225" width="60" height="115" rx="14" fill="#ffffff" stroke="#2a1f14" stroke-width="4"/>
+<rect x="595" y="195" width="30" height="32" rx="6" fill="var(--a)" stroke="#2a1f14" stroke-width="4"/>
+<path d="M625 205 h22 v10 h-22" fill="var(--a)" stroke="#2a1f14" stroke-width="4"/>
+<rect x="588" y="262" width="44" height="40" rx="6" fill="var(--b)"/>
+<text x="610" y="290" font-size="22" font-weight="700" text-anchor="middle" fill="#ffffff">70%</text>
+<circle cx="665" cy="205" r="4" fill="var(--b)" opacity=".7"/><circle cx="678" cy="198" r="3" fill="var(--b)" opacity=".5"/><circle cx="676" cy="214" r="3" fill="var(--b)" opacity=".5"/>
+<!-- right: clean cut branch -->
+<ellipse cx="780" cy="330" rx="90" ry="10" fill="#7c6a58" opacity=".18"/>
+<path d="M850 300 L725 250" stroke="#7c6a58" stroke-width="26" stroke-linecap="round"/>
+<ellipse cx="722" cy="249" rx="9" ry="14" transform="rotate(22 722 249)" fill="#f1e8dc" stroke="#7c6a58" stroke-width="3"/>
+<path d="M790 277 q-10 -40 -40 -55 q5 35 40 55z" fill="#16a34a"/>
+<circle cx="700" cy="215" r="26" fill="#ffffff" stroke="var(--c)" stroke-width="5"/>
+<path d="M688 215 l9 10 l16 -18" fill="none" stroke="var(--c)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round"/>
+<rect x="715" y="140" width="140" height="44" rx="22" fill="#ffffff" stroke="#cbbba8" stroke-width="3"/>
+<text x="785" y="171" font-size="26" font-weight="700" text-anchor="middle" fill="var(--c)">ตัดเรียบ</text>
+</svg></div>
+<div class="text">
+ <div class="kick">กรรไกรตัดกิ่ง<em>ทื่อ</em><br>กิ่งช้ำ ต้นโทรม</div>
+ <div class="l1">ฟื้นคมเองได้ใน 10 นาที</div>
+ <div class="box">
+  <div class="pt"><i></i><div>ล้างยางไม้ เช็ดแอลกอฮอล์</div></div>
+  <div class="pt"><i></i><div>ลับเฉพาะด้านที่เป็นมุมคม</div></div>
+  <div class="pt"><i></i><div>หยอดน้ำมันที่แกนหมุน</div></div>
+ </div>
+ <div class="sub">ตัดเรียบ แผลปิดไว ต้นไม้ฟื้นเร็ว</div>
+</div>
+<div class="foot"><div>แก้ปัญหาในบ้าน · ของใช้ดีบอกต่อ</div><div>บ้านนี้มีดี by ซี</div></div>
+<script>
+(function(){
+var key=decodeURIComponent(location.pathname)+'|'+document.querySelector('.kick').textContent;
+var h=2166136261;for(var i=0;i<key.length;i++){h^=key.charCodeAt(i);h=Math.imul(h,16777619)}
+var seq=parseInt(document.body.dataset.seq,10);if(isNaN(seq))seq=(h>>>0)%997;
+var s=h>>>0;function R(){s|=0;s=s+0x6D2B79F5|0;var t=Math.imul(s^s>>>15,1|s);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}
+function rr(a,b){return a+R()*(b-a)}function ri(a,b){return Math.floor(rr(a,b+1))}
+var LIGHT=true;
+var PAL=[{"bg": "#fdf6ec", "a": "#f97316", "b": "#fb923c", "c": "#16a34a"}, {"bg": "#f2f8f1", "a": "#16a34a", "b": "#4ade80", "c": "#ea580c"}, {"bg": "#f5f3ff", "a": "#7c3aed", "b": "#a78bfa", "c": "#db2777"}, {"bg": "#eff8fb", "a": "#0284c7", "b": "#38bdf8", "c": "#ea580c"}, {"bg": "#fff4f2", "a": "#e11d48", "b": "#fb7185", "c": "#0d9488"}];
+var P=PAL[(seq*3)%PAL.length];
+var r=document.documentElement.style;['bg','a','b','c'].forEach(function(k){r.setProperty('--'+k,P[k])});
+r.setProperty('--tagink',P.t||(LIGHT?'#ffffff':'#06101a'));
+var cv=document.getElementById('art'),x=cv.getContext('2d'),W=1080,H=620;
+x.fillStyle=P.bg;x.fillRect(0,0,W,1350);
+function hexa(c,a){var n=parseInt(c.slice(1),16);return'rgba('+(n>>16)+','+(n>>8&255)+','+(n&255)+','+a+')'}
+function glow(cx,cy,rad,col,al){var g=x.createRadialGradient(cx,cy,0,cx,cy,rad);g.addColorStop(0,hexa(col,al));g.addColorStop(1,hexa(col,0));x.fillStyle=g;x.fillRect(0,0,W,1350)}
+function col(){return[P.a,P.b,P.c][ri(0,2)]}
+var K=(LIGHT?.6:1)*.55;
+var ART={
+aurora:function(){for(var i=0;i<6;i++)glow(rr(0,W),rr(0,520),rr(260,520),col(),rr(.3,.55)*K)},
+circuit:function(){glow(rr(300,800),300,500,P.b,.3*K);x.lineWidth=3;x.lineCap='round';for(var i=0;i<46;i++){var px=Math.round(rr(0,W)/30)*30,py=Math.round(rr(0,H)/30)*30;x.strokeStyle=hexa(col(),rr(.25,.55)*K);x.beginPath();x.moveTo(px,py);for(var k=0;k<ri(2,5);k++){var d=ri(0,3),l=ri(2,8)*30;if(d==0)px+=l;else if(d==1)px-=l;else if(d==2)py+=l;else{px+=l*.7;py+=l*.7}x.lineTo(px,py)}x.stroke();x.fillStyle=x.strokeStyle;x.beginPath();x.arc(px,py,6,0,7);x.fill()}},
+net:function(){glow(rr(200,900),rr(150,400),480,P.b,.3*K);var n=[];for(var i=0;i<70;i++)n.push([rr(0,W),rr(0,H),rr(2,6)]);for(i=0;i<n.length;i++)for(var j=i+1;j<n.length;j++){var d=Math.hypot(n[i][0]-n[j][0],n[i][1]-n[j][1]);if(d<170){x.strokeStyle=hexa(P.a,.4*K*(1-d/170));x.lineWidth=1.5;x.beginPath();x.moveTo(n[i][0],n[i][1]);x.lineTo(n[j][0],n[j][1]);x.stroke()}}n.forEach(function(p){x.fillStyle=hexa(col(),.8*K);x.beginPath();x.arc(p[0],p[1],p[2],0,7);x.fill()})},
+waves:function(){glow(rr(200,900),rr(150,400),500,P.a,.28*K);for(var k=0;k<26;k++){var y0=40+k*22,amp=rr(20,70),fr=rr(.004,.012),ph=rr(0,6);x.strokeStyle=hexa(k%2?P.a:P.b,(.12+k/90)*K);x.lineWidth=2;x.beginPath();for(var X=0;X<=W;X+=10){var y=y0+Math.sin(X*fr+ph)*amp*Math.sin(X/W*Math.PI);X?x.lineTo(X,y):x.moveTo(X,y)}x.stroke()}},
+hex:function(){var s2=ri(40,60),hh=s2*Math.sqrt(3),cx0=rr(0,W),cy0=rr(0,500);glow(cx0,cy0,480,P.a,.25*K);for(var r2=-1;r2<H/hh+1;r2++)for(var c=-1;c<W/(s2*1.5)+1;c++){var cx=c*s2*1.5,cy=r2*hh+(c%2?hh/2:0),d=Math.hypot(cx-cx0,cy-cy0),al=Math.max(.05,.5-d/900)*K;x.strokeStyle=hexa(P.a,al);x.lineWidth=2;x.beginPath();for(var k=0;k<6;k++){var a=k*Math.PI/3;x.lineTo(cx+Math.cos(a)*s2*.92,cy+Math.sin(a)*s2*.92)}x.closePath();x.stroke();if(R()<.06){x.fillStyle=hexa(col(),.3*K);x.fill()}}},
+poly:function(){var cs=ri(130,180),rs=ri(110,150),pts=[];for(var r2=0;r2*rs<=H+rs;r2++){pts[r2]=[];for(var c=0;c*cs<=W+cs;c++)pts[r2][c]=[c*cs+rr(-.35,.35)*cs,r2*rs+rr(-.35,.35)*rs]}for(r2=0;r2<pts.length-1;r2++)for(c=0;c<pts[r2].length-1;c++){var q=[pts[r2][c],pts[r2][c+1],pts[r2+1][c+1],pts[r2+1][c]];[[0,1,2],[0,2,3]].forEach(function(t){x.beginPath();x.moveTo(q[t[0]][0],q[t[0]][1]);x.lineTo(q[t[1]][0],q[t[1]][1]);x.lineTo(q[t[2]][0],q[t[2]][1]);x.closePath();x.fillStyle=hexa(R()<.5?P.b:P.a,rr(.04,.28)*K);x.fill()})}},
+shapes:function(){glow(W/2,300,520,P.b,.35*K);for(var i=0;i<11;i++){x.fillStyle=hexa(col(),rr(.25,.5)*K);x.strokeStyle=hexa(col(),.6*K);x.lineWidth=6;var cx=rr(0,W),cy=rr(0,560),z=rr(60,200);x.save();x.translate(cx,cy);x.rotate(rr(0,6));x.beginPath();var t=ri(0,3);if(t==0)x.arc(0,0,z,0,7);else if(t==1)x.rect(-z/2,-z/2,z,z);else if(t==2){x.moveTo(0,-z);x.lineTo(z*.87,z*.5);x.lineTo(-z*.87,z*.5);x.closePath()}else x.arc(0,0,z,0,Math.PI);R()<.6?x.fill():x.stroke();x.restore()}},
+dots:function(){glow(rr(200,900),rr(100,400),520,P.b,.3*K);var g=ri(34,52);for(var y=g/2;y<H;y+=g)for(var X=g/2;X<W;X+=g){var n=Math.sin(X*.006+y*.004+rr(0,.4))*.5+.5;x.fillStyle=hexa(n>.6?P.a:P.b,(.08+n*.4)*K);x.beginPath();x.arc(X,y,2+n*9,0,7);x.fill()}},
+candles:function(){glow(rr(200,900),rr(100,400),520,P.b,.35*K);var n=ri(28,40),w=W/n,p=rr(260,380),tr=rr(-4,4);x.lineWidth=3;for(var i=0;i<n;i++){var o=p,cl=o+rr(-40,40)-tr,hi=Math.min(o,cl)-rr(5,40),lo=Math.max(o,cl)+rr(5,40),up=cl<o;var cc=up?P.a:P.c;x.strokeStyle=hexa(cc,.6*K);x.fillStyle=hexa(cc,.45*K);var cx=i*w+w/2;x.beginPath();x.moveTo(cx,hi);x.lineTo(cx,lo);x.stroke();x.fillRect(cx-w*.3,Math.min(o,cl),w*.6,Math.max(4,Math.abs(cl-o)));p=Math.max(80,Math.min(520,cl))}x.strokeStyle=hexa(P.b,.18*K);x.lineWidth=1;for(var g=60;g<H;g+=80){x.beginPath();x.moveTo(0,g);x.lineTo(W,g);x.stroke()}},
+line:function(){glow(rr(200,900),rr(100,400),520,P.a,.3*K);for(var k=0;k<3;k++){var y=rr(250,450),pts=[];x.beginPath();for(var X=0;X<=W;X+=18){y+=rr(-22,20)-k;y=Math.max(60,Math.min(560,y));pts.push([X,y]);X?x.lineTo(X,y):x.moveTo(X,y)}x.strokeStyle=hexa([P.a,P.c,P.b][k],(k?.35:.75)*K);x.lineWidth=k?3:6;x.stroke();if(!k){x.lineTo(W,H);x.lineTo(0,H);x.closePath();var g=x.createLinearGradient(0,150,0,H);g.addColorStop(0,hexa(P.a,.28*K));g.addColorStop(1,hexa(P.a,0));x.fillStyle=g;x.fill()}}},
+bars:function(){glow(rr(200,900),rr(100,400),520,P.b,.3*K);var n=ri(9,16),w=W/n;for(var i=0;i<n;i++){var hgt=rr(80,480);x.fillStyle=hexa(i%3?P.a:P.c,rr(.2,.45)*K);var bx=i*w+w*.18;x.beginPath();x.roundRect(bx,H-hgt,w*.64,hgt+30,14);x.fill()}},
+rack:function(){glow(rr(200,900),rr(100,400),520,P.b,.3*K);var cols=ri(4,6),cw=W/cols;for(var c=0;c<cols;c++){var bx=c*cw+cw*.12,u=ri(26,36);for(var y=ri(20,80);y<H-u;y+=u+8){x.fillStyle=hexa(P.b,.16*K);x.strokeStyle=hexa(P.a,.25*K);x.lineWidth=2;x.beginPath();x.roundRect(bx,y,cw*.76,u,6);x.fill();x.stroke();for(var l=0;l<ri(1,4);l++){x.fillStyle=hexa(R()<.8?P.a:P.c,rr(.5,.95)*K);x.beginPath();x.arc(bx+18+l*18,y+u/2,4.5,0,7);x.fill()}x.fillStyle=hexa(P.a,.12*K);x.fillRect(bx+cw*.38,y+u/2-2,cw*.32,4)}}},
+blobs:function(){for(var i=0;i<7;i++){x.fillStyle=hexa(col(),rr(.18,.38)*K);x.beginPath();var cx=rr(0,W),cy=rr(0,540),rad=rr(90,240),n=8;for(var k=0;k<=n;k++){var a=k/n*Math.PI*2,rd=rad*rr(.82,1.15);k?x.lineTo(cx+Math.cos(a)*rd,cy+Math.sin(a)*rd):x.moveTo(cx+Math.cos(a)*rd,cy+Math.sin(a)*rd)}x.closePath();x.fill()}for(i=0;i<40;i++){x.fillStyle=hexa(col(),rr(.2,.5)*K);x.beginPath();x.arc(rr(0,W),rr(0,560),rr(3,10),0,7);x.fill()}},
+tiles:function(){var g=ri(70,110);for(var y=0;y<H;y+=g)for(var X=0;X<W;X+=g){if(R()<.55)continue;x.fillStyle=hexa(col(),rr(.08,.3)*K);x.beginPath();x.roundRect(X+6,y+6,g-12,g-12,ri(8,30));x.fill()}glow(rr(200,900),rr(100,400),500,P.a,.25*K)}
+};
+var LIST=["blobs", "tiles", "dots", "shapes", "waves", "poly", "hex"];ART[LIST[seq%LIST.length]]();
+for(var n=0;n<7000;n++){x.fillStyle=LIGHT?'rgba(0,0,0,'+rr(0,.035)+')':'rgba(255,255,255,'+rr(0,.045)+')';x.fillRect(rr(0,W),rr(0,H),1.5,1.5)}
+var fd=x.createLinearGradient(0,380,0,600);fd.addColorStop(0,hexa(P.bg,0));fd.addColorStop(1,hexa(P.bg,1));x.fillStyle=fd;x.fillRect(0,380,W,222);
+x.fillStyle=P.bg;x.fillRect(0,600,W,750);
+var vg=x.createRadialGradient(W/2,1000,0,W/2,1000,700);vg.addColorStop(0,hexa(P.b,LIGHT?.08:.14));vg.addColorStop(1,hexa(P.b,0));x.fillStyle=vg;x.fillRect(0,600,W,750);
+})();
+</script>
+</body></html>

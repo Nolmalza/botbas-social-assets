@@ -253,5 +253,10 @@
   "desc": "blue fabric two seat sofa seen from the front, plain cushions",
   "w": 549,
   "h": 341
+ },
+ "water_bottle_open": {
+  "desc": "tall clear blue plastic water bottle without cap, a little water inside",
+  "w": 78,
+  "h": 16
  }
 }

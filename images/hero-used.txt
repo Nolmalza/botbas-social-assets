@@ -11,3 +11,4 @@ b4e4cc6170e992b2 2026-11-05__mem0ai__mem0
 06c6a6a68050f188 2026-11-12__NousResearch__hermes-agent
 06b29686a0489493 2026-11-13__vercel-labs__agent-browser
 03a711130805f068 2026-11-13__vectorize-io__hindsight
+1646464f690d5101 2026-11-14__Tencent__WeKnora

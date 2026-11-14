@@ -278,5 +278,15 @@
   "desc": "single bed seen from the side, wooden headboard on the left, white mattress and pillow",
   "w": 568,
   "h": 348
+ },
+ "frying_pan": {
+  "desc": "black frying pan with golden oil inside and long handle to the right, side view",
+  "w": 444,
+  "h": 93
+ },
+ "pan_lid": {
+  "desc": "round metal pot lid with black knob on top, side view",
+  "w": 328,
+  "h": 104
  }
 }

@@ -233,5 +233,20 @@
   "desc": "round white wall clock with blue rim, tick marks, no numbers",
   "w": 203,
   "h": 203
+ },
+ "gas_stove": {
+  "desc": "single burner tabletop gas stove, steel body, black top, round burner and pan grate, two knobs",
+  "w": 419,
+  "h": 202
+ },
+ "burner_cap": {
+  "desc": "brass gas burner head with dark cap and a row of small flame ports",
+  "w": 319,
+  "h": 144
+ },
+ "toothpick": {
+  "desc": "single wooden toothpick, diagonal, point at lower left",
+  "w": 218,
+  "h": 208
  }
 }

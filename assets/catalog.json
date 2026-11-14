@@ -183,5 +183,20 @@
   "desc": "clear drinking glass half full of water, see-through",
   "w": 162,
   "h": 242
+ },
+ "soap_dish_flat": {
+  "desc": "flat white soap dish without drain holes, seen from the side",
+  "w": 499,
+  "h": 135
+ },
+ "soap_bar": {
+  "desc": "pink bar of soap, rounded rectangle",
+  "w": 249,
+  "h": 109
+ },
+ "soap_dish_draining": {
+  "desc": "light blue soap dish with slots so water drains, on short legs",
+  "w": 479,
+  "h": 126
  }
 }

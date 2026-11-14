@@ -12,3 +12,4 @@ b4e4cc6170e992b2 2026-11-05__mem0ai__mem0
 06b29686a0489493 2026-11-13__vercel-labs__agent-browser
 03a711130805f068 2026-11-13__vectorize-io__hindsight
 1646464f690d5101 2026-11-14__Tencent__WeKnora
+f0cce8f0f0c0c8c4 2026-11-14__microsoft__VibeVoice

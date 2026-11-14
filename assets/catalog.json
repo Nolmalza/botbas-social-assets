@@ -198,5 +198,25 @@
   "desc": "light blue soap dish with slots so water drains, on short legs",
   "w": 479,
   "h": 126
+ },
+ "kitchen_trash_bin": {
+  "desc": "green round kitchen trash bin, open top, no bag",
+  "w": 138,
+  "h": 16
+ },
+ "binder_clip": {
+  "desc": "black binder clip with silver wire handles, seen from the front",
+  "w": 43,
+  "h": 14
+ },
+ "folded_trash_bags": {
+  "desc": "small stack of three folded plastic trash bags, pastel colours",
+  "w": 102,
+  "h": 15
+ },
+ "newspaper_folded": {
+  "desc": "folded grey newspaper sheet with plain lines, no text",
+  "w": 123,
+  "h": 15
  }
 }

@@ -273,5 +273,10 @@
   "desc": "clear glass bowl half full of water, see-through, seen from the side",
   "w": 340,
   "h": 249
+ },
+ "bed_side": {
+  "desc": "single bed seen from the side, wooden headboard on the left, white mattress and pillow",
+  "w": 568,
+  "h": 348
  }
 }

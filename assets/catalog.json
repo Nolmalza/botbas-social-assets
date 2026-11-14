@@ -288,5 +288,15 @@
   "desc": "round metal pot lid with black knob on top, side view",
   "w": 328,
   "h": 104
+ },
+ "trash_bag_tied": {
+  "desc": "dark grey full trash bag with tied knot on top, bottom centre at origin",
+  "w": 293,
+  "h": 269
+ },
+ "trash_bin_bottom_closeup": {
+  "desc": "round zoom bubble showing the inside bottom of a trash bin with a brown puddle of leaked garbage liquid",
+  "w": 270,
+  "h": 270
  }
 }

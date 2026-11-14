@@ -168,5 +168,20 @@
   "desc": "tall clear glass of iced coffee with ice cubes and pink straw",
   "w": 196,
   "h": 527
+ },
+ "rice_cooker_open": {
+  "desc": "open white rice cooker with inner pot full of cooked white rice",
+  "w": 203,
+  "h": 16
+ },
+ "rice_paddle": {
+  "desc": "white plastic rice paddle (shamoji), handle end at origin, blade pointing up",
+  "w": 22,
+  "h": 15
+ },
+ "water_glass": {
+  "desc": "clear drinking glass half full of water, see-through",
+  "w": 77,
+  "h": 15
  }
 }

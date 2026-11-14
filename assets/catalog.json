@@ -248,5 +248,10 @@
   "desc": "single wooden toothpick, diagonal, point at lower left",
   "w": 218,
   "h": 208
+ },
+ "fabric_sofa": {
+  "desc": "blue fabric two seat sofa seen from the front, plain cushions",
+  "w": 549,
+  "h": 341
  }
 }

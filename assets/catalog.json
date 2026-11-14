@@ -218,5 +218,20 @@
   "desc": "folded grey newspaper sheet with plain lines, no text",
   "w": 123,
   "h": 15
+ },
+ "tote_bag": {
+  "desc": "orange canvas tote bag with two handles, handles meet at top origin",
+  "w": 279,
+  "h": 298
+ },
+ "adhesive_wall_hook": {
+  "desc": "white plastic adhesive wall hook with sticky pad, J hook",
+  "w": 109,
+  "h": 156
+ },
+ "wall_clock": {
+  "desc": "round white wall clock with blue rim, tick marks, no numbers",
+  "w": 203,
+  "h": 203
  }
 }

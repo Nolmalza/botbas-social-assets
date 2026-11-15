@@ -353,5 +353,25 @@
   "desc": "slice of white sandwich bread, golden crust, standing upright, front view",
   "w": 421,
   "h": 436
+ },
+ "iron_soleplate_up": {
+  "desc": "clothes iron standing on its heel, silver soleplate with steam holes facing the viewer, tip pointing up",
+  "w": 484,
+  "h": 560
+ },
+ "paper_sheet_flat": {
+  "desc": "flat white sheet of paper lying on a table, slight perspective",
+  "w": 548,
+  "h": 98
+ },
+ "salt_shaker": {
+  "desc": "glass salt shaker with silver holey cap, white salt inside, upright",
+  "w": 139,
+  "h": 273
+ },
+ "clothes_iron": {
+  "desc": "light blue clothes iron side view, tip on the left, silver soleplate, dark handle",
+  "w": 370,
+  "h": 271
  }
 }

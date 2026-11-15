@@ -338,5 +338,15 @@
   "desc": "silver soda can pull tab with big top hole and small bottom hole",
   "w": 139,
   "h": 209
+ },
+ "kitchen_faucet": {
+  "desc": "chrome kitchen faucet with tall curved gooseneck spout, tip on the right",
+  "w": 270,
+  "h": 418
+ },
+ "faucet_aerator": {
+  "desc": "small chrome faucet aerator tip with mesh screen, screws onto a spout",
+  "w": 60,
+  "h": 52
  }
 }

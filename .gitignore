@@ -2,3 +2,4 @@
 gsa.json
 logs/
 work/
+__pycache__/

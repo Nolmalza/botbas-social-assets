@@ -348,5 +348,10 @@
   "desc": "small chrome faucet aerator tip with mesh screen, screws onto a spout",
   "w": 60,
   "h": 52
+ },
+ "bread_slice": {
+  "desc": "slice of white sandwich bread, golden crust, standing upright, front view",
+  "w": 421,
+  "h": 436
  }
 }

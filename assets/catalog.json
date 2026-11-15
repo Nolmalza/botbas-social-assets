@@ -328,5 +328,15 @@
   "desc": "pink plastic hair comb seen from the side, teeth pointing down",
   "w": 208,
   "h": 82
+ },
+ "wardrobe_rail": {
+  "desc": "horizontal chrome wardrobe clothes rail with two wall brackets",
+  "w": 858,
+  "h": 80
+ },
+ "can_tab": {
+  "desc": "silver soda can pull tab with big top hole and small bottom hole",
+  "w": 139,
+  "h": 209
  }
 }

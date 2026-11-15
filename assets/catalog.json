@@ -378,5 +378,15 @@
   "desc": "big shiny stainless steel spoon, bowl at top, handle down",
   "w": 111,
   "h": 508
+ },
+ "potted_leafy_plant": {
+  "desc": "green leafy houseplant in a terracotta pot, clean healthy leaves",
+  "w": 95,
+  "h": 16
+ },
+ "watering_can": {
+  "desc": "blue plastic watering can with long spout pointing left, handle on top",
+  "w": 164,
+  "h": 56
  }
 }

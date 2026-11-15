@@ -373,5 +373,10 @@
   "desc": "light blue clothes iron side view, tip on the left, silver soleplate, dark handle",
   "w": 370,
   "h": 271
+ },
+ "steel_spoon": {
+  "desc": "big shiny stainless steel spoon, bowl at top, handle down",
+  "w": 111,
+  "h": 508
  }
 }

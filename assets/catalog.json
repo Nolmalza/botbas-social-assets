@@ -388,5 +388,10 @@
   "desc": "blue plastic watering can with long spout pointing left, handle on top",
   "w": 164,
   "h": 56
+ },
+ "solar_garden_light": {
+  "desc": "solar garden stake light, blue solar panel on a black cap, glass lamp body, black pole",
+  "w": 175,
+  "h": 468
  }
 }

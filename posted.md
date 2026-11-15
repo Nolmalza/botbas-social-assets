@@ -61,3 +61,4 @@
 2026-11-14 | pipvps | 2026-11-14__pipvps-uptime-sla-explained.html | 1524866904032846_122102703177545831
 2026-11-14 | baannee | 2026-11-14__baannee-20-bulbs-burn-out-often.html | 1373565455841925_122136176445466674
 2026-11-14 | copysync | 2026-11-14__copysync-correlated-providers-risk.html | 1460126263846229_122101735245546884
+2026-11-15 | pipguard | 2026-11-15__pipguard-trading-journal-r-multiple.html | 1455065131014516_122109666081531714

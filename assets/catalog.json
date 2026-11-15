@@ -393,5 +393,20 @@
   "desc": "solar garden stake light, blue solar panel on a black cap, glass lamp body, black pole",
   "w": 175,
   "h": 468
+ },
+ "bathroom_door": {
+  "desc": "plain light wooden interior door front view with round silver knob on the right",
+  "w": 400,
+  "h": 620
+ },
+ "door_knob_closeup": {
+  "desc": "big round silver door knob seen from the front with a small emergency release hole in the centre, on a rose plate",
+  "w": 450,
+  "h": 450
+ },
+ "straight_wire": {
+  "desc": "paperclip straightened into one long thin silver wire, horizontal",
+  "w": 305,
+  "h": 25
  }
 }

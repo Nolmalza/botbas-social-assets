@@ -313,5 +313,20 @@
   "desc": "open freezer compartment seen from the front, white body, light blue frosty inside with one shelf, door swung open to the right",
   "w": 629,
   "h": 597
+ },
+ "broom_upright": {
+  "desc": "upright household broom, wooden handle, red binding, yellow straw bristles, clean",
+  "w": 178,
+  "h": 468
+ },
+ "hair_tangle": {
+  "desc": "small tangle of dark loose hair strands",
+  "w": 96,
+  "h": 58
+ },
+ "hair_comb": {
+  "desc": "pink plastic hair comb seen from the side, teeth pointing down",
+  "w": 208,
+  "h": 82
  }
 }

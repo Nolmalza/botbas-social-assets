@@ -14,3 +14,4 @@ b4e4cc6170e992b2 2026-11-05__mem0ai__mem0
 1646464f690d5101 2026-11-14__Tencent__WeKnora
 f0cce8f0f0c0c8c4 2026-11-14__microsoft__VibeVoice
 00e6a29a0040d181 2026-11-15__google__skills
+02da8e868048c492 2026-11-15__ChromeDevTools__chrome-devtools-mcp

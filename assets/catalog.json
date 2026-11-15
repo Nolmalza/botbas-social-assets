@@ -298,5 +298,20 @@
   "desc": "round zoom bubble showing the inside bottom of a trash bin with a brown puddle of leaked garbage liquid",
   "w": 270,
   "h": 270
+ },
+ "ice_tray": {
+  "desc": "white plastic ice cube tray with six light blue ice cubes sticking out, front view",
+  "w": 403,
+  "h": 146
+ },
+ "zip_bag": {
+  "desc": "empty clear plastic zip bag standing upright with a blue zip strip at the top",
+  "w": 209,
+  "h": 234
+ },
+ "freezer_open": {
+  "desc": "open freezer compartment seen from the front, white body, light blue frosty inside with one shelf, door swung open to the right",
+  "w": 629,
+  "h": 597
  }
 }

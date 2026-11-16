@@ -71,3 +71,4 @@
 2026-11-16 | balongtun | 2026-11-16__balongtun-total-cost-checklist-v2.html | 1295892436946279_122128229787485051
 2026-11-16 | baannee | 2026-11-16__baannee-12-freeze-leftover-rice.html | 1373565455841925_122136638421466674
 2026-11-16 | pipvps | 2026-11-16__pipvps-task-manager-health-check.html | 1524866904032846_122104827753545831
+2026-11-16 | copysync | 2026-11-16__copysync-support-resistance-flip.html | 1460126263846229_122103706983546884

@@ -73,3 +73,4 @@
 2026-11-16 | pipvps | 2026-11-16__pipvps-task-manager-health-check.html | 1524866904032846_122104827753545831
 2026-11-16 | copysync | 2026-11-16__copysync-support-resistance-flip.html | 1460126263846229_122103706983546884
 2026-11-17 | pipguard | 2026-11-17__pipguard-pin-bar-rejection.html | 1455065131014516_122110356267531714
+2026-11-17 | balongtun | 2026-11-17__balongtun-voo-vs-rsp-weighting.html | 1295892436946279_122128637247485051

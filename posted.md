@@ -75,3 +75,4 @@
 2026-11-17 | pipguard | 2026-11-17__pipguard-pin-bar-rejection.html | 1455065131014516_122110356267531714
 2026-11-17 | balongtun | 2026-11-17__balongtun-voo-vs-rsp-weighting.html | 1295892436946279_122128637247485051
 2026-11-17 | pipvps | 2026-11-17__pipvps-no-optimize-on-live-vps-v2.html | 1524866904032846_122105804211545831
+2026-11-17 | copysync | 2026-11-17__copysync-martingale-doubling-trap.html | 1460126263846229_122104663215546884

@@ -17,3 +17,4 @@ f0cce8f0f0c0c8c4 2026-11-14__microsoft__VibeVoice
 02da8e868048c492 2026-11-15__ChromeDevTools__chrome-devtools-mcp
 1f2f43632c2c8103 2026-11-16__stablyai__orca
 a0c84d4c664ddeac 2026-11-16__Louis-CFM__coucou
+24061b1d1d0d0d04 2026-11-17__mvanhorn__last30days-skill

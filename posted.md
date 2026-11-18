@@ -78,3 +78,4 @@
 2026-11-17 | copysync | 2026-11-17__copysync-martingale-doubling-trap.html | 1460126263846229_122104663215546884
 2026-11-18 | balongtun | 2026-11-18__balongtun-us-market-hours-thai-time.html | 1295892436946279_122129127111485051
 2026-11-18 | pipvps | 2026-11-18__pipvps-mt5-autostart-after-reboot.html | 1524866904032846_122106697791545831
+2026-11-18 | copysync | 2026-11-18__copysync-news-slippage-stop-fill.html | 1460126263846229_122105571981546884

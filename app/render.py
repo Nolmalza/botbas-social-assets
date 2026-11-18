@@ -226,6 +226,20 @@ def draw_card(img, src, mask, t, D, idx, live=None, still_start=False, talk=None
 HOOK_DUR = float(os.environ.get("HOOK_SECONDS", "3.0"))
 
 
+def set_hook_dur(hook):
+    """Per-job cover length: hook.seconds (0.5-3.0) overrides HOOK_SECONDS for this job only.
+    Jobs run one at a time in a single worker, so a module global is safe."""
+    global HOOK_DUR
+    d = float(os.environ.get("HOOK_SECONDS", "3.0"))
+    try:
+        if hook and hook.get("seconds") is not None:
+            d = max(0.5, min(3.0, float(hook["seconds"])))
+    except (TypeError, ValueError):
+        pass
+    HOOK_DUR = d
+    return d
+
+
 def _hook_segments(line):
     """'ตื่นกลางดึก *หลับต่อไม่ได้*' -> [(text, highlighted)]"""
     out = []; hl = False
@@ -332,6 +346,7 @@ def render_job(job, workdir, log=print):
     if saved_assets: log(f"assets saved {saved_assets}")
     cta_text = job.get("cta", "ลิงก์อยู่ในคอมเมนต์")
     hook = job.get("hook") or None
+    log(f"hook_seconds={set_hook_dur(hook)}")
     prod = load_image(job.get("product_image_url"), workdir)
     base = static_base(); mask = card_mask()
     plan = []; t_cursor = 0.0; VO = 0.15

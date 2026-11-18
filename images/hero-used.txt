@@ -20,3 +20,4 @@ a0c84d4c664ddeac 2026-11-16__Louis-CFM__coucou
 24061b1d1d0d0d04 2026-11-17__mvanhorn__last30days-skill
 0068ccb254683000 2026-11-17__alibaba__open-code-review
 4333736665e4f434 2026-11-18__career-ops-hq__career-ops
+09890f0f3d395115 2026-11-18__hugohe3__ppt-master

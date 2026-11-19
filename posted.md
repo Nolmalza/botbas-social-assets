@@ -81,3 +81,4 @@
 2026-11-18 | copysync | 2026-11-18__copysync-news-slippage-stop-fill.html | 1460126263846229_122105571981546884
 2026-11-19 | pipguard | 2026-11-19__pipguard-fomo-chasing-price.html | 1455065131014516_122111000025531714
 2026-11-19 | pipvps | 2026-11-19__pipvps-vps-clock-vs-broker-time-v2.html | 1524866904032846_122107623171545831
+2026-11-19 | copysync | 2026-11-19__copysync-margin-level-stop-out.html | 1460126263846229_122106517905546884

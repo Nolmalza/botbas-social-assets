@@ -26,3 +26,4 @@ a0c84d4c664ddeac 2026-11-16__Louis-CFM__coucou
 000030070b330000 2026-11-20__JuliusBrussee__caveman
 3c33333133030383 2026-11-20__AgriciDaniel__claude-seo
 06aaae96a010b181 2026-11-21__shareAI-lab__learn-claude-code
+e6666cd8e0a1c9c4 2026-11-21__HKUDS__CLI-Anything

@@ -86,3 +86,4 @@
 2026-11-20 | pipvps | 2026-11-20__pipvps-read-experts-journal-log.html | 1524866904032846_122108814207545831
 2026-11-20 | copysync | 2026-11-20__copysync-fomo-chasing-candle.html | 1460126263846229_122107635093546884
 2026-11-21 | pipguard | 2026-11-21__pipguard-trailing-stop-swing-low-v2.html | 1455065131014516_122111626983531714
+2026-11-21 | balongtun | 2026-11-21__balongtun-lump-sum-vs-dca.html | 1295892436946279_122130676239485051

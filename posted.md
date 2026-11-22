@@ -89,3 +89,4 @@
 2026-11-21 | balongtun | 2026-11-21__balongtun-lump-sum-vs-dca.html | 1295892436946279_122130676239485051
 2026-11-21 | pipvps | 2026-11-21__pipvps-autotrading-three-switches.html | 1524866904032846_122109402231545831
 2026-11-21 | copysync | 2026-11-21__copysync-set-max-loss-limit-v2.html | 1460126263846229_122108645373546884
+2026-11-22 | pipguard | 2026-11-22__pipguard-false-breakout-fakeout.html | 1455065131014516_122111970537531714

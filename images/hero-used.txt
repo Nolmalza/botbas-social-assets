@@ -29,3 +29,4 @@ a0c84d4c664ddeac 2026-11-16__Louis-CFM__coucou
 e6666cd8e0a1c9c4 2026-11-21__HKUDS__CLI-Anything
 1646a68e4a6b5b93 2026-11-22__VectifyAI__PageIndex
 401a8cc6cac82c80 2026-11-23__cathrynlavery__diagram-design
+00c6c6c690cc9492 2026-11-24__microsoft__markitdown

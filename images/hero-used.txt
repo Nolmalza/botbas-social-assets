@@ -32,3 +32,4 @@ e6666cd8e0a1c9c4 2026-11-21__HKUDS__CLI-Anything
 00c6c6c690cc9492 2026-11-24__microsoft__markitdown
 0020808c8a812100 2026-11-24__D4Vinci__Scrapling
 610f0f0f0f0f1531 2026-11-25__yetone__magpie
+f28ebea2beb6ae9a 2026-11-25__zhouxiaoka__autoclip

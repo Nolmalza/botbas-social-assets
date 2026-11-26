@@ -538,5 +538,15 @@
   "desc": "long neck candle lighter, tip pointing down",
   "w": 170,
   "h": 428
+ },
+ "toilet_cutaway": {
+  "desc": "white toilet side view cut open, tank on the left, empty bowl and curved drain pipe visible",
+  "w": 654,
+  "h": 627
+ },
+ "tissue_clump": {
+  "desc": "crumpled wet wad of toilet paper",
+  "w": 85,
+  "h": 77
  }
 }

@@ -408,5 +408,35 @@
   "desc": "paperclip straightened into one long thin silver wire, horizontal",
   "w": 305,
   "h": 25
+ },
+ "frost_chunk": {
+  "desc": "irregular white chunk of freezer frost ice with blue outline",
+  "w": 216,
+  "h": 82
+ },
+ "cooler_box": {
+  "desc": "blue picnic cooler box with open lid",
+  "w": 259,
+  "h": 189
+ },
+ "frozen_food_pack_red": {
+  "desc": "frozen food pack in a sealed bag",
+  "w": 128,
+  "h": 98
+ },
+ "frozen_food_pack_green": {
+  "desc": "frozen food pack in a sealed bag",
+  "w": 128,
+  "h": 98
+ },
+ "plastic_spatula": {
+  "desc": "orange flat plastic spatula, blade pointing up left",
+  "w": 286,
+  "h": 296
+ },
+ "kitchen_knife": {
+  "desc": "kitchen knife with silver blade and dark handle, diagonal",
+  "w": 192,
+  "h": 188
  }
 }

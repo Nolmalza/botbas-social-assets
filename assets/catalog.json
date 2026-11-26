@@ -468,5 +468,30 @@
   "desc": "white fabric care label tag with an iron symbol and one heat dot",
   "w": 219,
   "h": 298
+ },
+ "round_pot_wide_soil": {
+  "desc": "wide terracotta plant pot with brown soil top, seen slightly from above",
+  "w": 551,
+  "h": 335
+ },
+ "plastic_fork_upright": {
+  "desc": "white plastic fork standing upright, tines up, handle at the bottom",
+  "w": 89,
+  "h": 223
+ },
+ "spilled_soil_pile": {
+  "desc": "small pile of spilled brown garden soil with loose crumbs",
+  "w": 264,
+  "h": 97
+ },
+ "cat_paw_print": {
+  "desc": "small dark brown paw print mark made of soil",
+  "w": 98,
+  "h": 86
+ },
+ "paw_print_light": {
+  "desc": "light tan paw print mark for dark soil",
+  "w": 108,
+  "h": 90
  }
 }

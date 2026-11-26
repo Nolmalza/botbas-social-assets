@@ -438,5 +438,35 @@
   "desc": "kitchen knife with silver blade and dark handle, diagonal",
   "w": 192,
   "h": 188
+ },
+ "ironing_board_wide": {
+  "desc": "wide ironing board with lavender cover and crossed metal legs, side view",
+  "w": 845,
+  "h": 246
+ },
+ "towel_roll_side": {
+  "desc": "tightly rolled coral hand towel lying on its side, spiral end on the left",
+  "w": 343,
+  "h": 117
+ },
+ "shirt_sleeve_flat": {
+  "desc": "light blue shirt sleeve lying flat, cuff with button on the left, side view",
+  "w": 584,
+  "h": 165
+ },
+ "towel_flat_strip": {
+  "desc": "flat coral hand towel spread on a table, thin side view with white stripes",
+  "w": 449,
+  "h": 45
+ },
+ "towel_roll_end": {
+  "desc": "rolled coral towel seen end on, round with spiral",
+  "w": 129,
+  "h": 129
+ },
+ "care_label_tag": {
+  "desc": "white fabric care label tag with an iron symbol and one heat dot",
+  "w": 219,
+  "h": 298
  }
 }

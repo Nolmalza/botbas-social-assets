@@ -513,5 +513,30 @@
   "desc": "inside of a flashlight tail cap seen from the front with a silver coil spring",
   "w": 303,
   "h": 303
+ },
+ "candle_jar_glass": {
+  "desc": "empty clear glass candle jar with rim, side view",
+  "w": 338,
+  "h": 421
+ },
+ "foil_candle_collar": {
+  "desc": "crinkled aluminium foil collar with a centre hole, sits on a candle jar rim",
+  "w": 363,
+  "h": 120
+ },
+ "trim_scissors": {
+  "desc": "open scissors with blue handles, blades pointing down-left",
+  "w": 237,
+  "h": 344
+ },
+ "ten_baht_coin": {
+  "desc": "two tone round coin, silver ring and gold centre, no text",
+  "w": 135,
+  "h": 135
+ },
+ "long_candle_lighter": {
+  "desc": "long neck candle lighter, tip pointing down",
+  "w": 170,
+  "h": 428
  }
 }

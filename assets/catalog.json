@@ -493,5 +493,25 @@
   "desc": "light tan paw print mark for dark soil",
   "w": 108,
   "h": 90
+ },
+ "flashlight_side": {
+  "desc": "blue handheld flashlight seen from the side, lens head on the left",
+  "w": 504,
+  "h": 202
+ },
+ "battery_cell": {
+  "desc": "horizontal cylindrical AA battery, orange and dark body, silver nub on the right",
+  "w": 342,
+  "h": 116
+ },
+ "pencil_eraser": {
+  "desc": "pink block pencil eraser with blue paper sleeve, seen from the side",
+  "w": 199,
+  "h": 109
+ },
+ "flashlight_cap_spring": {
+  "desc": "inside of a flashlight tail cap seen from the front with a silver coil spring",
+  "w": 303,
+  "h": 303
  }
 }

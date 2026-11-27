@@ -603,5 +603,20 @@
   "desc": "small cartoon house fly with two pale wings and red eyes, facing left",
   "w": 133,
   "h": 117
+ },
+ "bed_sheet_flat_top": {
+  "desc": "flat light blue bed sheet spread on a table, slight perspective, seen from above",
+  "w": 849,
+  "h": 329
+ },
+ "hanging_sheet_pegs": {
+  "desc": "clean light blue sheet hanging over a clothesline with two yellow pegs",
+  "w": 344,
+  "h": 318
+ },
+ "sun_bright": {
+  "desc": "bright yellow sun with eight rays",
+  "w": 264,
+  "h": 264
  }
 }

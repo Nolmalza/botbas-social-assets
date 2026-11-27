@@ -573,5 +573,15 @@
   "desc": "blue trousers folded in half hanging down, front view, top edge flat",
   "w": 373,
   "h": 349
+ },
+ "dental_floss_box": {
+  "desc": "plain white dental floss box with blue cap and a short thread, no text",
+  "w": 194,
+  "h": 204
+ },
+ "peeled_egg_lying": {
+  "desc": "peeled boiled egg lying on its side, smooth white",
+  "w": 384,
+  "h": 257
  }
 }

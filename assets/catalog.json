@@ -618,5 +618,20 @@
   "desc": "bright yellow sun with eight rays",
   "w": 264,
   "h": 264
+ },
+ "rain_cloud": {
+  "desc": "grey rain cloud",
+  "w": 302,
+  "h": 176
+ },
+ "padlock_closed": {
+  "desc": "closed brass padlock with silver shackle, front view",
+  "w": 195,
+  "h": 240
+ },
+ "cut_bottle_hood": {
+  "desc": "top half of a clear blue plastic bottle with blue cap, cut open at the bottom",
+  "w": 315,
+  "h": 484
  }
 }

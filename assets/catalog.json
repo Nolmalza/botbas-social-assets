@@ -548,5 +548,15 @@
   "desc": "crumpled wet wad of toilet paper",
   "w": 85,
   "h": 77
+ },
+ "navy_tshirt_flat": {
+  "desc": "navy blue short sleeve t-shirt, front view, flat",
+  "w": 680,
+  "h": 533
+ },
+ "tan_tape_roll": {
+  "desc": "roll of tan adhesive packing tape with loose end",
+  "w": 214,
+  "h": 163
  }
 }

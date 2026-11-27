@@ -583,5 +583,25 @@
   "desc": "peeled boiled egg lying on its side, smooth white",
   "w": 384,
   "h": 257
+ },
+ "juice_glass_orange": {
+  "desc": "tall clear glass of orange juice with ice cubes, no straw",
+  "w": 270,
+  "h": 400
+ },
+ "striped_drink_straw": {
+  "desc": "straight red and white striped drinking straw, vertical",
+  "w": 46,
+  "h": 562
+ },
+ "cupcake_liner_upside_down": {
+  "desc": "pink pleated paper cupcake liner turned upside down, flat top, scalloped bottom edge",
+  "w": 319,
+  "h": 128
+ },
+ "house_fly": {
+  "desc": "small cartoon house fly with two pale wings and red eyes, facing left",
+  "w": 133,
+  "h": 117
  }
 }

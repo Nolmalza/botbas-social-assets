@@ -558,5 +558,20 @@
   "desc": "roll of tan adhesive packing tape with loose end",
   "w": 214,
   "h": 163
+ },
+ "wire_hanger_with_bar": {
+  "desc": "silver wire clothes hanger with straight bottom bar, hook at top",
+  "w": 619,
+  "h": 363
+ },
+ "cardboard_roll_core": {
+  "desc": "long brown cardboard kitchen paper roll core lying horizontal",
+  "w": 510,
+  "h": 95
+ },
+ "trousers_folded_hanging": {
+  "desc": "blue trousers folded in half hanging down, front view, top edge flat",
+  "w": 373,
+  "h": 349
  }
 }

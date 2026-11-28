@@ -693,5 +693,25 @@
   "desc": "translucent front wall of a wide white tooth cup",
   "w": 359,
   "h": 284
+ },
+ "steamer_cutaway_pot": {
+  "desc": "wide steel cooking pot with see-through cutaway front showing the inside, two side handles, no lid",
+  "w": 690,
+  "h": 308
+ },
+ "steamer_foil_ball": {
+  "desc": "crumpled aluminium foil ball",
+  "w": 130,
+  "h": 126
+ },
+ "steamer_veg_plate": {
+  "desc": "shallow white plate with broccoli and carrot slices, side view",
+  "w": 452,
+  "h": 136
+ },
+ "steamer_water_jug": {
+  "desc": "clear measuring jug with blue water, tilted to pour to the left, handle on the right",
+  "w": 254,
+  "h": 232
  }
 }

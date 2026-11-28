@@ -38,3 +38,4 @@ c0c010c0335343c3 2026-11-26__kajisho5__ffmpeg-skill
 b28c8c8c8c8ceaea 2026-11-27__pbakaus__impeccable
 00eaa2808010f380 2026-11-27__cloudflare__security-audit-skill
 1092e8e0b0e8e886 2026-11-28__n8n-io__nod
+66654d3161e56165 2026-11-28__heygen-com__hyperframes

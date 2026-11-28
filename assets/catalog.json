@@ -713,5 +713,10 @@
   "desc": "clear measuring jug with blue water, tilted to pour to the left, handle on the right",
   "w": 254,
   "h": 232
+ },
+ "pinch_hand_right": {
+  "desc": "hand coming from the right, thumb and finger pinching salt",
+  "w": 487,
+  "h": 186
  }
 }

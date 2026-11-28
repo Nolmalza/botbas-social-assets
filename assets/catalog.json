@@ -653,5 +653,30 @@
   "desc": "standing fan seen from the side, grill on the left, motor housing on the right, base with button",
   "w": 348,
   "h": 643
+ },
+ "wood_cutting_board_side": {
+  "desc": "wide wooden cutting board seen at a slight angle, with a hanging hole on the right",
+  "w": 759,
+  "h": 119
+ },
+ "ginger_root_peeled": {
+  "desc": "peeled knobby fresh ginger root, pale yellow flesh, horizontal",
+  "w": 524,
+  "h": 254
+ },
+ "table_spoon_upright": {
+  "desc": "stainless steel table spoon, oval bowl at the bottom, handle up",
+  "w": 123,
+  "h": 461
+ },
+ "ginger_root_whole": {
+  "desc": "whole fresh ginger root with brown skin and knobs, horizontal",
+  "w": 524,
+  "h": 254
+ },
+ "ginger_knob_small": {
+  "desc": "small single knob of fresh ginger with brown skin",
+  "w": 146,
+  "h": 162
  }
 }

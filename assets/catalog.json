@@ -678,5 +678,20 @@
   "desc": "small single knob of fresh ginger with brown skin",
   "w": 146,
   "h": 162
+ },
+ "toothbrush_cup_back": {
+  "desc": "top opening of a wide white tooth cup, seen from slightly above",
+  "w": 359,
+  "h": 139
+ },
+ "toothbrush_upright": {
+  "desc": "blue upright toothbrush",
+  "w": 88,
+  "h": 569
+ },
+ "toothbrush_cup_front": {
+  "desc": "translucent front wall of a wide white tooth cup",
+  "w": 359,
+  "h": 284
  }
 }

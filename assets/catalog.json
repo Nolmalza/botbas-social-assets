@@ -633,5 +633,25 @@
   "desc": "top half of a clear blue plastic bottle with blue cap, cut open at the bottom",
   "w": 315,
   "h": 484
+ },
+ "wooden_clothespin": {
+  "desc": "plain unpainted wooden clothespin with metal spring, standing vertical, grip end down",
+  "w": 82,
+  "h": 256
+ },
+ "clean_stand_fan_base": {
+  "desc": "standing fan pole and round base without head",
+  "w": 309,
+  "h": 207
+ },
+ "amber_oil_bottle": {
+  "desc": "small amber essential oil bottle with open neck, no label text",
+  "w": 169,
+  "h": 234
+ },
+ "stand_fan_side_view": {
+  "desc": "standing fan seen from the side, grill on the left, motor housing on the right, base with button",
+  "w": 348,
+  "h": 643
  }
 }
